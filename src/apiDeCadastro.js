@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const userRouter = require("./router/user.router");
-const bodyParser = require('body-parser');
+const port = 3000;
+
+app.use(express.json());
+app.use("/cadastro", userRouter);
 
 
-app.use("/login", userRouter);
-app.use(bodyParser.json());
-
-app.listen(3000, () => console.log(`Servidor rodando na porta }`))
+app.listen(port, () => console.log(`Servidor rodando na porta ${port }`))
 
 
 
