@@ -8,25 +8,28 @@ const user = async (req, res) => {
     return;
   }
 
-  const user =  await userService.create(req.body);
+  try {
+    const user = await userService.create(req.body);
 
-  if (!user) {
-    res.status(400).send({ message: "Não foi possível cadastrar o usuário" });
-    return;
+    res.status(201).send({
+      message: "Usuário cadastrado com sucesso",
+      user: {
+        "id": user._id,
+        nome,
+        sobrenome,
+        username,
+        telefone,
+        senha,
+        avatar,
+      },
+    });
+  } catch (error) {
+    if (error.message === 'Username já está em uso') {
+      res.status(400).send({ message: 'Nome de usuário já está em uso' });
+    } else {
+      res.status(400).send({ message: "Não foi possível cadastrar o usuário" });
+    }
   }
-
-  res.status(201).send({
-    message: "Usuário cadastrado com sucesso",
-    user: {
-      "id": user._id,
-      nome,
-      sobrenome,
-      username,
-      telefone,
-      senha,
-      avatar,
-    },
-  });
 };
 
 const findAllUsers = async (req, res) => {
