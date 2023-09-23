@@ -29,4 +29,16 @@ const user = async (req, res) => {
   });
 };
 
-module.exports = { user };
+const findAllUsers = async (req, res) => {
+  const users = await userService.findAllUserService();
+
+  if (!users) {
+    res.status(400).send({ message: "Não foi possível encontrar usuários" });
+    return;
+  }
+
+  res.status(200).send(users);
+};
+
+
+module.exports = { user, findAllUsers };
