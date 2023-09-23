@@ -1,5 +1,5 @@
-const Login = require("../models/Login");
+const Login = require("../models/User");
 
-const findUserService = () => Login.find();
+const findUserService = (username) => Login.findOne({username}).select("+senha");
 
 module.exports = { findUserService };
