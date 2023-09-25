@@ -14,7 +14,7 @@ const user = async (req, res) => {
     res.status(201).send({
       message: "Usuário cadastrado com sucesso",
       user: {
-        "id": user._id,
+        id: user._id,
         nome,
         sobrenome,
         username,
@@ -24,8 +24,8 @@ const user = async (req, res) => {
       },
     });
   } catch (error) {
-    if (error.message === 'Username já está em uso') {
-      res.status(400).send({ message: 'Nome de usuário já está em uso' });
+    if (error.message === "Username já está em uso") {
+      res.status(400).send({ message: "Nome de usuário já está em uso" });
     } else {
       res.status(400).send({ message: "Não foi possível cadastrar o usuário" });
     }
@@ -42,7 +42,5 @@ const findAllUsers = async (req, res) => {
 
   res.status(200).send(users);
 };
-
-
 
 module.exports = { user, findAllUsers };
