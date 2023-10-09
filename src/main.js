@@ -12,6 +12,7 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/login", loginRouter);
 
+require("./controller/project.controller")(app);
 
 app.listen(port, () => console.log(`Servidor rodando na porta ${port }`))
 
