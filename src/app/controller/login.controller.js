@@ -1,4 +1,4 @@
-const loginService = require("../../services/login.service");
+const loginService = require("../services/login.service");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../../config/auth.json");

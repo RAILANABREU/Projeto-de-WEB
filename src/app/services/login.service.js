@@ -1,4 +1,4 @@
-const Login = require("../app/models/User");
+const Login = require("../models/User");
 
 const findUserService = (username) => Login.findOne({username}).select("+senha");
 

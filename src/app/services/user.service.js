@@ -1,4 +1,4 @@
-const User = require("../app/models/User");
+const User = require("../models/User");
 
 const create = (body) => User.create(body);
 
