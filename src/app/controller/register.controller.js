@@ -1,7 +1,7 @@
-const userService = require("../services/register.service");
+const userService = require("../services/user.service");
 
 const user = async (req, res) => {
-  const { nome, sobrenome, username, telefone, senha, avatar, secretWords} = req.body;
+  const { nome, sobrenome, username, telefone, senha, avatar} = req.body;
 
   if (!nome || !sobrenome || !username || !telefone || !senha || !avatar) {
     res.status(400).send({ message: "Todos os campos são obrigatórios" });

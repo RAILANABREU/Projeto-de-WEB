@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const words = require("../../config/ResetWords.json");
+const { NONAME } = require('dns');
 
 const userSchema = new mongoose.Schema({
     nome: { type: String, required: true, lowercase: true, trim: true },
@@ -11,6 +12,11 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String , trim: true},
     createdAt: { type: Date, default: Date.now },
     secretWords: { type: String, required: false, trim: true },
+    resetPasswordToken: { type: String, required: false, select: false },
+    resetPasswordExpires: { type: Date, required: false, select: false },
+    authenticatorToken: { type: String, required: false, select: false },
+    authenticatorExpires: { type: Date, required: false, select: false },
+    
 });
 
 userSchema.pre('save', async function (next) {
