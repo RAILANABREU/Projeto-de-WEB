@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const words = require("../../config/ResetWords.json");
 
 const userSchema = new mongoose.Schema({
     nome: { type: String, required: true, lowercase: true, trim: true },
@@ -9,12 +10,13 @@ const userSchema = new mongoose.Schema({
     senha: { type: String, required: true, select: false, trim: true },
     avatar: { type: String , trim: true},
     createdAt: { type: Date, default: Date.now },
+    secretWords: { type: String, required: false, trim: true },
 });
 
 userSchema.pre('save', async function (next) {
     const hash = await bcrypt.hash(this.senha, 10);
     this.senha = hash;
-
+    this.secretWords = words.palavras.sort(() => Math.random() - 0.5).slice(0, 4).join(",");
     next();
 });
 
