@@ -8,23 +8,20 @@ const user = async (req, res) => {
     return;
   }
 
-  if (!user) {
-    res.status(400).send({ message: "Não foi possível cadastrar o usuário" });
-    return;
-  }
+
   try {
     const user =  await userService.create(req.body);
+
+    if (!user) {
+      res.status(400).send({ message: "Não foi possível cadastrar o usuário" });
+      return;
+    }
+
     res.status(201).send({
       message: "Usuário cadastrado com sucesso",
       user: {
         "id": user._id,
-        nome,
-        sobrenome,
-        username,
-        telefone,
-        senha,
-        avatar,
-        secretWords,
+        secretWords: user.secretWords
       },
     });
   } catch (error) {
