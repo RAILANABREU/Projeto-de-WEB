@@ -23,7 +23,7 @@ const auth = async (req, res) => {
         });
 
 
-        return res.send({ user, token });
+        return res.send({ "id": user._id,token });
     } catch (error) {
         return res.status(400).send({ error: "Erro ao buscar usuário" });
     }
