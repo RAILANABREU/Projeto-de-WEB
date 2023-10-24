@@ -5,9 +5,10 @@ const cripto = require("crypto");
 const recuperarSenha = async (req, res) => {
     const {
         username,
+        secretWords,
     } = req.body;
     
-    if (!username) {
+    if (!username || !secretWords) {
         res.status(400).send({
         message: "Todos os campos são obrigatórios"
         });
@@ -17,11 +18,15 @@ const recuperarSenha = async (req, res) => {
     try {
         const user = await userService.findUserService(req.body);
 
-
-    
         if (!user) {
         res.status(400).send({
             message: "Não foi possível encontrar o usuário"
+        });
+        return;
+        }
+        if (user.secretWords !== secretWords.join(",")) {
+        res.status(400).send({
+            message: "As palavras secretas não conferem"
         });
         return;
         }
@@ -40,7 +45,6 @@ const recuperarSenha = async (req, res) => {
         message: "Usuário encontrado com sucesso",
         user: {
             "id": user._id,
-            "secretWords": user.secretWords.split(","),
             "token": user.resetPasswordToken,
         }
         });
