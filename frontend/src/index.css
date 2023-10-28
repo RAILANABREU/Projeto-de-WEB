@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400&display=swap');
+
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: Koho;
+}
+
+html, body, #root{
+  background: linear-gradient(to bottom, #B983FF, #7000FF);
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.page{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr;
+  grid-gap: 32px;
+
+  width: 100%;
+  height: 100%;
+  display: grid;
+}
+
+input{
+  margin: 8px 0px;
+  padding: 16px;
+  border-radius: 10px;
+  width: 276px;
+  height: 49px;
+  background-color: #D9D9D9;
+  border: None;
+}
+
+button{
+  width: 276px;
+  height: 49px;
+  border-radius: 10px;
+  background-color: #FB1F46;
+  color: white;
+  border: none;
+  margin: 80px 0px;
+}
+
+.checkbox{
+  width: 16px;
+  height: 16px;
+  margin: 8px;
+}
