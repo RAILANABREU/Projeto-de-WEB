@@ -6,6 +6,14 @@ const findAllUserService = () => User.find();
 
 const findUserService = async (body) => User.findOne({ username: body.username });
 
+// Nesta busca por id eu gsoria de traser mais dois campo o token e data token
+
+const findUserById = async (body) => User.findOne({ _id: body.id }, { resetPasswordToken: 1, resetPasswordExpires: 1 } );
+
+const findUserServiceById = async (id) => User.findById(id);
 
 
-module.exports = { create, findAllUserService, findUserService};
+
+
+
+module.exports = { create, findAllUserService, findUserService, findUserServiceById, findUserById };
