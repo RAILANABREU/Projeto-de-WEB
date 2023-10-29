@@ -18,6 +18,8 @@
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.2",
+    "nodemailer": "^6.9.7",
+    "nodemailer-express-handlebars": "^6.1.0",
     "nodemon": "^3.0.1",
     "path": "^0.12.7",
     "react-router-dom": "^6.16.0"

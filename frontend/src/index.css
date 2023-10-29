@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400&display=swap');
 
+:root{
+  --primary-color: #B983FF;
+  --secondary-color: #7000FF;
+  --background-color: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  --accent-color: #FB1F46;
+  --light-accent-color: #F84767;
+  --gray: #D9D9D9;
+}
+
 *{
   padding: 0px;
   margin: 0px;
@@ -9,7 +18,7 @@
 }
 
 html, body, #root{
-  background: linear-gradient(to bottom, #B983FF, #7000FF);
+  background: var(--background-color);
   align-items: center;
   font-size: 14px;
   width: 100%;
@@ -42,39 +51,27 @@ input{
   border-radius: 10px;
   width: 276px;
   height: 49px;
-  background-color: #D9D9D9;
+  background-color: var(--gray);
   border: None;
 }
 button{
   width: 276px;
   height: 49px;
   border-radius: 10px;
-  background-color: #FB1F46;
+  background-color: var(--accent-color);
   color: white;
   font-size: 16px;
   font-weight: 600;
   border: none;
   margin: 8px 0px;
 }
-
 .checkbox-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 80px 8px 8px;
 }
-.label-checkbox{
-  display: flex;
-  align-items: center;
-}
-
-
-input[type="checkbox"] {
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
-}
 a {
   
-  color: #FB1F46;
+  color: var(--accent-color);
 }

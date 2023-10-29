@@ -1,4 +1,5 @@
 import { useState } from "react"
+import styles from './Checkbox.module.css'
 
 function Checkbox({text}) {
     const [isChecked, setIsChecked] = useState(false);
@@ -9,7 +10,7 @@ function Checkbox({text}) {
   
     return (
       <div>
-        <label className="label-checkbox">
+        <label className={styles['label-checkbox']}>
           <input
             type="checkbox"
             checked={isChecked}

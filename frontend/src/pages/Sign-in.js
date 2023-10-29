@@ -10,7 +10,7 @@ function SignIn(){
             <Logo/>
           </div>
           <Main>
-              <h1 style={{marginBottom: '50px'}}>Sign In</h1>
+              <h1 style={{marginBottom: '50px'}}>ENTRAR</h1>
               <form>
                 <Input id= 'email' name= 'email' type= 'email'/>
                 <Input id= 'senha' name= 'senha' type= 'password'/>

@@ -1,0 +1,9 @@
+.label-checkbox{
+    display: flex;
+    align-items: center;
+  }
+  input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+  }
