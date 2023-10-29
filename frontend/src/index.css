@@ -5,11 +5,13 @@
   margin: 0px;
   box-sizing: border-box;
   font-family: Koho;
+  font-weight: 400;
 }
 
 html, body, #root{
   background: linear-gradient(to bottom, #B983FF, #7000FF);
   align-items: center;
+  font-size: 14px;
   width: 100%;
   height: 100%;
 }
@@ -24,7 +26,16 @@ html, body, #root{
   height: 100%;
   display: grid;
 }
-
+img{
+  height: 170px;
+  width: 167px;
+}
+.head{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-row: 1;
+}
 input{
   margin: 8px 0px;
   padding: 16px;
@@ -34,19 +45,36 @@ input{
   background-color: #D9D9D9;
   border: None;
 }
-
 button{
   width: 276px;
   height: 49px;
   border-radius: 10px;
   background-color: #FB1F46;
   color: white;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
-  margin: 80px 0px;
+  margin: 8px 0px;
 }
 
-.checkbox{
+.checkbox-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 80px 8px 8px;
+}
+.label-checkbox{
+  display: flex;
+  align-items: center;
+}
+
+
+input[type="checkbox"] {
+  margin-right: 8px;
   width: 16px;
   height: 16px;
-  margin: 8px;
+}
+a {
+  
+  color: #FB1F46;
 }

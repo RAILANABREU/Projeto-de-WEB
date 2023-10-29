@@ -1,6 +1,8 @@
+import Icon from "../../assets/iconname.png"
+
 function Logo(){
     return(
-        <img src='../../assets/iconname.png' alt="Logo"/>
+        <img src={Icon} alt="Logo"/>
     )
 }
 
