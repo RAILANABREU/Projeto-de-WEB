@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const userRouter = require("./router/user.router");
-const loginRouter = require("./router/login.router");
+const userRouter = require("./app/router/user.router");
+const loginRouter = require("./app/router/login.router");
 
 const conectDatabase = require("./dataBase/db");
 
