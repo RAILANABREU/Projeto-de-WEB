@@ -13,8 +13,10 @@ function SignUp(){
           <Main>
               <h1>CADASTRO</h1>
               <form>
-                <Input id='nome de usuário' name='usuario' type = 'text'/>
+                <Input className={style.nome}id='nome' name='nome' type = 'text'/>
+                <Input className={style.nome}id='sobrenome' name='sobrenome' type = 'text'/>
                 <Input id= 'email' name= 'email' type= 'email'/>
+                <Input id= 'celular' name= 'celular' type= 'number'/>
                 <Input id= 'senha' name= 'senha' type= 'password'/>
                 <Input id= 'repita a senha' name= 'senha2' type= 'password'/>
                 <div className="checkbox-container">
