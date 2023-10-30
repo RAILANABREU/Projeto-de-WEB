@@ -1,8 +1,9 @@
 import Foto from "../../assets/perfil.png"
+import style from "../Img.module.css"
 
 function Perfil(){
     return(
-        <img src={Foto} alt="Perfil"/>
+        <img className={style.perfil} src={Foto} alt="Perfil"/>
     )
 }
 

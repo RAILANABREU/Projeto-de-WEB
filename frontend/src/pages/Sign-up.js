@@ -2,15 +2,16 @@ import Main from "../components/layout/Main"
 import Input from "../components/common/Input"
 import Checkbox from "../components/common/Checkbox"
 import Perfil from "../components/common/Perfil"
+import style from "./Sign.module.css"
 
 function SignUp(){
     return(
         <div className="page">
-          <div className="head">
+          <div className={style.head}>
             <Perfil/>
           </div>
           <Main>
-              <h1 style={{marginBottom: '50px'}}>CADASTRO</h1>
+              <h1>CADASTRO</h1>
               <form>
                 <Input id='nome de usuário' name='usuario' type = 'text'/>
                 <Input id= 'email' name= 'email' type= 'email'/>

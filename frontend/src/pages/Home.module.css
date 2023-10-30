@@ -1,0 +1,6 @@
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding: 24px;
+}

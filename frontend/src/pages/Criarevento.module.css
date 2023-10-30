@@ -1,0 +1,32 @@
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding: 24px;
+}
+.cancelar{
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    width: 129px;
+    height: 49px;
+}
+.criar{
+    width: 129px;
+    height: 49px;
+}
+.button-box{
+    display: flex;
+    justify-content: space-between;
+    width: 276px;
+    height: 50px;
+}
+.add{
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid var(--gray);
+    color: var(--gray);
+    width: 129px;
+    height: 49px;
+    align-self: flex-end;
+    margin: 12px;
+}

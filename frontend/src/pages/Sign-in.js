@@ -2,15 +2,16 @@ import Main from "../components/layout/Main"
 import Logo from "../components/layout/Logo"
 import Input from "../components/common/Input"
 import Checkbox from "../components/common/Checkbox"
+import style from "./Sign.module.css"
 
 function SignIn(){
     return(
         <div className="page">
-          <div className="head">
-            <Logo/>
+          <div className={style.head}>
+            <Logo type= '2'/>
           </div>
           <Main>
-              <h1 style={{marginBottom: '50px'}}>ENTRAR</h1>
+              <h1>ENTRAR</h1>
               <form>
                 <Input id= 'email' name= 'email' type= 'email'/>
                 <Input id= 'senha' name= 'senha' type= 'password'/>
