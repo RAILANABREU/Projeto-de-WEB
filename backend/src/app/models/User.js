@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpires: { type: Date, required: false, select: false },
     authenticatorToken: { type: String, required: false, select: false },
     authenticatorExpires: { type: Date, required: false, select: false },
+    jaPagou: { type: Boolean, required: false, select: false, default: false },
     
 });
 
