@@ -1,4 +1,4 @@
-import Foto from "../../assets/perfil.png"
+import Foto from "../../assets/perfil-foto.png"
 import style from "../Img.module.css"
 
 function Perfil(){

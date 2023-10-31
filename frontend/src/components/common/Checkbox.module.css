@@ -3,7 +3,30 @@
     align-items: center;
   }
   input[type="checkbox"] {
+    cursor: pointer;
+    appearance: none;
     margin-right: 8px;
-    width: 16px;
-    height: 16px;
+    width: 28px;
+    height: 28px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 0;
+  }
+  input[type="checkbox"]::before{
+    content: '';
+    position: absolute;
+    height: 15px;
+    width: 8px;
+    opacity: 0;
+    border-right: 3px solid var(--accent-color);
+    border-bottom: 3px solid var(--accent-color);
+    transform: rotate(45deg);
+    top: 1px;
+  }
+  input[type="checkbox"]:checked::before{
+    opacity: 1;
   }
