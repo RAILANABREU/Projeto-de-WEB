@@ -1,19 +1,18 @@
 const eventoService = require("../services/evento.service");
-#
-#
 
-const auth = async (req, res) => {
-    const { titulo, descricao } = req.body;
+const createEvento = async (req, res) => {
+    const { titulo, descricao, data, horario, local, valor, imagem } = req.body;
+
+    if (!titulo || !descricao || !data || !horario || !local ) {
+        return res.status(400).json({ error: "Preencha todos os campos" });
+    }
+
     try {
-        console.log(titulo);
-        const evento = await eventoService.CreateEventoService(titulo);
-        console.log(evento);
-        if (!evento) {
-            return res.status(401).send({ error: "Evento não foi criado" });
-        }
-        if (!(await bcrypt.compare(senha, user.senha))) {
-            return res.status(401).send({ error: "Senha inválida" });
-        }
-        user.senha = undefined;
+        const evento = await eventoService.createEventoService(req.body);
+        return res.status(201).json({ evento });
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+}
 
-
+module.exports = { createEvento };
