@@ -2,6 +2,7 @@ import burge from "../../assets/hamburger-icon.png"
 import homeicon from "../../assets/home-icon.png"
 import fotoevento from "../../assets/foto-evento.png"
 import fotocomprovante from "../../assets/foto-comprovante.png"
+import copia from "../../assets/copy-icon.png"
 import style from "../Img.module.css"
 
 export default function Icon({type}){
@@ -23,6 +24,11 @@ export default function Icon({type}){
     else if (type =='foto-comprovante'){
         return(
             <img className={style.image} src={fotocomprovante} alt="botao de upload de imagem do comprovante"></img>
+        )
+    }
+    else if (type =='copy'){
+        return(
+            <img scr={copia} alt=''/>
         )
     }
 }

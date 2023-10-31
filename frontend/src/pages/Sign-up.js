@@ -15,10 +15,13 @@ function SignUp(){
               <form>
                 <Input className={style.nome}id='nome' name='nome' type = 'text'/>
                 <Input className={style.nome}id='sobrenome' name='sobrenome' type = 'text'/>
-                <Input id= 'email' name= 'email' type= 'email'/>
+                <Input id= 'usuário' name= 'username' type= 'text'/>
                 <Input id= 'celular' name= 'celular' type= 'number'/>
                 <Input id= 'senha' name= 'senha' type= 'password'/>
                 <Input id= 'repita a senha' name= 'senha2' type= 'password'/>
+
+                <div className="requisitos-senha"></div>
+
                 <div className="checkbox-container">
                     <Checkbox text='Concordo com os termos de serviço'/>
                 </div>

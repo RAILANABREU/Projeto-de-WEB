@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import SignIn from './pages/Sign-in';
 import SignUp from './pages/Sign-up';
 import CriarEvento from './pages/Criarevento';
+import Gastos from './pages/Gastos';
+import Pagamento from './pages/Pagamento';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path='/signin' element={<SignIn/>}/>
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/criarevento' element={<CriarEvento/>}/>
+        <Route path='/gastos' element={<Gastos/>}/>
+        <Route path='/pagamento' element={<Pagamento/>}/>
       </Routes>
     </Router>
   );

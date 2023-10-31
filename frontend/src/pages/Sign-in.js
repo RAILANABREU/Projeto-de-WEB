@@ -13,7 +13,7 @@ function SignIn(){
           <Main>
               <h1>ENTRAR</h1>
               <form>
-                <Input id= 'email' name= 'email' type= 'email'/>
+                <Input id= 'usuário' name= 'username' type= 'text'/>
                 <Input id= 'senha' name= 'senha' type= 'password'/>
                 <div className='checkbox-container'>
                   <Checkbox text='Manter conectado'/>
