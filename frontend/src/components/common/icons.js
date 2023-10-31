@@ -1,6 +1,7 @@
 import burge from "../../assets/hamburger-icon.png"
 import homeicon from "../../assets/home-icon.png"
-import image from "../../assets/img.png"
+import fotoevento from "../../assets/foto-evento.png"
+import fotocomprovante from "../../assets/foto-comprovante.png"
 import style from "../Img.module.css"
 
 export default function Icon({type}){
@@ -14,9 +15,14 @@ export default function Icon({type}){
             <img className={style.homeicon} src={homeicon} alt="icone de barra lateral"></img>
         )
     }
-    else if (type =='img'){
+    else if (type =='foto-evento'){
         return(
-            <img className={style.image} src={image} alt="botao de upload de imagem"></img>
+            <img className={style.image} src={fotoevento} alt="botao de upload de imagem do evento"></img>
+        )
+    }
+    else if (type =='foto-comprovante'){
+        return(
+            <img className={style.image} src={fotocomprovante} alt="botao de upload de imagem do comprovante"></img>
         )
     }
 }

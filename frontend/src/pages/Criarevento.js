@@ -14,7 +14,7 @@ function CriarEvento(){
             <div>
                 <Main>
                     <h1>CRIAR EVENTO</h1>
-                    <Icon type = 'img'/>
+                    <Icon type = 'foto-evento'/>
 
                     <Input id='título' name='titulo' type = 'text'/>
                     <Input id= 'descrição' name= 'descricao' type= 'text'/>
