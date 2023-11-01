@@ -60,6 +60,6 @@ button{
   margin: 80px 8px 8px;
 }
 a {
-  
   color: var(--accent-color);
+  margin: 8px;
 }

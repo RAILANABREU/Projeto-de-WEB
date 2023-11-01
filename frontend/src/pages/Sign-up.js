@@ -26,7 +26,7 @@ function SignUp(){
                     <Checkbox text='Concordo com os termos de serviço'/>
                 </div>
                 <button type="submit">CRIAR CONTA</button>
-                <p>Já tem uma conta?<a href="#">Entrar</a></p>
+                <p className={style.p}>Já tem uma conta?<a href="#">Entrar</a></p>
                 
               </form>
           </Main>

@@ -20,7 +20,7 @@ function SignIn(){
                   <a href="#">Esqueci a senha</a>
                 </div>
                 <button type="submit">Entrar</button>
-                <p>Ainda não tem uma conta?<a href="#">Criar conta</a></p>
+                <p className={style.p}>Ainda não tem uma conta?<a href="#">Criar conta</a></p>
                 
               </form>
           </Main>

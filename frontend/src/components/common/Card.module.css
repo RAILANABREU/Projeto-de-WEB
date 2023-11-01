@@ -1,0 +1,22 @@
+.titulo{
+    margin: 0px;
+    z-index: 2;
+    color: white;
+}
+.card{
+    position: relative;
+    margin: 16px;
+    width: 100%;
+    height: 171px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 10px;
+    filter: brightness(40%);
+}

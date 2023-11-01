@@ -1,3 +1,5 @@
+import { eventos } from "../Datas"
+import { Card } from "../components/common/Card"
 import Head from "../components/layout/Head"
 import Main from "../components/layout/Main"
 
@@ -8,7 +10,9 @@ function Home(){
             <div>
                 <Main>
                 <button>CRIAR EVENTO</button>
-                <div></div>
+                {eventos.map((item, index) =>{
+                    return <Card key={index} eventos={item} foto={item.foto} titulo={item.titulo}/>
+                })}
                 </Main>    
             </div>
         </div>
