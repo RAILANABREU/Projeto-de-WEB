@@ -19,4 +19,6 @@
     z-index: 1;
     border-radius: 10px;
     filter: brightness(40%);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
