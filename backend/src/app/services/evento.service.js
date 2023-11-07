@@ -8,4 +8,6 @@ const findEventoByIdService = (id) => Evento.findById(id);
 
 const findEventoService = async (body) => Evento.findOne({ titulo: body.titulo });
 
-module.exports = { createEventoService, findAllEventoService, findEventoService, findEventoByIdService };
+const deleteEventoService = (id) => Evento.findByIdAndDelete(id);
+
+module.exports = { createEventoService, findAllEventoService, findEventoService, findEventoByIdService, deleteEventoService };

@@ -13,6 +13,8 @@ const eventoSchema = new mongoose.Schema({
         jaPagou: { type: Boolean, required: false, select: false, default: false },
         confirmado: { type: Boolean, required: false, select: false, default: false }}],
     pix: { type: String, required: false },
+    createdAt: { type: Date, default: Date.now },
+    confirmado: { type: Boolean, required: false, select: false, default: true },
 });
 
 const eventoModel = mongoose.model('evento', eventoSchema);
