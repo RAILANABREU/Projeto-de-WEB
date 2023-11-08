@@ -13,6 +13,6 @@
     left: 50%;
     transform: translate(-50%,-50%);
     background-color: var(--light-gray);
-    padding: 150px;
+    padding: 20%;
     border-radius: 30px;
 }
