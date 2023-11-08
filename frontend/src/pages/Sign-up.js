@@ -5,8 +5,12 @@ import Perfil from "../components/common/Perfil"
 import style from "./Sign.module.css"
 
 function SignUp(){
-    return(
-        <div className="page">
+  const [openModal, setOpenModal] = useState(false)
+  //ao receber secretwords resposta do backend setOpenModal(true)
+  //mostrar message em vermelho (mensagem de sucesso vai pro modal)
+  return(
+      <div className="page">
+        <Modal isOpen={false}>teste</Modal>
           <div className={style.head}>
             <Perfil/>
           </div>

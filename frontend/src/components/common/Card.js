@@ -5,7 +5,6 @@ export function Card({key, eventos, foto, titulo}){
     return(
         <div className={styles.card}>
             <div className={styles.background} style={{ backgroundImage: `url(${fotoURL})`}}/>
-            <div className={styles.glass}/>
             <h1 className={styles.titulo}>{titulo}</h1>
         </div>        
     )
