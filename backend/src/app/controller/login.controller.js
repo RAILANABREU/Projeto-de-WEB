@@ -7,9 +7,8 @@ const authConfig = require("../../config/auth.json");
 const auth = async (req, res) => {
     const { username, senha } = req.body;
     try {
-        console.log(username);
+        
         const user = await loginService.findUserService(username);
-        console.log(user);
         if (!user) {
             return res.status(401).send({ error: "Usuário não encontrado" });
         }

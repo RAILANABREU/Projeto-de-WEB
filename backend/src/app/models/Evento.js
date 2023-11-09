@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const eventoSchema = new mongoose.Schema({
+    adm: { type: String, required: true, lowercase: true, trim: true},
     titulo: { type: String, required: true, unique: true },
     descricao: { type: String, required: false },
     data: { type: String, required: true },
@@ -8,10 +9,7 @@ const eventoSchema = new mongoose.Schema({
     local: { type: String, required: true },
     valor: { type: String, required: false },
     imagem: { type: String, required: false },
-    convidados: [{
-        username: { type: String, required: false },
-        jaPagou: { type: Boolean, required: false, select: false, default: false },
-        confirmado: { type: Boolean, required: false, select: false, default: false }}],
+    convidados: [],
     pix: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
     confirmado: { type: Boolean, required: false, select: false, default: true },

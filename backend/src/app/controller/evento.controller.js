@@ -1,15 +1,28 @@
 const eventoService = require("../services/evento.service");
+const userService = require("../services/user.service");
 
 const createEvento = async (req, res) => {
-    const { titulo, descricao, data, horario, local, valor, imagem } = req.body;
+    const { adm, titulo, descricao, data, horario, local, valor, imagem } = req.body;
 
-    if (!titulo || !descricao || !data || !horario || !local ) {
+    if (!adm || !titulo || !descricao || !data || !horario || !local ) {
         return res.status(400).json({ error: "Preencha todos os campos" });
+    }
+    console.log(req.body);
+    const user = await userService.findUser(adm);
+    console.log(user);
+    if (!user) {
+        return res.status(400).json({ error: "Usuário não encontrado" });
     }
 
     try {
         const evento = await eventoService.createEventoService(req.body);
+        evento.adm = user.username;
+        evento.updateOne(evento);
+        user.isAdm = true;
+        user.admEvento = evento._id;
+        await user.updateOne(user);
         return res.status(201).json({ evento });
+        
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
