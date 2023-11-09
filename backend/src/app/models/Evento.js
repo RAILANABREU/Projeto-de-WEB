@@ -9,10 +9,11 @@ const eventoSchema = new mongoose.Schema({
     local: { type: String, required: true },
     valor: { type: String, required: false },
     imagem: { type: String, required: false },
-    convidados: [],
+    convidados: { type: Array, required: false, default: []},
     pix: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
     confirmado: { type: Boolean, required: false, select: false, default: true },
+    statusConvite : { type: String, required: false, default: "pendente" },
 });
 
 const eventoModel = mongoose.model('evento', eventoSchema);

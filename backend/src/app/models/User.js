@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     confirmado: { type: Boolean, required: false, select: false, default: false },
     isAtivo: { type: Boolean, required: false, select: false, default: true },
     isOnline: { type: Boolean, required: false, select: false, default: false },   
-    convites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: false }],
+    convites: [{ type: Array, required: false, default: [] }],
 });
 
 userSchema.pre('save', async function (next) {

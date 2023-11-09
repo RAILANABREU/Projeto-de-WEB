@@ -46,14 +46,13 @@ const enviarConvite = async (req, res) => {
             return;
         }
         try {
-            user.convites = evento;
+            console.log(evento);
+            user.convites = [evento];
+            console.log(user);
             await user.updateOne(user);
             res.status(200).send({
                 message: "Convite enviado com sucesso",
-                convite: {
-                    "id": convite._id,
-                    "status": convite.status,
-                }
+                user: user
                 });
             } catch (error) {
                 console.error(error);
@@ -68,6 +67,7 @@ const enviarConvite = async (req, res) => {
     }
     
     }
+
 
 
 
