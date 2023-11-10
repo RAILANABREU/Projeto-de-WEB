@@ -4,6 +4,7 @@ const resetSenha = require('../controller/recuperacaoSenha.controller');
 
 
 router.post('/register', userController.user);  
+router.delete('/delete/:id', userController.deleteUser);
 router.get('/find', userController.findAllUsers);
 router.post('/recuperarSenha', resetSenha.recuperarSenha); 
 router.post('/forgotPasswordToken', resetSenha.recuperarSenha);
