@@ -15,7 +15,14 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpires: { type: Date, required: false, select: false },
     authenticatorToken: { type: String, required: false, select: false },
     authenticatorExpires: { type: Date, required: false, select: false },
-    
+    jaPagou: { type: Boolean, required: false, select: false, default: false },
+    evento: { type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: false },
+    isAdm: { type: Boolean, required: false, select: false, default: false },
+    admEvento: { type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: false },
+    confirmado: { type: Boolean, required: false, select: false, default: false },
+    isAtivo: { type: Boolean, required: false, select: false, default: true },
+    isOnline: { type: Boolean, required: false, select: false, default: false },   
+    convites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: false }],
 });
 
 userSchema.pre('save', async function (next) {

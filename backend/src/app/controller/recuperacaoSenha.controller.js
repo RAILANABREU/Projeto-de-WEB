@@ -94,8 +94,8 @@ const recuperarSenha = async (req, res) => {
                 return;
             }
             user.senha = await bcrypt.hash(password, 10)
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpires = undefined;
+            user.resetPasswordToken = null;
+            user.resetPasswordExpires = null;
             try {
                 await user.updateOne(user);
             } catch (error) {
