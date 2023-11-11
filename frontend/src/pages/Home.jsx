@@ -18,18 +18,16 @@ export default function Home(){
     return(
         <div className="page">
             <Head type='home'/>
-            <div>
-                <Main>
-                <button>CRIAR EVENTO</button>
-                {eventos.map((item, index) =>(
-                    <Card 
-                    key={index}
-                    eventos={item}
-                    foto={item.foto}
-                    titulo={item.titulo}/>
-                    ))}
-                </Main>    
-            </div>
+            <Main>
+            <button>CRIAR EVENTO</button>
+            {eventos.map((item, index) =>(
+                <Card 
+                key={index}
+                eventos={item}
+                foto={item.foto}
+                titulo={item.titulo}/>
+                ))}
+            </Main>    
         </div>
     )
 }

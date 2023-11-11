@@ -8,15 +8,13 @@ export default function Pagamento(){
     return(
         <div className="page">
             <Head/>
-            <div>
-                <Main>
-                    <h1>TÍTULO DO EVENTO</h1>
-                    <div className="valor-total"/>
-                    <div className="pix"/>
-                    <ListaDePagamento/>
-                    <Button type='confirmar' name='SALVAR'/>
-                </Main>
-            </div>
+            <Main>
+                <h1>TÍTULO DO EVENTO</h1>
+                <div className="valor-total"/>
+                <div className="pix"/>
+                <ListaDePagamento/>
+                <Button type='confirmar' name='SALVAR'/>
+            </Main>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import style from "./Head.module.css"
-import Logo from "./Logo.js"
+import Logo from "./Logo"
 import Icon from "../common/icons"
 
 export default function Head ({type}){
