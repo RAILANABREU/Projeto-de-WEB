@@ -1,11 +1,16 @@
 import { useState } from "react"
 import styles from './Checkbox.module.css'
 
-function Checkbox({text}) {
+function Checkbox({text, onCheckboxChange}) {
     const [isChecked, setIsChecked] = useState(false);
   
-    const handleCheckboxChange = (event) => {
+    const handleLocalCheckboxChange = (event) => {
       setIsChecked(event.target.checked);
+
+      // Chama a função de callback do componente pai
+      if (onCheckboxChange) {
+        onCheckboxChange(event.target.checked);
+      }
     };
   
     return (
@@ -14,7 +19,7 @@ function Checkbox({text}) {
           <input
             type="checkbox"
             checked={isChecked}
-            onChange={handleCheckboxChange}
+            onChange={handleLocalCheckboxChange}
           />
           {text}
         </label>

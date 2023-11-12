@@ -63,3 +63,13 @@ a {
   color: var(--accent-color);
   margin: 8px;
 }
+spam{
+  color: white;
+  
+}
+p{
+  background-color: #7000FF;
+  margin: 0px 8px 8px;
+  padding: 8px;
+  border-radius: 0px 20px 20px;
+}

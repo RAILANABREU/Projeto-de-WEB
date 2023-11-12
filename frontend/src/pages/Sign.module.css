@@ -10,5 +10,23 @@
     height: 74px;
   }
   .p{
+    background: none;
+    padding: 0px;
+    border-radius: 0px;
+
     margin: 8px;
+  }
+  .uploadimg{
+    display: flex;
+    z-index: 2;
+  }
+  .uploadLabel {
+    display: inline-block;
+    cursor: pointer;
+  }
+  input[type= "file"]{
+    display: none;
+  }
+  button:disabled{
+    background-color: var(--light-gray);
   }
