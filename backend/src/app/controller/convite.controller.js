@@ -21,9 +21,9 @@ const enviarConvite = async (req, res) => {
     }
 
     try {
-        const user = await userService.findUser(adm);
+        const userAdm = await userService.findUser(adm);
 
-        if (!user) {
+        if (!userAdm) {
         res.status(400).send({
             message: "Não foi possível encontrar o usuário"
         });
@@ -39,9 +39,18 @@ const enviarConvite = async (req, res) => {
             return;
         }
 
-        if (evento.adm !== user.username) {
+        if (evento.adm !== userAdm.username) {
             res.status(400).send({
                 message: "Você não é o adm do evento"
+            });
+            return;
+        
+        }
+        const user = await userService.findUser(convidado);
+
+        if (!user) {
+            res.status(400).send({
+                message: "Não foi possível encontrar o usuário"
             });
             return;
         }
@@ -50,10 +59,7 @@ const enviarConvite = async (req, res) => {
             await user.updateOne(user);
             res.status(200).send({
                 message: "Convite enviado com sucesso",
-                convite: {
-                    "id": convite._id,
-                    "status": convite.status,
-                }
+                user
                 });
             } catch (error) {
                 console.error(error);

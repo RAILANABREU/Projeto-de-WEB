@@ -5,7 +5,7 @@ const user = async (req, res) => {
   const userData = req.body;
   console.log('Dados recebidos no backend:', userData);
 
-  if (!nome || !sobrenome || !username || !telefone || !senha || !avatar) {
+  if (!nome || !sobrenome || !username || !telefone || !senha) {
     res.status(400).send({ message: "Todos os campos são obrigatórios" });
     return;
   }
