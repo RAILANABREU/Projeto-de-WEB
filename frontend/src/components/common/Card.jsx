@@ -1,6 +1,6 @@
 import styles from "./Card.module.css"
 
-export function Card({key, eventos, foto, titulo}){
+export function Card({foto, titulo}){
     const fotoURL = foto;
     return(
         <div className={styles.card}>

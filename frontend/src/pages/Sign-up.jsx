@@ -27,6 +27,9 @@ function SignUp(){
   const handleCheckboxChange = () => {
     setTermosAceitos(!termosAceitos);
   };
+
+  console.log(isValid,termosAceitos)
+
   const [imagem, setImagem] = useState(null);
   const [imagemBase64, setImagemBase64] = useState(null);
 
@@ -109,9 +112,9 @@ function SignUp(){
                         )}
               <Input 
               reg={register}
-              id= 'celular' name= 'celular' type= 'number'/>
-              {errors.celular && (
-                          <p><spam>{errors.celular.message}</spam></p>
+              id= 'celular' name= 'telefone' type= 'number'/>
+              {errors.telefone && (
+                          <p><spam>{errors.telefone.message}</spam></p>
                         )}
               <Input 
               reg={register}

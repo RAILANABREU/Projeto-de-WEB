@@ -3,6 +3,9 @@ const app = express();
 const userRouter = require("./app/router/user.router");
 const loginRouter = require("./app/router/login.router");
 const eventoRouter = require("./app/router/evento.router");
+const cors = require('cors');
+
+app.use(cors());
 
 const conectDatabase = require("./dataBase/db");
 
