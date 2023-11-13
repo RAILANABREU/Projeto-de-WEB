@@ -5,10 +5,11 @@ const loginRouter = require("./app/router/login.router");
 const eventoRouter = require("./app/router/evento.router");
 const cors = require('cors');
 
+app.use(cors());
+
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE")
-    app.use(cors());
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
     next();
 });
 
@@ -22,7 +23,8 @@ app.use("/user", userRouter);
 app.use("/login", loginRouter);
 app.use("/evento", eventoRouter);
 
-app.listen(port, () => console.log(`Servidor rodando na porta ${port }`))
+app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+
 
 
 
