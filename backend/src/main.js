@@ -5,7 +5,12 @@ const loginRouter = require("./app/router/login.router");
 const eventoRouter = require("./app/router/evento.router");
 const cors = require('cors');
 
-app.use(cors());
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE")
+    app.use(cors());
+    next();
+});
 
 const conectDatabase = require("./dataBase/db");
 
