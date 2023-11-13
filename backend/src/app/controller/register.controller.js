@@ -3,7 +3,7 @@ const userService = require("../services/user.service");
 const user = async (req, res) => {
   const { nome, sobrenome, username, telefone, senha, avatar} = req.body;
   const userData = req.body;
-  console.log('Dados recebidos no backend:', userData);
+  console.log('Dados recebidos no backend:', userData, req.body);
 
   if (!nome || !sobrenome || !username || !telefone || !senha) {
     res.status(400).send({ message: "Todos os campos são obrigatórios" });
