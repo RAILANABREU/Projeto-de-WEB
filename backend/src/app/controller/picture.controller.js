@@ -1,4 +1,7 @@
-const Picture = require('../models/Pictures');
+const Picture = require('../models/Picture');
+const User = require('../models/User');
+const Evento = require('../models/Evento')
+const pictureService = require('../services/picture.service');
 
 
 const createPicture = async (req, res) => {
@@ -6,7 +9,7 @@ const createPicture = async (req, res) => {
 
     try {
        
-        const {name} = req.body;
+        const {name, referenciaEvento, referenciaUser} = req.body;   
         const file = req.file;
 
         const picture = new Picture({
@@ -14,7 +17,16 @@ const createPicture = async (req, res) => {
             src: file.path,
         });
 
+        if (referenciaEvento){
+            await Evento.findByIdAndUpdate(req.referenciaEvento, {$push: {imagem: picture._id}});
+
+        }
+        if(referenciaUser){
+            await User.findByIdAndUpdate(req.referenciaUser, { $push: { pictures: picture._id } });
+        }
+
         await picture.save();
+        
         res.status(201).send({ message: "Imagem cadastrada com sucesso",
         picture: {
             _id: picture._id,
@@ -44,7 +56,7 @@ const findAllPictures = async (req, res) => {
 const findPictureById = async (req, res) => {
     const { id } = req.params;
 
-    const picture = await Picture.findById(id);
+    const picture = await Picture.findPictureById(id);
 
     if (!picture) {
         res.status(400).send({ message: "Não foi possível encontrar a imagem" });
@@ -76,7 +88,7 @@ const updatePicture = async (req, res) => {
         return;
     }
 
-    const picture = await Picture.findByIdAndUpdate(id, req.body);
+    const picture = await Picture.findByIdAndUpdate(id, req.body, req.file);
 
     if (!picture) {
         res.status(400).send({ message: "Não foi possível encontrar a imagem" });
