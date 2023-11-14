@@ -2,6 +2,7 @@ const Picture = require('../models/Picture');
 const User = require('../models/User');
 const Evento = require('../models/Evento')
 const pictureService = require('../services/picture.service');
+const { userInfo } = require('os');
 
 
 const createPicture = async (req, res) => {
@@ -9,20 +10,33 @@ const createPicture = async (req, res) => {
 
     try {
        
-        const {name, referenciaEvento, referenciaUser} = req.body;   
+        const {name} = req.body;   
         const file = req.file;
 
         const picture = new Picture({
             name,
             src: file.path,
         });
-
-        if (referenciaEvento){
-            await Evento.findByIdAndUpdate(req.referenciaEvento, {$push: {imagem: picture._id}});
+        console.log(req.body.referenciaEvento);
+        console.log(req.body.referenciaUser);
+        if (req.body.referenciaEvento){
+            const evento = await Evento.findById(req.body.referenciaEvento);
+            if(!evento){
+                res.status(400).send({ message: "Não foi possível encontrar o evento" });
+                return;
+            }
+            evento.imagem = picture.src;
+            await evento.updateOne(evento);
 
         }
-        if(referenciaUser){
-            await User.findByIdAndUpdate(req.referenciaUser, { $push: { pictures: picture._id } });
+        if(req.body.referenciaUser){
+            const user = await User.findById(req.body.referenciaUser);
+            if(!user){
+                res.status(400).send({ message: "Não foi possível encontrar o usuário" });
+                return;
+            }
+            user.avatar = picture.src;
+            await user.updateOne(user);
         }
 
         await picture.save();
