@@ -76,6 +76,77 @@ const deleteEventoService = async (req, res) => {
     }
 }
 
+const updateEvento = async (req, res) => {
+    try {
+        const evento = await eventoService.findEventoService(req.body.titulo);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        if (req.body.titulo) {
+            evento.titulo = req.body.titulo;
+        }
+        if (req.body.descricao) {
+            evento.descricao = req.body.descricao;
+        }
+        if (req.body.data) {
+            evento.data = req.body.data;
+        }
+        if (req.body.horario) {
+            evento.horario = req.body.horario;
+        }
+        if (req.body.local) {
+            evento.local = req.body.local;
+        }
+        if (req.body.valor) {
+            evento.valor = req.body.valor;
+        }
+        if (req.body.imagem) {
+            evento.imagem = req.body.imagem;
+        }
+        if (req.body.convidados) {
+            evento.convidados = req.body.convidados;
+        }
+        if (req.body.gastos) {
+            if (req.body.gastos.total) {
+                evento.gastos.total = req.body.gastos.total;
+        }
+        if (req.body.pix) {
+            evento.pix = req.body.pix;
+        }
+
+        await evento.updateOne(evento);
+        res.status(200).send({
+            message: "Evento atualizado com sucesso",
+            evento,
+        });
+    
+    }}catch (error) {
+        res.status(400).send({ message: "Não foi possível atualizar o evento" });
+        return;
+    }
+};
+
+const incluirGasto = async (req, res) => {
+    const { titulo, gasto } = req.body;
+
+    try {
+        const evento = await eventoService.findEventoService(titulo);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        evento.gastos.total = evento.gastos.total + gasto.valor;
+        evento.gastos.gasto.push(gasto);
+        await evento.updateOne(evento);
+        res.status(200).send({
+            message: "Gasto incluido com sucesso",
+            gastos:evento.gastos,
+        });
+    } catch (error) {
+        res.status(400).send({ message: "Não foi possível incluir o gasto" });
+        return;
+    }
+}
 
 
-module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService };
+module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, incluirGasto };
+

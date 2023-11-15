@@ -10,10 +10,20 @@ const eventoSchema = new mongoose.Schema({
     valor: { type: String, required: false },
     imagem: { type: String, required: false },
     convidados: [],
+    gastos: {
+        total: { type: Number, required: false, default: 0 },
+        gasto: [{
+            nome: { type: String, required: false },
+            valor: { type: Number, required: false },
+            descricao: { type: String, required: false },
+            comprovante: { type: String, required: false },
+
+        }]
+    },
     pix: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
     confirmado: { type: Boolean, required: false, select: false, default: true },
-});
+        });
 
 const eventoModel = mongoose.model('evento', eventoSchema);
 
