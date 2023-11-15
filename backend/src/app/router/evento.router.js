@@ -9,7 +9,5 @@ router.get('/find/:id',authToken ,eventoController.findEventoByIdService);
 router.delete('/delete/:id',authToken ,eventoController.deleteEventoService);
 router.post('/find',authToken ,eventoController.findEventoService);
 router.post('/invite', authToken ,conviteController.enviarConvite);
-router.post('/accept', authToken ,conviteController.aceitarConvite);
-router.post('/deny', authToken ,conviteController.recusarConvite);
 
 module.exports = router;
