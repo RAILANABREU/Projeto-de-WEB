@@ -7,7 +7,7 @@ const findAllEventoService = () => Evento.find();
 
 const findEventoByIdService = (id) => Evento.findById(id);
 
-const findEventoService = async (body) => Evento.findOne({ titulo: body.titulo });
+const findEventoService = async (titulo) => Evento.findOne({titulo });
 
 const deleteEventoService = (id) => Evento.findByIdAndDelete(id);
 
