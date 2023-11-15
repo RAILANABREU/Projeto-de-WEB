@@ -3,13 +3,14 @@ import { Card } from "../components/common/Card"
 import Head from "../components/layout/Head"
 import Main from "../components/layout/Main"
 import { getAllEvents } from "../services/eventosSevices"
+import { useParams } from 'react-router-dom';
 //import {useState} from "react"
 
 export default function Home(){
     //const[eventos, setEventos] = useState([]);
-
+    const { userId } = useParams();
     async function findAllEvents(){
-        const response = await getAllEvents();
+        const response = await getAllEvents(userId);
         console.log(response);
         //setEventos(response.data.results);
     }

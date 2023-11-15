@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../Schemas/signupSchema";
 import { signup } from "../services/userServices";
+import { useNavigate } from 'react-router-dom';
 
 function SignUp(){
   const {
@@ -20,19 +21,20 @@ function SignUp(){
     resolver: zodResolver(signupSchema),
     mode: 'onChange',
   });
-  const [openModal, setOpenModal] = useState(true);
-  //ao receber secretwords resposta do backend setOpenModal(true)
-  
+  const navigate  = useNavigate();
+
+  const [openModal, setOpenModal] = useState(false);
   const [termosAceitos, setTermosAceitos] = useState(false);
+  const [imagem, setImagem] = useState(null);
+  const [imagemBase64, setImagemBase64] = useState(null);
+  const [usuario, setUsuario] = useState(null);
+  
   const handleCheckboxChange = () => {
     setTermosAceitos(!termosAceitos);
   };
-
-  console.log(isValid,termosAceitos)
-
-  const [imagem, setImagem] = useState(null);
-  const [imagemBase64, setImagemBase64] = useState(null);
-
+  const handleRedirecionamento = (userId) => {
+    navigate(`/home/${userId}`);
+  };
   const handleImagemChange = (event) => {
     const imagemArquivo = event.target.files[0];
 
@@ -44,6 +46,8 @@ function SignUp(){
       };
 
       reader.readAsDataURL(imagemArquivo);
+    }else{
+      imagemBase64 = "";
     }
   };
 
@@ -55,14 +59,23 @@ function SignUp(){
   
       // Lógica para enviar os dados para o backend
       try{
-        const response = await signup(data);
+        const response = await signup(dataComImagem);
         console.log(response)
+        const {status, data} = response;
+        if (status === 201){
+          const {message, user} = data;
+          console.log(message)
+          setUsuario(user);
+          setOpenModal(true)
+          if (setOpenModal === false){
+            handleRedirecionamento(user.id)
+          }
+        }
+
       }catch(error){
         console.log(error);
       }
-  
-      // Resetando o estado da imagemBase64 e do formulário
-      setImagemBase64(null);
+
       reset();
     } else {
       console.log("não foi possivel enviar");
@@ -72,7 +85,7 @@ function SignUp(){
       <div className="page">
         <Modal isOpen={openModal} 
         setOpen={() => setOpenModal(!openModal)}>
-          teste
+          {usuario && usuario.secretWords}
         </Modal>
         <div className={style.head}>
           <input
@@ -94,7 +107,7 @@ function SignUp(){
               className={style.nome}
               id='nome' name='nome' type = 'text'/>
               {errors.nome && (
-                          <p><spam>{errors.nome.message}</spam></p>
+                          <p><span>{errors.nome.message}</span></p>
                         )}
 
               <Input 
@@ -102,31 +115,31 @@ function SignUp(){
               className={style.nome}
               id='sobrenome' name='sobrenome' type = 'text'/>
               {errors.sobrenome && (
-                          <p><spam>{errors.sobrenome.message}</spam></p>
+                          <p><span>{errors.sobrenome.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'usuário' name= 'username' type= 'text'/>
               {errors.username && (
-                          <p><spam>{errors.username.message}</spam></p>
+                          <p><span>{errors.username.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'celular' name= 'telefone' type= 'number'/>
               {errors.telefone && (
-                          <p><spam>{errors.telefone.message}</spam></p>
+                          <p><span>{errors.telefone.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'senha' name= 'senha' type= 'password'/>
               {errors.senha && (
-                          <p><spam>{errors.senha.message}</spam></p>
+                          <p><span>{errors.senha.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'repita a senha' name= 'senha2' type= 'password'/>
               {errors.senha2 && (
-                          <p><spam>{errors.senha2.message}</spam></p>
+                          <p><span>{errors.senha2.message}</span></p>
                         )}
 
               <div className="requisitos-senha"></div>
@@ -137,7 +150,7 @@ function SignUp(){
                   onCheckboxChange={handleCheckboxChange}
                   {...register("termos", { required: "Você deve concordar com os termos" })}
                   />
-                  {errors.termos && <p><spam>{errors.termos.message}</spam></p>}
+                  {errors.termos && <p><span>{errors.termos.message}</span></p>}
               </div>
               <button type="submit"
               disabled={isValid === false || termosAceitos === false}
