@@ -66,7 +66,7 @@ const deleteEventoService = async (req, res) => {
         const evento = await eventoService.deleteEventoService(id);
         return res.status(200).json({ message: "Evento deletado com sucesso" });
     } catch (error) {
-        if
+        return res.status(400).json({ error: error.message });
 
     }
 }
