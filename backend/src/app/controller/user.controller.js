@@ -1,36 +1,59 @@
 const userServices = require('../services/user.service');
 
 const updateUser = async (req, res) => {
-    const { id } = req.params;
 
     try {
-        const user = await userServices.updateUserService(id, req.body);
+        const user = await userServices.findUserService(req.body.username);
         
         if (!user) {
-            res.status(400).send({ message: "Não foi possível atualizar o usuário" });
+            res.status(400).send({ message: "Não foi possível localizar o usuário" });
             return;
         }
-
-        user.nome = req.body.nome;
-        user.sobrenome = req.body.sobrenome;
-        user.username = req.body.username;
-        user.telefone = req.body.telefone;
-        user.avatar = req.body.avatar;
-        user.senha = req.body.senha;
-        user.secretWords = req.body.secretWords;
-        user.resetPasswordToken = req.body.resetPasswordToken;
-        user.resetPasswordExpires = req.body.resetPasswordExpires;
-        user.authenticatorToken = req.body.authenticatorToken;
-        user.authenticatorExpires = req.body.authenticatorExpires;
-        user.jaPagou = req.body.jaPagou;
-        user.evento = req.body.evento;
-        user.isAdm = req.body.isAdm;
-        user.admEvento = req.body.admEvento;
-        user.confirmado = req.body.confirmado;
-        user.isAtivo = req.body.isAtivo;
-        user.isOnline = req.body.isOnline;
-        user.convites = req.body.convites;
-
+        if (req.body.nome) {
+            user.nome = req.body.nome;
+        }
+        if (req.body.sobrenome) {
+            user.sobrenome = req.body.sobrenome;
+        }
+        if (req.body.username) {
+            user.username = req.body.username;
+        }
+        if (req.body.telefone) {
+            user.telefone = req.body.telefone;
+        }
+        if (req.body.avatar) {
+            user.avatar = req.body.avatar;
+        }
+        if (req.body.resetPasswordToken) {
+            user.resetPasswordToken = req.body.resetPasswordToken;
+        }
+        if (req.body.resetPasswordExpires) {
+            user.resetPasswordExpires = req.body.resetPasswordExpires;
+        }
+        if (req.body.authenticatorToken) {
+            user.authenticatorToken = req.body.authenticatorToken;
+        }
+        if (req.body.authenticatorExpires) {
+            user.authenticatorExpires = req.body.authenticatorExpires;
+        }
+        if (req.body.jaPagou) {
+            user.jaPagou = req.body.jaPagou;
+        }
+        if (req.body.isAdm) {
+            user.isAdm = req.body.isAdm;
+        }
+        if (req.body.admEvento) {
+            user.admEvento = req.body.admEvento;
+        }
+        if (req.body.confirmado) {
+            user.confirmado = req.body.confirmado;
+        }
+        if (req.body.isAtivo) {
+            user.isAtivo = req.body.isAtivo;
+        }
+        if (req.body.isOnline) {
+            user.isOnline = req.body.isOnline;
+        }
         await user.updateOne(user);
         res.status(200).send({
             message: "Usuário atualizado com sucesso",
