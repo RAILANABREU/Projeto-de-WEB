@@ -13,12 +13,8 @@ const deleteEventoService = (id) => Evento.findByIdAndDelete(id);
 
 const enviarConvite = async (idEvento, adm, convidado) => Evento.findByIdAndUpdate(convidado, { $push: { convites: evento } }, { new: true });
 
-const aceitarConvite = async (idConvite) => Evento.findByIdAndUpdate(idConvite, { status: "aceito" }, { new: true });
+const aceitarConvite = async (idEvento, idConvidado) => Evento.findOneAndUpdate({ _id: idEvento, "convites._id": idConvidado }, { $set: { "convites.$.status": "aceito" } }, { new: true });
 
-const recusarConvite = async (idConvite) => Evento.findByIdAndUpdate(idConvite, { status: "recusado" }, { new: true });
-
-
-
-
+const recusarConvite = async (idEvento, idConvidado) => Evento.findOneAndUpdate({ _id: idEvento, "convites._id": idConvidado }, { $set: { "convites.$.status": "recusado" } }, { new: true });
 
 module.exports = { createEventoService, findAllEventoService, findEventoService, findEventoByIdService, deleteEventoService, aceitarConvite, recusarConvite, enviarConvite };
