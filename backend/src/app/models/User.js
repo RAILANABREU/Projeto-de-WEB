@@ -16,13 +16,13 @@ const userSchema = new mongoose.Schema({
     authenticatorToken: { type: String, required: false, select: false },
     authenticatorExpires: { type: Date, required: false, select: false },
     jaPagou: { type: Boolean, required: false, select: false, default: false },
-    evento: { type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: false },
+    evento: { type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: true },
     isAdm: { type: Boolean, required: false, select: false, default: true },
     admEvento: { type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: true },
     confirmado: { type: Boolean, required: false, select: false, default: false },
     isAtivo: { type: Boolean, required: false, select: false, default: true },
     isOnline: { type: Boolean, required: false, select: false, default: false },   
-    convites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'evento', required: false, select: false }],
+    convites: { type: Array,required: false, select: true },
 });
 
 userSchema.pre('save', async function (next) {
