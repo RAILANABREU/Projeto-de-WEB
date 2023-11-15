@@ -8,7 +8,7 @@ const createEvento = async (req, res) => {
         return res.status(400).json({ error: "Preencha todos os campos" });
     }
     console.log(req.body);
-    const user = await userService.findUser(adm);
+    const user = await userService.findUserService(adm);
     console.log(user);
     if (!user) {
         return res.status(400).json({ error: "Usuário não encontrado" });
@@ -41,7 +41,8 @@ const findEventoByIdService = async (req, res) => {
     const { id } = req.params;
     try {
         const evento = await eventoService.findEventoByIdService(id);
-        return res.status(200).json({ evento });
+        return res.status(200).json({ message: "Evento encontrado"
+            ,evento });
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
@@ -51,7 +52,8 @@ const findEventoService = async (req, res) => {
     const { titulo } = req.body;
     try {
         const evento = await eventoService.findEventoService(req.body);
-        return res.status(200).json({ evento });
+        return res.status(200).json({ message: "Evento encontrado"
+            , evento });
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
@@ -62,9 +64,10 @@ const deleteEventoService = async (req, res) => {
     const { id } = req.params;
     try {
         const evento = await eventoService.deleteEventoService(id);
-        return res.status(200).json({ evento });
+        return res.status(200).json({ message: "Evento deletado com sucesso" });
     } catch (error) {
-        return res.status(400).json({ error: error.message });
+        if
+
     }
 }
 

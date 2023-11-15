@@ -14,6 +14,7 @@ router.get('/find/:id',authToken, userController.findUserById);
 router.get('/findUserById',authToken, userController.findUserById);
 router.post('/updateUser',authToken, userController.updateUser);
 router.post('/find',authToken, userController.findUser);
+router.delete('/delete/:id',authToken, userController.deleteUser);
 
 
 module.exports = router;
