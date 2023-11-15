@@ -1,4 +1,4 @@
-const e = require("express");
+
 const Evento = require("../models/Evento");
 
 const createEventoService = (body) => Evento.create(body);
