@@ -55,7 +55,7 @@ const enviarConvite = async (req, res) => {
             return;
         }
         try {
-            user.convites = evento;
+            user.convites.push(evento);
             await user.updateOne(user);
             res.status(200).send({
                 message: "Convite enviado com sucesso",
