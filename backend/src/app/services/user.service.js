@@ -12,8 +12,10 @@ const findUserById = async (body) => User.findOne({ _id: body.id }, { resetPassw
 
 const findUserServiceById = async (id) => User.findById(id);
 
+const deleteUser = async (id) => User.findByIdAndDelete(id);
 
 
 
 
-module.exports = { create, findAllUserService, findUserServiceById, findUserById, findUserService };
+
+module.exports = { create, findAllUserService, findUserServiceById, findUserById, findUserService, deleteUser };
