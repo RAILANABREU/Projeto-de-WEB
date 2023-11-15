@@ -14,6 +14,12 @@ const createEvento = async (req, res) => {
         return res.status(400).json({ error: "Usuário não encontrado" });
     }
 
+    const eventoExistente = await eventoService.findEventoService(titulo);
+
+    if (eventoExistente) {
+        return res.status(400).json({ error: "Evento já cadastrado" });
+    }
+
     try {
         const evento = await eventoService.createEventoService(req.body);
         evento.adm = user.username;
@@ -67,7 +73,6 @@ const deleteEventoService = async (req, res) => {
         return res.status(200).json({ message: "Evento deletado com sucesso" });
     } catch (error) {
         return res.status(400).json({ error: error.message });
-
     }
 }
 
