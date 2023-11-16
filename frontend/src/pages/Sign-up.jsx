@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../Schemas/signupSchema";
 import { signup } from "../services/userServices";
 import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 function SignUp(){
   const {
@@ -28,7 +29,7 @@ function SignUp(){
   const [imagem, setImagem] = useState(null);
   const [imagemBase64, setImagemBase64] = useState(null);
   const [usuario, setUsuario] = useState(null);
-  
+
   const handleCheckboxChange = () => {
     setTermosAceitos(!termosAceitos);
   };
@@ -64,11 +65,13 @@ function SignUp(){
         const {status, data} = response;
         if (status === 201){
           const {message, user} = data;
-          console.log(message)
+          console.log(message);
           setUsuario(user);
-          setOpenModal(true)
+          Cookies.set("token", user.token, { expires: 1});
+          setOpenModal(true);
+          
           if (setOpenModal === false){
-            handleRedirecionamento(user.id)
+            handleRedirecionamento(user.id);
           }
         }
 

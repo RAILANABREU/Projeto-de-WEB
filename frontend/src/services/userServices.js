@@ -10,4 +10,7 @@ export function signup(data){
 
 export function signin(data){
     
+    const response = axios.get(`${baseURL}/login`, data);
+    console.log(response)
+    return response;
 }

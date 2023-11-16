@@ -1,12 +1,17 @@
+import Cookies from "js-cookie"
 import { eventos } from "../Datas"
 import { Card } from "../components/common/Card"
 import Head from "../components/layout/Head"
 import Main from "../components/layout/Main"
 import { getAllEvents } from "../services/eventosSevices"
 import { useParams } from 'react-router-dom';
+import { useEffect } from "react"
 //import {useState} from "react"
 
 export default function Home(){
+    useEffect(() => {
+        console.log(Cookies.get("token"))
+    })
     //const[eventos, setEventos] = useState([]);
     const { userId } = useParams();
     async function findAllEvents(){
