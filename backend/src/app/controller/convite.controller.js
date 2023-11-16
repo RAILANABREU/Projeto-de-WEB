@@ -116,9 +116,16 @@ const enviarConvite = async (req, res) => {
             }
 
             if (confirmar === "aceito") {
-                user.convites[conviteIndex].status = "aceito";
-                evento.convidados.push(user.username);
-                await evento.updateOne(evento);
+                if(evento.convidados.includes(user.username)){
+                    res.status(400).send({
+                        message: "Você já está na lista de convidados"
+                    });
+                    return;
+                }else{
+                    user.convites[conviteIndex].status = "aceito";
+                    evento.convidados.push(user.username);
+                    await evento.updateOne(evento);
+                }
             } else if (confirmar === "recusado") {
                 user.convites[conviteIndex].status = "recusado";
                 user.convites.splice(conviteIndex, 1);
