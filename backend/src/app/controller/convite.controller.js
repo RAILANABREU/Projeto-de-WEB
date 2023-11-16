@@ -1,3 +1,4 @@
+const { copyFile } = require("fs");
 const eventoService = require("../services/evento.service");
 const userService = require("../services/user.service");
 
@@ -77,7 +78,7 @@ const enviarConvite = async (req, res) => {
 
 
     const aceitarConvite = async (req, res) => {
-        const { idEvento, idUsuario, confirmar} = req.body;
+        const { idEvento, idUsuario, confirmar } = req.body;
 
         if (!idEvento || !idUsuario || !confirmar) {
             res.status(400).send({
@@ -114,14 +115,19 @@ const enviarConvite = async (req, res) => {
                 return;
             }
 
-            user.convites[conviteIndex].status = "aceito";
-            evento.convidados.push(user.username); // Adiciona o username do convidado à lista de convidados do evento. //nao esta sendo feita.(??)
-            await evento.updateOne(evento); // Salva o evento atualizado.
-            await user.updateOne(user);
+            if (confirmar === "aceito") {
+                user.convites[conviteIndex].status = "aceito";
+                evento.convidados.push(user.username);
+                await evento.updateOne(evento);
+            } else if (confirmar === "recusado") {
+                user.convites[conviteIndex].status = "recusado";
+                user.convites.splice(conviteIndex, 1);
+                await user.updateOne(user);
+            }
 
             res.status(200).send({
-                message: "Convite aceito com sucesso",
-                evento
+                message: confirmar === "aceito" ? "Convite aceito com sucesso" : "Convite recusado com sucesso",
+                user: user.convites
             });
         } catch (error) {
             console.error(error);
@@ -129,10 +135,6 @@ const enviarConvite = async (req, res) => {
                 message: "Erro ao aceitar convite"
             });
         }
-        
-    }
-
-   
-
+    };
 
 module.exports = { enviarConvite, aceitarConvite };
