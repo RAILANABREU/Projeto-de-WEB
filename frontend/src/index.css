@@ -68,7 +68,7 @@ span{
   
 }
 p{
-  background-color: #7000FF;
+  background-color: var(--secondary-color);
   margin: 0px 8px 8px;
   padding: 8px;
   border-radius: 0px 20px 20px;
