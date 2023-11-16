@@ -1,3 +1,4 @@
+const { copyFile } = require("fs");
 const eventoService = require("../services/evento.service");
 const userService = require("../services/user.service");
 
@@ -21,7 +22,7 @@ const enviarConvite = async (req, res) => {
     }
 
     try {
-        const userAdm = await userService.findUser(adm);
+        const userAdm = await userService.findUserService(adm);
 
         if (!userAdm) {
         res.status(400).send({
@@ -46,7 +47,7 @@ const enviarConvite = async (req, res) => {
             return;
         
         }
-        const user = await userService.findUser(convidado);
+        const user = await userService.findUserService(convidado);
 
         if (!user) {
             res.status(400).send({
@@ -76,5 +77,71 @@ const enviarConvite = async (req, res) => {
     }
 
 
+    const aceitarConvite = async (req, res) => {
+        const { idEvento, idUsuario, confirmar } = req.body;
 
-module.exports = { enviarConvite };
+        if (!idEvento || !idUsuario || !confirmar) {
+            res.status(400).send({
+                message: "Todos os campos são obrigatórios"
+            });
+            return;
+        }
+
+        try {
+            const evento = await eventoService.findEventoByIdService(idEvento);
+
+            if (!evento) {
+                res.status(400).send({
+                    message: "Não foi possível encontrar o evento"
+                });
+                return;
+            }
+
+            const user = await userService.findUserByIdService(idUsuario);
+
+            if (!user) {
+                res.status(400).send({
+                    message: "Não foi possível encontrar o usuário"
+                });
+                return;
+            }
+
+            const conviteIndex = user.convites.findIndex(convite => convite._id.toString() === idEvento);
+
+            if (conviteIndex === -1) {
+                res.status(400).send({
+                    message: "Você não foi convidado para este evento"
+                });
+                return;
+            }
+
+            if (confirmar === "aceito") {
+                if(evento.convidados.includes(user.username)){
+                    res.status(400).send({
+                        message: "Você já está na lista de convidados"
+                    });
+                    return;
+                }else{
+                    user.convites[conviteIndex].status = "aceito";
+                    evento.convidados.push(user.username);
+                    await evento.updateOne(evento);
+                }
+            } else if (confirmar === "recusado") {
+                user.convites[conviteIndex].status = "recusado";
+                user.convites.splice(conviteIndex, 1);
+                await user.updateOne(user);
+            }
+
+            res.status(200).send({
+                message: confirmar === "aceito" ? "Convite aceito com sucesso" : "Convite recusado com sucesso",
+                user: user.convites
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({
+                message: "Erro ao aceitar convite"
+            });
+        }
+    };
+
+module.exports = { enviarConvite, aceitarConvite };
