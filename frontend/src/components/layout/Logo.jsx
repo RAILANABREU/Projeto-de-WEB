@@ -13,6 +13,11 @@ function Logo({type}){
             <img className={style.iconname} src={Iconname} alt="Logo"/>
         )
     }
+    else if (type == 3){
+        return(
+            <img className={style.bigiconname} src={Iconname} alt="Logo"/>
+        )
+    }
 }
 
 export default Logo

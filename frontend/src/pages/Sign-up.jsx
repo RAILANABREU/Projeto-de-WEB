@@ -1,4 +1,5 @@
 import Main from "../components/layout/Main";
+import Footer from "../components/layout/Footer"
 import Input from "../components/common/Input";
 import Checkbox from "../components/common/Checkbox";
 import Perfil from "../components/common/Perfil";
@@ -162,6 +163,7 @@ function SignUp(){
               
             </form>
         </Main>
+        <Footer/>
       </div>
     )
 }

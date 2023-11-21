@@ -3,7 +3,7 @@ import Main from "../components/layout/Main";
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import Icon from "../components/common/icons";
-
+import Footer from "../components/layout/Footer"
 
 export default function Gastos(){
     return(
@@ -29,6 +29,7 @@ export default function Gastos(){
                 name='CANCELAR'
                 name2='ADICIONAR'/>
             </Main>
+            <Footer/>
         </div>
     )
 }

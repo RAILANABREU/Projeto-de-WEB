@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Principal from './pages/Principal';
 import Home from './pages/Home';
 import SignIn from './pages/Sign-in';
 import SignUp from './pages/Sign-up';
@@ -13,6 +14,11 @@ import Pagamento from './pages/Pagamento';
 import ErrorPage from './pages/ErrorPage';
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Principal/>,
+    errorElement: <ErrorPage/>,
+  },
   {
     path: "/home/:userId",
     element: <Home/>,

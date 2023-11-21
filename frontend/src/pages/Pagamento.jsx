@@ -3,6 +3,8 @@ import Main from "../components/layout/Main";
 import Input from "../components/common/Input";
 import Checkbox from "../components/common/Checkbox";
 import Button from "../components/common/Button";
+import Footer from "../components/layout/Footer"
+
 
 export default function Pagamento(){
     return(
@@ -15,6 +17,7 @@ export default function Pagamento(){
                 <ListaDePagamento/>
                 <Button type='confirmar' name='SALVAR'/>
             </Main>
+            <Footer/>
         </div>
     )
 }

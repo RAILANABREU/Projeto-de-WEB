@@ -5,6 +5,7 @@ import Main from "../components/layout/Main";
 import { getAllEvents } from "../services/eventosSevices";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import Footer from "../components/layout/Footer";
 
 export default function Home() {
   const [eventos, setEventos] = useState([]);
@@ -38,7 +39,8 @@ export default function Home() {
             titulo={item.titulo}
           />
         ))}
-      </Main>    
+      </Main>
+      <Footer/>    
     </div>
   );
 }

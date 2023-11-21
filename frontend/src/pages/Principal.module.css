@@ -1,0 +1,13 @@
+.head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 1;
+    padding: 24px;
+  }
+.p{
+    background: none;
+}
+b{
+    font-weight: 600;
+}

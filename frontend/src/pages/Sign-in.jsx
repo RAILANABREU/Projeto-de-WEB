@@ -1,4 +1,5 @@
 import Main from "../components/layout/Main"
+import Footer from "../components/layout/Footer"
 import Logo from "../components/layout/Logo"
 import Input from "../components/common/Input"
 import Checkbox from "../components/common/Checkbox"
@@ -84,6 +85,7 @@ function SignIn(){
                 
               </form>
           </Main>
+          <Footer/>  
         </div>
     )
 }
