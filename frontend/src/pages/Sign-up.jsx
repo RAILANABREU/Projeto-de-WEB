@@ -53,15 +53,14 @@ function SignUp(){
     }
   };
 
-  async function onSubmit(data) {
+  function onSubmit(data) {
     
     if (isValid && termosAceitos) {
       const dataComImagem = { ...data, avatar: imagemBase64 };
       console.log(dataComImagem);
   
       // Lógica para enviar os dados para o backend
-      try{
-        const response = await signup(dataComImagem);
+        const response = signup(dataComImagem);
         console.log(response)
         const {status, data} = response;
         if (status === 201){
@@ -75,11 +74,6 @@ function SignUp(){
             handleRedirecionamento(user.id);
           }
         }
-
-      }catch(error){
-        console.log(error);
-      }
-
       reset();
     } else {
       console.log("não foi possivel enviar");

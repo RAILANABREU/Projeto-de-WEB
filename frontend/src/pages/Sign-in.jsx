@@ -27,21 +27,16 @@ function SignIn(){
 
   async function onSubmit(credenciais) {
     if (isValid){
-      try{
-        const response = await signin(credenciais);
-        console.log(response)
+      const response = await signin(credenciais);
+      console.log(response)
 
-        const {status, data} = response;
-    
-        if (status === 200){
-          const {id, token} = data;
-          Cookies.set("token", token, { expires: 1});
-          setUsuario(id);
-          navigate(`/home/${id}`)
-        }
-
-      }catch(error){
-        console.log(error);
+      const {status, data} = response;
+  
+      if (status === 200){
+        const {id, token} = data;
+        Cookies.set("token", token, { expires: 1});
+        setUsuario(id);
+        navigate(`/home/${id}`)
       }
     }else {
       console.log("não foi possivel enviar");

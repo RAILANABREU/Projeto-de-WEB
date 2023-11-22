@@ -6,9 +6,11 @@ import { getAllEvents } from "../services/eventosSevices";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Footer from "../components/layout/Footer";
+import UserDrawer from "../components/common/UserDrawer";
 
 export default function Home() {
   const [eventos, setEventos] = useState([]);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
   const { userId } = useParams();
 
   useEffect(() => {
@@ -25,10 +27,18 @@ export default function Home() {
     fetchData();
     console.log(Cookies.get("token"))
   },[]);
+  const openDrawer = () => {
+    setDrawerOpen(true);
+  };
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+  };
+
 
   return (
     <div className="page">
-      <Head type='home'/>
+      <Head type='home' onIconClick={openDrawer}/>
+      <UserDrawer isOpen={isDrawerOpen} onClose={closeDrawer} userId={userId} />
       <Main>
         <button>CRIAR EVENTO</button>
         {eventos?.map((item, index) => (
