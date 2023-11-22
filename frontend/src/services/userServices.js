@@ -23,9 +23,13 @@ export async function signin(data) {
   }
 }
 
-export async function FindUserByID(id) {
+export async function FindUserByID(id, authToken) {
   try {
-    const response = await axios.get(`${baseURL}/user/findUserById/${id}`);
+    const response = await axios.get(`${baseURL}/user/find/${id}`,{
+      headers:{
+          Authorization: `Bearer ${authToken}`
+      }
+    })
     const userFound = response.data.user;
     console.log('Usuário Encontrado:', userFound);
     return userFound;

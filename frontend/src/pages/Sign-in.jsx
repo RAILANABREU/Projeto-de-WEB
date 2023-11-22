@@ -34,7 +34,7 @@ function SignIn(){
   
       if (status === 200){
         const {id, token} = data;
-        Cookies.set("token", token, { expires: 1});
+        Cookies.set("token", token, { expires: 7});
         setUsuario(id);
         navigate(`/home/${id}`)
       }

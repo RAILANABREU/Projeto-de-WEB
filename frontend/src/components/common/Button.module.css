@@ -24,3 +24,10 @@
     align-self: flex-end;
     margin: 8px;
 }
+.modal{
+    background: white;
+    color: black;
+    width: 90%;
+    height: 49px;
+    border-radius: 20px;
+}

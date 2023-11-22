@@ -30,8 +30,15 @@ export default function Button({ type, name, name2, onClick }) {
           </button>
         );
         break;
+        case 'modal':
+          buttonContent = (
+            <button className={style.modal} onClick={onClick}>
+              {name}
+            </button>
+          );
+          break;
       default:
-        buttonContent = null; // Lida com tipos desconhecidos ou não especificados.
+        buttonContent = null;
     }
   
     return buttonContent;

@@ -1,23 +1,28 @@
 import Iconname from "../../assets/iconname.png"
+import IconBranco from "../../assets/LogoBranca.png"
 import Icon from "../../assets/icon.png"
 import style from "../Img.module.css"
 
-function Logo({type}){
-    if (type == 1){
-        return(
-            <img className={style.icon} src={Icon} alt="Logo"/>
-        )
-    }
-    else if (type == 2){
-        return(
-            <img className={style.iconname} src={Iconname} alt="Logo"/>
-        )
-    }
-    else if (type == 3){
-        return(
-            <img className={style.bigiconname} src={Iconname} alt="Logo"/>
-        )
-    }
+export default function Logo({type}){
+    return (
+        <img
+            className={
+            type == 1
+                ? style.icon
+                : type == 2
+                ? style.iconname
+                : type == 3
+                ? style.bigiconname
+                : style.iconname
+            }
+            src={
+            type == 1
+                ? Icon
+                : type == 2 || 3
+                ? Iconname
+                : IconBranco
+            }
+            alt={`logo`}
+        />
+    )
 }
-
-export default Logo

@@ -6,7 +6,7 @@ import { getAllEvents } from "../services/eventosSevices";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Footer from "../components/layout/Footer";
-import UserDrawer from "../components/common/UserDrawer";
+import ModalUser from "../components/common/ModalUser";
 
 export default function Home() {
   const [eventos, setEventos] = useState([]);
@@ -19,7 +19,7 @@ export default function Home() {
         const response = await getAllEvents(Cookies.get("token"));
         console.log(response);
         setEventos(response.data.evento);
-        
+
       } catch (error) {
         console.error("Erro ao buscar eventos:", error);
       }
@@ -38,7 +38,11 @@ export default function Home() {
   return (
     <div className="page">
       <Head type='home' onIconClick={openDrawer}/>
-      <UserDrawer isOpen={isDrawerOpen} onClose={closeDrawer} userId={userId} />
+      <ModalUser 
+      isOpen={isDrawerOpen} 
+      setOpen={closeDrawer} 
+      userId={userId}
+      authToken={Cookies.get("token")}/>
       <Main>
         <button>CRIAR EVENTO</button>
         {eventos?.map((item, index) => (
