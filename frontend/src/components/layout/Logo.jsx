@@ -1,5 +1,5 @@
 import Iconname from "../../assets/iconname.png"
-import IconBranco from "../../assets/LogoBranca.png"
+import IconBranco from "../../assets/logo-branca.png"
 import Icon from "../../assets/icon.png"
 import style from "../Img.module.css"
 
