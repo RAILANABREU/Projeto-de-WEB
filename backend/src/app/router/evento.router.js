@@ -11,6 +11,7 @@ router.post('/find',authToken ,eventoController.findEventoService);
 router.post('/invite', authToken ,conviteController.enviarConvite);
 router.post('/accept', authToken ,conviteController.aceitarConvite);
 router.post('/update', authToken ,eventoController.updateEvento);
+router.post('/leave', authToken, eventoController.sairEvento);
 router.post('/incluirgasto', authToken ,eventoController.incluirGasto);
 
 
