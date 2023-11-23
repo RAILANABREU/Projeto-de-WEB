@@ -27,7 +27,6 @@ function SignUp(){
 
   const [openModal, setOpenModal] = useState(false);
   const [termosAceitos, setTermosAceitos] = useState(false);
-  const [imagem, setImagem] = useState(null);
   const [imagemBase64, setImagemBase64] = useState(null);
   const [usuario, setUsuario] = useState(null);
 
@@ -42,25 +41,24 @@ function SignUp(){
 
     if (imagemArquivo) {
       const reader = new FileReader();
-      setImagem(imagemArquivo);
       reader.onloadend = () => {
         setImagemBase64(reader.result);
       };
 
       reader.readAsDataURL(imagemArquivo);
     }else{
-      imagemBase64 = "";
+      setImagemBase64("");
     }
   };
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
     
     if (isValid && termosAceitos) {
       const dataComImagem = { ...data, avatar: imagemBase64 };
       console.log(dataComImagem);
   
       try{
-        const response = signup(dataComImagem);
+        const response = await signup(dataComImagem);
         console.log(response)
         const {status, data} = response;
         if (status === 201){
@@ -98,7 +96,7 @@ function SignUp(){
             onChange={handleImagemChange}
           />
           <label htmlFor="uploadInput" className={style.uploadLabel}>
-            <Perfil img={imagem} />
+            <Perfil img={imagemBase64} />
           </label>
         </div>
         <Main>

@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     element: <SignUp/>,
   },
   {
-    path: "/criarevento",
+    path: "/criarevento/:userId",
     element: <CriarEvento/>,
   },
   {

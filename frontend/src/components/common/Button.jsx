@@ -1,21 +1,21 @@
 import style from "./Button.module.css"
 import Icon from "./icons"
 
-export default function Button({ type, name, name2, onClick }) {
+export default function Button({ type, name, name2, onClickCancelar, onClickConfirmar }) {
     let buttonContent;
   
     switch (type) {
       case 'cancelar':
-        buttonContent = <button className={style.cancelar}>{name}</button>;
+        buttonContent = <button className={style.cancelar} onClick={onClickCancelar}>{name}</button>;
         break;
       case 'confirmar':
-        buttonContent = <button className={style.criar} onClick={onClick} >{name}</button>;
+        buttonContent = <button className={style.criar} onClick={onClickConfirmar}>{name}</button>;
         break;
       case 'cancelar/confirmar':
         buttonContent = (
           <div className={style['button-box']}>
-            <button className={style.cancelar}>{name}</button>
-            <button className={style.criar}>{name2}</button>
+            <button className={style.cancelar} onClick={onClickCancelar}>{name}</button>
+            <button type="submit" className={style.criar} onClick={onClickConfirmar}>{name2}</button>
           </div>
         );
         break;
@@ -24,7 +24,7 @@ export default function Button({ type, name, name2, onClick }) {
         break;
       case 'convite':
         buttonContent = (
-          <button className={style.convite} onClick={onClick}>
+          <button className={style.convite}>
             CONVITE
             <Icon type='copy' />
           </button>
@@ -32,7 +32,7 @@ export default function Button({ type, name, name2, onClick }) {
         break;
         case 'modal':
           buttonContent = (
-            <button className={style.modal} onClick={onClick}>
+            <button className={style.modal}>
               {name}
             </button>
           );

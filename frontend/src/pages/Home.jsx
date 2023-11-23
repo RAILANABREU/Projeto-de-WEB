@@ -3,7 +3,7 @@ import { Card } from "../components/common/Card";
 import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
 import { getAllEvents } from "../services/eventosSevices";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Footer from "../components/layout/Footer";
 import ModalUser from "../components/common/ModalUser";
@@ -44,15 +44,22 @@ export default function Home() {
       userId={userId}
       authToken={Cookies.get("token")}/>
       <Main>
-        <button>CRIAR EVENTO</button>
-        {eventos?.map((item, index) => (
-          <Card 
-            key={index}
-            eventos={item}
-            foto={item.imagem}
-            titulo={item.titulo}
-          />
-        ))}
+        <Link to={`/criarevento/${userId}`}><button>CRIAR EVENTO</button></Link>
+        <Link to="/convites"><button style={{ background: "var(--secondary-color)" }}>CONVITES</button></Link>
+        {eventos.length > 0 ? (
+          eventos.map((item, index) => (
+            <Card 
+            key={index} 
+            eventos={item} 
+            foto={item.imagem} 
+            titulo={item.titulo} 
+            />
+          ))
+        ) : (
+          <div style={{ flex: 1}}>
+            Nenhum evento encontrado.
+          </div>
+        )}
       </Main>
       <Footer/>    
     </div>
