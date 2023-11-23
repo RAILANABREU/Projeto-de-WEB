@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../Schemas/signupSchema";
 import { signup } from "../services/userServices";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 
 function SignUp(){
@@ -59,7 +59,7 @@ function SignUp(){
       const dataComImagem = { ...data, avatar: imagemBase64 };
       console.log(dataComImagem);
   
-      // Lógica para enviar os dados para o backend
+      try{
         const response = signup(dataComImagem);
         console.log(response)
         const {status, data} = response;
@@ -74,7 +74,11 @@ function SignUp(){
             handleRedirecionamento(user.id);
           }
         }
-      reset();
+        reset();
+      }catch(error){
+        console.error(error.message)
+      }
+      
     } else {
       console.log("não foi possivel enviar");
     }
@@ -153,7 +157,7 @@ function SignUp(){
               <button type="submit"
               disabled={isValid === false || termosAceitos === false}
               >CRIAR CONTA</button>
-              <p className={style.p}>Já tem uma conta?<a href="#">Entrar</a></p>
+              <p className={style.p}>Já tem uma conta?<Link to ="/signin">Entrar</Link></p>
               
             </form>
         </Main>

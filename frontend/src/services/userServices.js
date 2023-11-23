@@ -8,7 +8,7 @@ export async function signup(data) {
     const response = await axios.post(`${baseURL}/user/register`, data);
     return response;
   } catch (error) {
-    console.error('Erro no cadastro:', error.message);
+    console.error('Erro no cadastro:', error.message, error.response.data.message);
     throw error;
   }
 }
