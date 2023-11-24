@@ -12,7 +12,6 @@ export default function Home() {
   const [eventos, setEventos] = useState([]);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const { userId } = useParams();
-  const navigate  = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -31,9 +30,6 @@ export default function Home() {
   const openDrawer = () => {
     setDrawerOpen(true);
   };
-  const eventoPage = (eventoId) =>{
-    navigate(`/evento/${userId}/${eventoId}`)
-  }
 
   return (
     <div className="page">
@@ -50,11 +46,10 @@ export default function Home() {
           eventos.map((item) => (
             item.adm === userId ? (
               <Card 
-                key={item.id} 
+                id={item._id} 
                 eventos={item} 
                 foto={item.imagem} 
                 titulo={item.titulo} 
-                //onClick={eventoPage(item.id)}
               />
             ) : null
           ))

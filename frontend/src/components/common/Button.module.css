@@ -31,3 +31,23 @@
     height: 40px;
     border-radius: 30px;
 }
+.convidar{
+    background: var(--secondary-color);
+    width: 129px;
+    height: 49px;
+}
+.edit{
+    background: none;
+    color: var(--secondary-color);
+    border: solid 1px var(--secondary-color);
+    width: 100%;
+    height: 40px;
+    border-radius: 30px;
+}
+.editar{
+    background: none;
+    color: var(--secondary-color);
+    border: solid 2px var(--secondary-color);
+    width: 129px;
+    height: 49px;
+}

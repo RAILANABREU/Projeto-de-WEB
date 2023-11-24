@@ -19,6 +19,14 @@ export default function Button({ type, name, name2, onClickCancelar, onClick }) 
           </div>
         );
         break;
+      case 'editar/convidar':
+        buttonContent = (
+          <div className={style['button-box']}>
+            <button className={style.editar} onClick={onClickCancelar}>{name}</button>
+            <button type="submit" className={style.convidar} onClick={onClick}>{name2}</button>
+          </div>
+        );
+        break;
       case 'add':
         buttonContent = <button className={style.add}> + Gasto</button>;
         break;
@@ -38,7 +46,11 @@ export default function Button({ type, name, name2, onClickCancelar, onClick }) 
           );
           break;
       default:
-        buttonContent = null;
+        buttonContent = (
+          <button className={style.edit}>
+              {name}
+            </button>
+        );
     }
   
     return buttonContent;

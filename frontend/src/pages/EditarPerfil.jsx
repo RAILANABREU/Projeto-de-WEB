@@ -34,25 +34,28 @@ export default function EditarPerfil(){
             try {
                 const userFound = await FindUserByID(userId, Cookies.get("token"));
                 setUserData(userFound);
-                setImagemBase64(userData.avatar)
+                setImagemBase64(userFound && userFound.avatar)
             } catch (error) {
                 console.error('Erro ao buscar informações do usuário:', error);
             }
             };
-        if (userId) {
-            fetchUserData();
-            }
-        }, [userId]);
+          fetchUserData();
+            
+        },[message]);
 
       const handleImagemChange = (event) => {
         const imagemArquivo = event.target.files[0];
-    
+        setMessage(null);
+
         if (imagemArquivo) {
           const reader = new FileReader();
           reader.onloadend = () => {
             setImagemBase64(reader.result);
+            setUserData((prevUserData) => ({
+              ...prevUserData,
+              avatar: reader.result,
+            }));
           };
-    
           reader.readAsDataURL(imagemArquivo);
         }else{
           setImagemBase64("");
@@ -64,22 +67,31 @@ export default function EditarPerfil(){
     };
     async function handleSave(data) {
         if (isValid) {
-          const dataComImagem = { ...data, avatar: imagemBase64 };
+          let dadosNaoVazios = {};
+          
+          for (let chave in data) {
+            if (data[chave] !== null && data[chave] !== "") {
+              dadosNaoVazios[chave] = data[chave];
+            } else if (userData[chave] !== undefined) {
+              dadosNaoVazios[chave] = userData[chave];
+            }
+          }
+          
+          const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, _id: userId };
           console.log(dataComImagem);
       
           try{
             const response = await editarperfil(dataComImagem, Cookies.get("token"));
             console.log(response);
-            const {status, data} = response;
-            if (status === 201){
+            if (response === 200){
+              setUserData(dataComImagem)
               setMessage("Modificações salvas");
             }
             reset();
           }catch(error){
             console.error(error.message);
           }
-          
-        } else {
+        }else{
           console.log("não foi possivel enviar");
         }
       }
@@ -100,12 +112,13 @@ export default function EditarPerfil(){
                     <Perfil img={imagemBase64} />
                 </label>
             </div>
-            <p className={style.p}>{message}</p>
+            {message && <p className={style.message}>{message}</p>}
             <form onSubmit={handleSubmit(handleSave)}>
             <Input 
               reg={register}
               className={style.nome}
-              id={userData && userData.nome} name='nome' type = 'text'/>
+              id={userData && userData.nome} name='nome' type = 'text'
+              onChange={() => setMessage(null)}/>
               {errors.nome && (
                           <p><span>{errors.nome.message}</span></p>
                         )}
@@ -113,31 +126,38 @@ export default function EditarPerfil(){
               <Input 
               reg={register}
               className={style.nome}
-              id={userData && userData.sobrenome} name='sobrenome' type = 'text'/>
+              id={userData && userData.sobrenome} name='sobrenome' 
+              type = 'text'
+              onChange={() => setMessage(null)}/>
               {errors.sobrenome && (
                           <p><span>{errors.sobrenome.message}</span></p>
                         )}
               <Input 
               reg={register}
-              id= {userData && userData.username} name= 'username' type= 'text'/>
+              id= {userData && userData.username} name= 'username' type= 'text'
+              onChange={() => setMessage(null)}/>
               {errors.username && (
                           <p><span>{errors.username.message}</span></p>
                         )}
               <Input 
               reg={register}
-              id= {userData && userData.telefone} name= 'telefone' type= 'number'/>
+              id= {userData && userData.telefone} name= 'telefone' type= 'number'
+              onChange={() => setMessage(null)}/>
               {errors.telefone && (
                           <p><span>{errors.telefone.message}</span></p>
                         )}
+              
               <Input 
               reg={register}
-              id= 'senha atual' name= 'senha' type= 'password'/>
-              {errors.senha && (
-                          <p><span>{errors.senha.message}</span></p>
+              id= 'nova senha' name= 'senha' type= 'password'
+              onChange={() => setMessage(null)}/>
+              {errors.senha2 && (
+                          <p><span>{errors.senha2.message}</span></p>
                         )}
               <Input 
               reg={register}
-              id= 'nova senha' name= 'senha2' type= 'password'/>
+              id= 'repita a nova senha' name= 'senha2' type= 'password'
+              onChange={() => setMessage(null)}/>
               {errors.senha2 && (
                           <p><span>{errors.senha2.message}</span></p>
                         )}

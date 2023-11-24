@@ -19,7 +19,7 @@ export default function Icon({type, onClick, img}){
                     : type === 'home'
                     ? style.homeicon
                     : type === 'copy'
-                    ? 'none'
+                    ? style.copy
                     : style.image
                 }
                 src={
