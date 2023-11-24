@@ -66,6 +66,7 @@ const enviarConvite = async (req, res) => {
             res.status(400).send({
                 message: "Você já foi convidado para este evento"
             });
+            return;
         };
         try {
             user.convites.push(evento);
