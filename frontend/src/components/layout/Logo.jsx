@@ -13,12 +13,14 @@ export default function Logo({type}){
                 ? style.iconname
                 : type == 3
                 ? style.bigiconname
-                : style.iconname
+                : style["logo-branca"]
             }
             src={
             type == 1
                 ? Icon
-                : type == 2 || 3
+                : type == 2
+                ? Iconname
+                :type == 3
                 ? Iconname
                 : IconBranco
             }

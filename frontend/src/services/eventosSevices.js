@@ -10,3 +10,16 @@ export function getAllEvents(authToken){
     });
     return response;
 }
+
+export async function criarEvento(data, authToken){
+    try{
+        const response = await axios.post(`${baseURL}/evento/create`, data, {
+            headers:{
+                Authorization: `Bearer ${authToken}`
+            }
+          })
+    }catch(error){
+        console.error("Erro ao criar evento", error.message)
+    }
+
+}

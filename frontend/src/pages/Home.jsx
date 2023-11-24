@@ -30,9 +30,6 @@ export default function Home() {
   const openDrawer = () => {
     setDrawerOpen(true);
   };
-  const closeDrawer = () => {
-    setDrawerOpen(false);
-  };
 
 
   return (
@@ -40,7 +37,7 @@ export default function Home() {
       <Head type='home' onIconClick={openDrawer}/>
       <ModalUser 
       isOpen={isDrawerOpen} 
-      setOpen={closeDrawer} 
+      setOpen={() => setDrawerOpen(!isDrawerOpen)} 
       userId={userId}
       authToken={Cookies.get("token")}/>
       <Main>

@@ -8,6 +8,8 @@ import { createEventSchema } from "../Schemas/createEventSchema";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { criarEvento } from "../services/eventosSevices";
 
 export default function CriarEvento(){
     const {
@@ -27,10 +29,28 @@ export default function CriarEvento(){
         navigate(`/home/${userId}`);
       };
     
-      const handleCriar = (data) => {
-        navigate("/evento")
-      };
-    
+    async function handleCriar(dadosEvento){
+        const dados = { ...dadosEvento, adm: userId };
+        console.log(dados);
+        if (isValid){
+            try{
+              const response = await criarEvento(dados, Cookies.get("token"));
+              console.log(response)
+      
+              const {status, data} = response;
+          
+              if (status === 200){
+                const {idevento} = data;
+              }
+              reset()
+            }catch(error){
+              console.error(error.message)
+            }
+            
+          }else {
+            console.log("não foi possivel enviar");
+          }
+        }   
 
     return(
         <div className="page">

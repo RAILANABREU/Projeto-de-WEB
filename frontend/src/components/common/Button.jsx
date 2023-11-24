@@ -1,7 +1,7 @@
 import style from "./Button.module.css"
 import Icon from "./icons"
 
-export default function Button({ type, name, name2, onClickCancelar, onClickConfirmar }) {
+export default function Button({ type, name, name2, onClickCancelar, onClick }) {
     let buttonContent;
   
     switch (type) {
@@ -9,13 +9,13 @@ export default function Button({ type, name, name2, onClickCancelar, onClickConf
         buttonContent = <button className={style.cancelar} onClick={onClickCancelar}>{name}</button>;
         break;
       case 'confirmar':
-        buttonContent = <button className={style.criar} onClick={onClickConfirmar}>{name}</button>;
+        buttonContent = <button className={style.criar} onClick={onClick}>{name}</button>;
         break;
       case 'cancelar/confirmar':
         buttonContent = (
           <div className={style['button-box']}>
             <button className={style.cancelar} onClick={onClickCancelar}>{name}</button>
-            <button type="submit" className={style.criar} onClick={onClickConfirmar}>{name2}</button>
+            <button type="submit" className={style.criar} onClick={onClick}>{name2}</button>
           </div>
         );
         break;

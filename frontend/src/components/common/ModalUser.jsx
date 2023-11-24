@@ -26,7 +26,7 @@ export default function ModalUser ({isOpen, setOpen, userId, authToken}){
         return(
             <div className={style.background}>
                 <div className={style.modaluser}>
-                    <Button onClick={setOpen}type="confirmar" name="X"/>
+                    <button className={style.close}onClick={() => setOpen(false)}>X</button>
                     {userData && <Perfil img={userData.avatar} />}
                     <h2>{userData && userData.username}</h2>
                     <Button type="modal" name="Editar perfil"/>
@@ -37,7 +37,7 @@ export default function ModalUser ({isOpen, setOpen, userId, authToken}){
                         <p className={style.p}>{userData.telefone}</p>    
                     </div>
                     }
-                    
+                    <div className={style.logo}><Logo type="logo-branca"/></div>
                 </div>
             </div>
         )
