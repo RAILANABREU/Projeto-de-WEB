@@ -41,7 +41,7 @@ export async function FindUserByID(id, authToken) {
 
 export async function editarperfil(data, authToken){
   try{
-    const response = await axios.post(`${baseURL}/updateUser`,{
+    const response = await axios.post(`${baseURL}/updateUser`,data, {
       headers:{
         Authorization: `Bearer ${authToken}`
       }
