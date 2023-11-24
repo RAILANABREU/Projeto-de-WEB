@@ -14,7 +14,7 @@ const enviarConvite = async (req, res) => {
         convidado,
     } = req.body;
 
-    if (!idEvento || !convidado || !adm) {
+    if (!idEvento || !convidado || !idAdm) {
         res.status(400).send({
         message: "Todos os campos são obrigatórios"
         });
@@ -39,7 +39,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         }
-        if (evento.adm !== adm) {
+        if (evento.adm !== idAdm) {
             res.status(400).send({
                 message: "Você não é o adm do evento"
             });
@@ -61,7 +61,12 @@ const enviarConvite = async (req, res) => {
             return;
         }
         //tava tentando fazer a verificação de convite repetido aqui, mas não consegui
-        
+        const conviteIndex = user.convites.findIndex(convite => convite._id.toString() === idEvento)
+        if (conviteIndex !== -1) {
+            res.status(400).send({
+                message: "Você já foi convidado para este evento"
+            });
+        };
         try {
             user.convites.push(evento);
             await user.updateOne(user);
