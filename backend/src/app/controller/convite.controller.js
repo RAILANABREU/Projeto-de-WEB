@@ -10,7 +10,7 @@ const userService = require("../services/user.service");
 const enviarConvite = async (req, res) => {
     const {
         idEvento,
-        adm,
+        idAdm,
         convidado,
     } = req.body;
 
@@ -22,11 +22,11 @@ const enviarConvite = async (req, res) => {
     }
 
     try {
-        const userAdm = await userService.findUserService(adm);
+        const userAdm = await userService.findUserByIdService(idAdm);
 
         if (!userAdm) {
         res.status(400).send({
-            message: "Não foi possível encontrar o usuário"
+            message: "Não foi possível encontrar o administrador do evento"
         });
         return;
         }
@@ -39,8 +39,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         }
-
-        if (evento.adm !== userAdm.username) {
+        if (evento.adm !== adm) {
             res.status(400).send({
                 message: "Você não é o adm do evento"
             });
@@ -51,10 +50,18 @@ const enviarConvite = async (req, res) => {
 
         if (!user) {
             res.status(400).send({
-                message: "Não foi possível encontrar o usuário"
+                message: "Não foi possível encontrar o convidado"
             });
             return;
         }
+        if (user.username === idAdm) {
+            res.status(400).send({
+                message: "Você não pode se convidar"
+            });
+            return;
+        }
+        //tava tentando fazer a verificação de convite repetido aqui, mas não consegui
+        
         try {
             user.convites.push(evento);
             await user.updateOne(user);
