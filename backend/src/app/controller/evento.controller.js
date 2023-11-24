@@ -25,7 +25,7 @@ const createEvento = async (req, res) => {
         evento.adm = user.username;
         evento.updateOne(evento);
         user.isAdm = true;
-        user.admEvento.push(evento);
+        user.EventosAdm.push(evento);
         await user.updateOne(user);
         return res.status(201).json({ evento });
         
