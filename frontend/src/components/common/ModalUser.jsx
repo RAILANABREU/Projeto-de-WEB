@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Perfil from "./Perfil";
 import { FindUserByID } from '../../services/userServices';
 import Logo from "../layout/Logo";
+import { Link } from "react-router-dom";
 
 export default function ModalUser ({isOpen, setOpen, userId, authToken}){
     const [userData, setUserData] = useState(null);
@@ -29,7 +30,8 @@ export default function ModalUser ({isOpen, setOpen, userId, authToken}){
                     <button className={style.close}onClick={() => setOpen(false)}>X</button>
                     {userData && <Perfil img={userData.avatar} />}
                     <h2>{userData && userData.username}</h2>
-                    <Button type="modal" name="Editar perfil"/>
+                    <Link style={{width: "100%"}}
+                    to={`/editarperfil/${userId}`}><Button type="modal" name="Editar perfil"/></Link>
                     {userData && 
                     <div>
                         <p className={style.p}>{userData.nome}</p>

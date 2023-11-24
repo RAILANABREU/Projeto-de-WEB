@@ -10,6 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { criarEvento } from "../services/eventosSevices";
+import style from "./Criarevento.module.css";
+import { useState } from "react";
 
 export default function CriarEvento(){
     const {
@@ -23,14 +25,14 @@ export default function CriarEvento(){
     });
     const navigate  = useNavigate();
     const { userId } = useParams();
-
+    const [imagemBase64, setImagemBase64] = useState(null);
     const handleCancelar = () => {
         reset();
         navigate(`/home/${userId}`);
       };
     
     async function handleCriar(dadosEvento){
-        const dados = { ...dadosEvento, adm: userId };
+        const dados = { ...dadosEvento, adm: userId, imagem: imagemBase64};
         console.log(dados);
         if (isValid){
             try{
@@ -52,12 +54,37 @@ export default function CriarEvento(){
           }
         }   
 
+    const handleImagemChange = (event) =>{
+        const imagemArquivo = event.target.files[0];
+
+        if (imagemArquivo) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagemBase64(reader.result);
+        };
+
+        reader.readAsDataURL(imagemArquivo);
+        }else{
+        setImagemBase64("");
+        }
+    }
     return(
         <div className="page">
-            <Head/>
+            <Head onIconClick={handleCancelar}/>
             <Main>
                 <h1>CRIAR EVENTO</h1>
-                <Icon type = 'foto-evento'/>
+                <input
+                    className={style.uploadimg}
+                    type="file"
+                    accept="image/*"
+                    id="uploadInput"
+                    onChange={handleImagemChange}
+                />
+                <label htmlFor="uploadInput" className={style.uploadLabel}>
+                <Icon 
+                img={imagemBase64}
+                type={"foto-evento"}/>
+                </label>
                 <form onSubmit={handleSubmit(handleCriar)}>
                     <Input
                     id='título' 

@@ -18,8 +18,11 @@ export async function criarEvento(data, authToken){
                 Authorization: `Bearer ${authToken}`
             }
           })
+          
+        return response
     }catch(error){
-        console.error("Erro ao criar evento", error.message)
+        console.error("Erro ao criar evento:", error.message);
+        throw error;
     }
 
 }

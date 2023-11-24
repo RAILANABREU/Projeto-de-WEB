@@ -12,6 +12,7 @@ import CriarEvento from './pages/Criarevento';
 import Gastos from './pages/Gastos';
 import Pagamento from './pages/Pagamento';
 import ErrorPage from './pages/ErrorPage';
+import EditarPerfil from './pages/EditarPerfil'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/pagamento",
     element: <Pagamento/>,
+  },
+  {
+    path: "/editarperfil/:userId",
+    element: <EditarPerfil/>,
   }
 ]);
 

@@ -33,7 +33,21 @@ export async function FindUserByID(id, authToken) {
     const userFound = response.data.user;
     console.log('Usuário Encontrado:', userFound);
     return userFound;
-  } catch (error) {
+  }catch(error){
+    console.error('Erro ao buscar usuário:', error.message);
+    throw error;
+  }
+}
+
+export async function editarperfil(data, authToken){
+  try{
+    const response = await axios.post(`${baseURL}/updateUser`,{
+      headers:{
+        Authorization: `Bearer ${authToken}`
+      }
+    })
+    return response.status
+  }catch(error){
     console.error('Erro ao buscar usuário:', error.message);
     throw error;
   }
