@@ -2,13 +2,13 @@ const eventoService = require("../services/evento.service");
 const userService = require("../services/user.service");
 
 const createEvento = async (req, res) => {
-    const { adm, titulo, descricao, data, horario, local, valor, imagem } = req.body;
-
-    if (!adm || !titulo || !descricao || !data || !horario || !local ) {
+    const { adm, titulo, descricao, data, horario, local, valor, imagem,convidados,gastos,confirmado, pix } = req.body;
+// no caso o adm é o ID do admin!!
+    if (!adm || !titulo || !descricao || !pix) {
         return res.status(400).json({ error: "Preencha todos os campos" });
     }
     console.log(req.body);
-    const user = await userService.findUserService(adm);
+    const user = await userService.findUserByIdService(adm);
     console.log(user);
     if (!user) {
         return res.status(400).json({ error: "Usuário não encontrado" });
@@ -57,7 +57,10 @@ const findEventoByIdService = async (req, res) => {
 const findEventoService = async (req, res) => {
     const { titulo } = req.body;
     try {
-        const evento = await eventoService.findEventoService(req.body);
+        const evento = await eventoService.findEventoService(titulo);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
         return res.status(200).json({ message: "Evento encontrado"
             , evento });
     } catch (error) {
@@ -147,6 +150,29 @@ const incluirGasto = async (req, res) => {
     }
 }
 
+const sairEvento = async (req, res) => {
+    const { titulo, username } = req.body;
+    
+    try {
+        const evento = await eventoService.findEventoService(titulo);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        const user = await userService.findUserService(username);
+        if (!user) {
+            return res.status(400).json({ message: "Usuário não encontrado" });
+        }
+        user.admEvento.pull(evento);
+        user.participaEvento.pull(evento);
+        await user.updateOne(user);
+        res.status(200).send({
+            message: "Usuário removido do evento",
+        });
+    } catch (error) {
+        res.status(400).send({ message: "Não foi possível remover o usuário" });
+        return;
+    }
+}
 
-module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, incluirGasto };
+module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto };
 
