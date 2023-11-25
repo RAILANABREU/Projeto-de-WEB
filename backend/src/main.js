@@ -5,6 +5,7 @@ const loginRouter = require("./app/router/login.router");
 const eventoRouter = require("./app/router/evento.router");
 const pictureRouter = require("./app/router/picture.router");
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 app.use(cors());
 
@@ -20,6 +21,7 @@ const port = 3000;
 
 conectDatabase();
 app.use(express.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use("/user", userRouter);
 app.use("/login", loginRouter);
 app.use("/evento", eventoRouter);

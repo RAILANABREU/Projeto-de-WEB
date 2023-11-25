@@ -2,13 +2,12 @@ const eventoService = require("../services/evento.service");
 const userService = require("../services/user.service");
 
 const createEvento = async (req, res) => {
-    const { adm, titulo, descricao, data, horario, local, valor, imagem,convidados,gastos,confirmado, pix } = req.body;
-// no caso o adm é o ID do admin!!
-    if (!adm || !titulo || !descricao || !pix) {
+    const { admID, titulo} = req.body;
+// no caso o admID é o ID do admin!!
+    if (!admID || !titulo ) {
         return res.status(400).json({ error: "Preencha todos os campos" });
     }
-    console.log(req.body);
-    const user = await userService.findUserByIdService(adm);
+    const user = await userService.findUserByIdService(admID);
     console.log(user);
     if (!user) {
         return res.status(400).json({ error: "Usuário não encontrado" });
@@ -130,10 +129,10 @@ const updateEvento = async (req, res) => {
 };
 
 const incluirGasto = async (req, res) => {
-    const { titulo, gasto } = req.body;
+    const { idEvento, gasto } = req.body;
 
     try {
-        const evento = await eventoService.findEventoService(titulo);
+        const evento = await eventoService.findEventoByIdService(idEvento);
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
@@ -146,6 +145,31 @@ const incluirGasto = async (req, res) => {
         });
     } catch (error) {
         res.status(400).send({ message: "Não foi possível incluir o gasto" });
+        return;
+    }
+}
+
+const excluirGasto = async (req, res) => {
+    const { idEvento, idGasto } = req.body;
+
+    try {
+        const evento = await eventoService.findEventoByIdService(idEvento);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        const gasto = evento.gastos.gasto.id(idGasto);
+        if (!gasto) {
+            return res.status(400).json({ message: "Gasto não encontrado" });
+        }
+        evento.gastos.total = evento.gastos.total - gasto.valor;
+        evento.gastos.gasto.pull(gasto);
+        await evento.updateOne(evento);
+        res.status(200).send({
+            message: "Gasto excluido com sucesso",
+            gastos:evento.gastos,
+        });
+    } catch (error) {
+        res.status(400).send({ message: "Não foi possível excluir o gasto" });
         return;
     }
 }
@@ -174,5 +198,5 @@ const sairEvento = async (req, res) => {
     }
 }
 
-module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto };
+module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto, excluirGasto };
 

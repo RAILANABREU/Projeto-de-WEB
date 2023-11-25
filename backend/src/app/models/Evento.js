@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const eventoSchema = new mongoose.Schema({
     adm: { type: String, required: true, lowercase: true, trim: true},
     titulo: { type: String, required: true, unique: true },
-    descricao: { type: String, required: true },
+    descricao: { type: String, required: false },
     data: { type: String, required: false },
     horario: { type: String, required: false },
     local: { type: String, required: false },
@@ -16,11 +16,12 @@ const eventoSchema = new mongoose.Schema({
             nome: { type: String, required: false },
             valor: { type: Number, required: false },
             descricao: { type: String, required: false },
+            local: { type: String, required: false },
             comprovante: { type: String, required: false },
 
         }]
     },
-    pix: { type: String, required: true },
+    pix: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
     confirmado: { type: Boolean, required: false, select: false, default: true },
         });
