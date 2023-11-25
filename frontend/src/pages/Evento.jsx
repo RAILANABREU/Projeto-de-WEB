@@ -92,16 +92,15 @@ export default function Evento(){
                     <div>{gasto.valor + ' - ' + gasto.local}</div>
                     ))}
                 </details>
-            </section>
-                <Button 
-                type={"editar/convidar"}
-                name={"EDITAR"} name2={"CONVIDAR"}
-                onClick={handleConvidar}
-                onClickCancelar={handleEditar}/>
+              </section>
+              <Button type={"add"}/>
+              <Button 
+              type={"editar/convidar"}
+              name={"EDITAR"} name2={"CONVIDAR"}
+              onClick={handleConvidar}
+              onClickCancelar={handleEditar}/>
 
-                <Link to={`/pagamento/${userId}/${eventoId}`}><button>LISTA DE PAGAMENTO</button></Link>
-                
-                
+              <Link to={`/pagamento/${userId}/${eventoId}`}><button>LISTA DE PAGAMENTO</button></Link>
             </Main>
         </div>
     )

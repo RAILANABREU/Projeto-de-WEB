@@ -21,7 +21,7 @@ export default function ModalUser ({isOpen, setOpen, userId, authToken}){
     if (isOpen && userId) {
         fetchUserData();
         }
-    }, [isOpen, userId]);  
+    }, [isOpen, userId]);
 
     if (isOpen){
         return(

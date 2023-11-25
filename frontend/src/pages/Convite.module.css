@@ -6,3 +6,11 @@
     justify-content: flex-start;
     margin-bottom: 10%;
 }
+.form{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+p{
+    color: white;
+}

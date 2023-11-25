@@ -5,7 +5,7 @@
   --secondary-color: #7000FF;
   --tertiary-color: #7000FF;
   --background-color: linear-gradient(to bottom, var(--primary-color), var(--secondary-color),var(--tertiary-color));
-  --accent-color: #FB1F46;
+  --accent-color: #f84791;
   --light-accent-color: #F84767;
   --light-gray: #D9D9D9;
   --gray: #474747;

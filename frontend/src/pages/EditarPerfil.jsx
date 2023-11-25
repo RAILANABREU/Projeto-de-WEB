@@ -11,6 +11,7 @@ import style from "./Sign.module.css";
 import Perfil from "../components/common/Perfil";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarPerfilSchema } from "../Schemas/editarPerfilSchema";
+import pako from 'pako';
 
 export default function EditarPerfil(){
     const {
@@ -76,8 +77,11 @@ export default function EditarPerfil(){
               dadosNaoVazios[chave] = userData[chave];
             }
           }
-          
-          const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, _id: userId };
+          const bytes = atob(imagemBase64).split('').map(char => char.charCodeAt(0));
+          const compressedBytes = pako.gzip(bytes);
+          const compressedBase64 = btoa(String.fromCharCode.apply(null, new Uint8Array(compressedBytes)));
+
+          const dataComImagem = { ...dadosNaoVazios, avatar: compressedBase64, _id: userId };
           console.log(dataComImagem);
       
           try{

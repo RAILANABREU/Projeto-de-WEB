@@ -27,7 +27,7 @@ function SignUp(){
 
   const [openModal, setOpenModal] = useState(false);
   const [termosAceitos, setTermosAceitos] = useState(false);
-  const [imagemBase64, setImagemBase64] = useState(null);
+  const [imagemBlob, setImagemBlob] = useState(null);
   const [usuario, setUsuario] = useState(null);
 
   const handleCheckboxChange = () => {
@@ -38,23 +38,24 @@ function SignUp(){
   };
   const handleImagemChange = (event) => {
     const imagemArquivo = event.target.files[0];
-
+  
     if (imagemArquivo) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagemBase64(reader.result);
+        const arrayBuffer = reader.result;
+        const blob = new Blob([arrayBuffer], { type: imagemArquivo.type });
+        
+        setImagemBlob(blob);
       };
-
-      reader.readAsDataURL(imagemArquivo);
-    }else{
-      setImagemBase64("");
+      reader.readAsArrayBuffer(imagemArquivo);
+    } else {
+      setImagemBlob(null);
     }
   };
 
-  async function onSubmit(data) {
-    
+  async function onSubmit(data) {    
     if (isValid && termosAceitos) {
-      const dataComImagem = { ...data, avatar: imagemBase64 };
+      const dataComImagem = { ...data, avatar: imagemBlob };
       console.log(dataComImagem);
   
       try{
@@ -96,7 +97,7 @@ function SignUp(){
             onChange={handleImagemChange}
           />
           <label htmlFor="uploadInput" className={style.uploadLabel}>
-            <Perfil img={imagemBase64} />
+            <Perfil img={imagemBlob} />
           </label>
         </div>
         <Main>

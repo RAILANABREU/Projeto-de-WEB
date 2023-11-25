@@ -74,12 +74,10 @@ function SignIn(){
                           <p><span>{errors.senha.message}</span></p>
                         )}
 
-                <div className='checkbox-container'>
-                  <Checkbox text='Manter conectado'/>
-                  <Link to = "/recuperarsenha">
-                  Esqueci a senha
-                  </Link>
-                </div>
+               
+                <Link to = "/recuperarsenha">
+                Esqueci a senha
+                </Link>
                 <button
                 type="submit"
                 disabled={isValid === false}>
