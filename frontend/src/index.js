@@ -12,6 +12,10 @@ import CriarEvento from './pages/Criarevento';
 import Gastos from './pages/Gastos';
 import Pagamento from './pages/Pagamento';
 import ErrorPage from './pages/ErrorPage';
+import EditarPerfil from './pages/EditarPerfil'
+import Evento from './pages/Evento';
+import Convite from './pages/Convite';
+import EditarEvento from './pages/EditarEvento';
 
 const router = createBrowserRouter([
   {
@@ -33,7 +37,7 @@ const router = createBrowserRouter([
     element: <SignUp/>,
   },
   {
-    path: "/criarevento",
+    path: "/criarevento/:userId",
     element: <CriarEvento/>,
   },
   {
@@ -41,8 +45,25 @@ const router = createBrowserRouter([
     element: <Gastos/>,
   },
   {
-    path: "/pagamento",
+    path: "/pagamento/:userId/:eventoId",
     element: <Pagamento/>,
+  },
+  {
+    path: "/editarperfil/:userId",
+    element: <EditarPerfil/>,
+  }
+  ,
+  {
+    path: "/evento/:userId/:eventoId",
+    element: <Evento/>,
+  },
+  {
+    path: "/convite/:userId/:eventoId",
+    element: <Convite/>,
+  },
+  {
+    path: "/editarevento/:userId/:eventoId",
+    element: <EditarEvento/>,
   }
 ]);
 

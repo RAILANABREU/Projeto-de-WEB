@@ -10,11 +10,11 @@ const userService = require("../services/user.service");
 const enviarConvite = async (req, res) => {
     const {
         idEvento,
-        adm,
+        idAdm,
         convidado,
     } = req.body;
 
-    if (!idEvento || !convidado || !adm) {
+    if (!idEvento || !convidado || !idAdm) {
         res.status(400).send({
         message: "Todos os campos são obrigatórios"
         });
@@ -22,11 +22,11 @@ const enviarConvite = async (req, res) => {
     }
 
     try {
-        const userAdm = await userService.findUserService(adm);
+        const userAdm = await userService.findUserByIdService(idAdm);
 
         if (!userAdm) {
         res.status(400).send({
-            message: "Não foi possível encontrar o usuário"
+            message: "Não foi possível encontrar o administrador do evento"
         });
         return;
         }
@@ -39,8 +39,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         }
-
-        if (evento.adm !== userAdm.username) {
+        if (evento.adm !== idAdm) {
             res.status(400).send({
                 message: "Você não é o adm do evento"
             });
@@ -51,10 +50,24 @@ const enviarConvite = async (req, res) => {
 
         if (!user) {
             res.status(400).send({
-                message: "Não foi possível encontrar o usuário"
+                message: "Não foi possível encontrar o convidado"
             });
             return;
         }
+        if (user.username === idAdm) {
+            res.status(400).send({
+                message: "Você não pode se convidar"
+            });
+            return;
+        }
+        //tava tentando fazer a verificação de convite repetido aqui, mas não consegui
+        const conviteIndex = user.convites.findIndex(convite => convite._id.toString() === idEvento)
+        if (conviteIndex !== -1) {
+            res.status(400).send({
+                message: "Você já foi convidado para este evento"
+            });
+            return;
+        };
         try {
             user.convites.push(evento);
             await user.updateOne(user);

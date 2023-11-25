@@ -9,7 +9,7 @@ import { signinSchema } from "../Schemas/signinSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signin } from "../services/userServices"
 import { useState } from "react"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 
 function SignIn(){
@@ -35,14 +35,15 @@ function SignIn(){
     
         if (status === 200){
           const {id, token} = data;
-          Cookies.set("token", token, { expires: 1});
+          Cookies.set("token", token, { expires: 7});
           setUsuario(id);
           navigate(`/home/${id}`)
         }
-
+        reset()
       }catch(error){
-        console.log(error);
+        console.error(error.message)
       }
+      
     }else {
       console.log("não foi possivel enviar");
     }
@@ -75,13 +76,15 @@ function SignIn(){
 
                 <div className='checkbox-container'>
                   <Checkbox text='Manter conectado'/>
-                  <a href="#">Esqueci a senha</a>
+                  <Link to = "/recuperarsenha">
+                  Esqueci a senha
+                  </Link>
                 </div>
                 <button
                 type="submit"
                 disabled={isValid === false}>
                 Entrar</button>
-                <p className={style.p}>Ainda não tem uma conta?<a href="#">Criar conta</a></p>
+                <p className={style.p}>Ainda não tem uma conta?<Link to="/signup">Criar conta</Link></p>
                 
               </form>
           </Main>

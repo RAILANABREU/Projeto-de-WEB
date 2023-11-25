@@ -1,0 +1,8 @@
+.uploadimg{
+    display: flex;
+    z-index: 2;
+}
+.uploadLabel {
+    display: inline-block;
+    cursor: pointer;
+  }

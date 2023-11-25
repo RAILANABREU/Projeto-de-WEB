@@ -31,3 +31,33 @@
     margin: 16px;
     font-family: monospace;
 }
+.modaluser{
+    display: flex;
+    flex-direction: column;
+    justify-content: first baseline;
+    align-items: center;
+    color: white;
+    position: fixed;
+    background-color: var(--secondary-color);
+    padding: 5%;
+    border-radius: 30px 0px 0px;
+    width: 80%;
+    height: 100%;
+    right: 0;
+    top: 0;
+}
+.close{
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    color: var(--secondary-color);
+    font-weight: 800;
+    background-color: white;
+    align-self: first baseline;
+}
+.logo{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}

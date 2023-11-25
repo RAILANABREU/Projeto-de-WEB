@@ -36,4 +36,15 @@
   height: 180px;
   width: 276px;
   margin-bottom: 36px;
+  border-radius: 10px;
+}
+.logo-branca{
+  width: 150px;
+  height: 91px;
+  margin-bottom: 20%;
+}
+.copy{
+  width: 17px;
+  height: 19px;
+  margin-left: 8px;
 }

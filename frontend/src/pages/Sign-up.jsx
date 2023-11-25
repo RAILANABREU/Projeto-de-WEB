@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../Schemas/signupSchema";
 import { signup } from "../services/userServices";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 
 function SignUp(){
@@ -27,7 +27,6 @@ function SignUp(){
 
   const [openModal, setOpenModal] = useState(false);
   const [termosAceitos, setTermosAceitos] = useState(false);
-  const [imagem, setImagem] = useState(null);
   const [imagemBase64, setImagemBase64] = useState(null);
   const [usuario, setUsuario] = useState(null);
 
@@ -42,14 +41,13 @@ function SignUp(){
 
     if (imagemArquivo) {
       const reader = new FileReader();
-      setImagem(imagemArquivo);
       reader.onloadend = () => {
         setImagemBase64(reader.result);
       };
 
       reader.readAsDataURL(imagemArquivo);
     }else{
-      imagemBase64 = "";
+      setImagemBase64("");
     }
   };
 
@@ -59,7 +57,6 @@ function SignUp(){
       const dataComImagem = { ...data, avatar: imagemBase64 };
       console.log(dataComImagem);
   
-      // Lógica para enviar os dados para o backend
       try{
         const response = await signup(dataComImagem);
         console.log(response)
@@ -75,12 +72,11 @@ function SignUp(){
             handleRedirecionamento(user.id);
           }
         }
-
+        reset();
       }catch(error){
-        console.log(error);
+        console.error(error.message)
       }
-
-      reset();
+      
     } else {
       console.log("não foi possivel enviar");
     }
@@ -100,7 +96,7 @@ function SignUp(){
             onChange={handleImagemChange}
           />
           <label htmlFor="uploadInput" className={style.uploadLabel}>
-            <Perfil img={imagem} />
+            <Perfil img={imagemBase64} />
           </label>
         </div>
         <Main>
@@ -159,7 +155,7 @@ function SignUp(){
               <button type="submit"
               disabled={isValid === false || termosAceitos === false}
               >CRIAR CONTA</button>
-              <p className={style.p}>Já tem uma conta?<a href="#">Entrar</a></p>
+              <p className={style.p}>Já tem uma conta?<Link to ="/signin">Entrar</Link></p>
               
             </form>
         </Main>

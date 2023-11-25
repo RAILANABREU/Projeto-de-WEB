@@ -1,11 +1,17 @@
-import styles from "./Card.module.css"
+import { Link, useParams } from "react-router-dom";
+import style from "./Card.module.css"
 
-export function Card({foto, titulo}){
+export function Card({foto, titulo, id}){
+    const eventoId = id;
+    const {userId} = useParams()
     const fotoURL = foto;
     return(
-        <div className={styles.card}>
-            <div className={styles.background} style={{ backgroundImage: `url(${fotoURL})`}}/>
-            <h1 className={styles.titulo}>{titulo}</h1>
-        </div>        
+        <Link className={style.link}  to={`/evento/${userId}/${eventoId}`}>
+            <div className={style.card}>
+            <div className={style.background} style={{ backgroundImage: `url(${fotoURL})`}}/>
+            <h1 className={style.titulo}>{titulo}</h1>
+            </div>
+        </Link>
+                
     )
 }

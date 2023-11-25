@@ -2,13 +2,12 @@ const eventoService = require("../services/evento.service");
 const userService = require("../services/user.service");
 
 const createEvento = async (req, res) => {
-    const { adm, titulo, descricao, data, horario, local, valor, imagem } = req.body;
-
-    if (!adm || !titulo || !descricao || !data || !horario || !local ) {
+    const { admID, titulo} = req.body;
+// no caso o admID é o ID do admin!!
+    if (!admID || !titulo ) {
         return res.status(400).json({ error: "Preencha todos os campos" });
     }
-    console.log(req.body);
-    const user = await userService.findUserService(adm);
+    const user = await userService.findUserByIdService(admID);
     console.log(user);
     if (!user) {
         return res.status(400).json({ error: "Usuário não encontrado" });
@@ -25,7 +24,7 @@ const createEvento = async (req, res) => {
         evento.adm = user.username;
         evento.updateOne(evento);
         user.isAdm = true;
-        user.admEvento.push(evento);
+        user.EventosAdm.push(evento);
         await user.updateOne(user);
         return res.status(201).json({ evento });
         
@@ -57,7 +56,10 @@ const findEventoByIdService = async (req, res) => {
 const findEventoService = async (req, res) => {
     const { titulo } = req.body;
     try {
-        const evento = await eventoService.findEventoService(req.body);
+        const evento = await eventoService.findEventoService(titulo);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
         return res.status(200).json({ message: "Evento encontrado"
             , evento });
     } catch (error) {
@@ -127,10 +129,10 @@ const updateEvento = async (req, res) => {
 };
 
 const incluirGasto = async (req, res) => {
-    const { titulo, gasto } = req.body;
+    const { idEvento, gasto } = req.body;
 
     try {
-        const evento = await eventoService.findEventoService(titulo);
+        const evento = await eventoService.findEventoByIdService(idEvento);
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
@@ -147,6 +149,54 @@ const incluirGasto = async (req, res) => {
     }
 }
 
+const excluirGasto = async (req, res) => {
+    const { idEvento, idGasto } = req.body;
 
-module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, incluirGasto };
+    try {
+        const evento = await eventoService.findEventoByIdService(idEvento);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        const gasto = evento.gastos.gasto.id(idGasto);
+        if (!gasto) {
+            return res.status(400).json({ message: "Gasto não encontrado" });
+        }
+        evento.gastos.total = evento.gastos.total - gasto.valor;
+        evento.gastos.gasto.pull(gasto);
+        await evento.updateOne(evento);
+        res.status(200).send({
+            message: "Gasto excluido com sucesso",
+            gastos:evento.gastos,
+        });
+    } catch (error) {
+        res.status(400).send({ message: "Não foi possível excluir o gasto" });
+        return;
+    }
+}
+
+const sairEvento = async (req, res) => {
+    const { titulo, username } = req.body;
+    
+    try {
+        const evento = await eventoService.findEventoService(titulo);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        const user = await userService.findUserService(username);
+        if (!user) {
+            return res.status(400).json({ message: "Usuário não encontrado" });
+        }
+        user.admEvento.pull(evento);
+        user.participaEvento.pull(evento);
+        await user.updateOne(user);
+        res.status(200).send({
+            message: "Usuário removido do evento",
+        });
+    } catch (error) {
+        res.status(400).send({ message: "Não foi possível remover o usuário" });
+        return;
+    }
+}
+
+module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto, excluirGasto };
 
