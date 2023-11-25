@@ -8,7 +8,7 @@ const eventoSchema = new mongoose.Schema({
     horario: { type: String, required: false },
     local: { type: String, required: false },
     valor: { type: String, required: false },
-    imagem: { type: String, required: false },
+    imagem: { type: Buffer, required: false },
     convidados: [],
     gastos: {
         total: { type: Number, required: false, default: 0 },
@@ -24,7 +24,7 @@ const eventoSchema = new mongoose.Schema({
     pix: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
     confirmado: { type: Boolean, required: false, select: false, default: true },
-        });
+});
 
 const eventoModel = mongoose.model('evento', eventoSchema);
 
