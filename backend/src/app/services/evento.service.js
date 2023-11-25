@@ -5,7 +5,7 @@ const createEventoService = (body) => Evento.create(body);
 
 const findAllEventoService = () => Evento.find();
 
-const findEventoByIdService = (id) => Evento.findById(id);
+const findEventoByIdService = async (id) => Evento.findById(id);
 
 const findEventoService = async (titulo) => Evento.findOne({titulo });
 
