@@ -39,7 +39,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         }
-        if (evento.adm !== idAdm) {
+        if (evento.admID !== idAdm) {
             res.status(400).send({
                 message: "Você não é o adm do evento"
             });
@@ -82,11 +82,9 @@ const enviarConvite = async (req, res) => {
     }
     catch (error) {
         res.status(400).send({
-        message: "Não foi possível encontrar o usuário"
+            message: "Erro ao enviar convite"
         });
-        return;
-    }
-    
+    }   
     }
 
 
