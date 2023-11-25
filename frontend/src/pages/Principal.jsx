@@ -7,19 +7,22 @@ import { Link } from 'react-router-dom';
 export default function Principal(){
     return(
         <div className="page">
-            <div className={style.head}>
-            <Logo type= '3'/>
+            <div className="main-container"> 
+                <div className={style.head}>
+                    <Logo type= '3'/>
+                </div>
+                <Main>
+                    <h3>Bem-vindo ao <b>BILLBUDDY</b>,</h3>
+                    <p className={style.p}>o seu aplicativo para tornar a organização dos seus eventos ainda mais fácil.</p>
+                    <Link to="/signin">
+                        <button>ENTRAR</button>
+                    </Link>
+                    <Link to="/signup">
+                        <button>CRIAR CONTA</button>
+                    </Link>
+                </Main>
             </div>
-            <Main>
-                <h3>Bem-vindo ao <b>BILLBUDDY</b>,</h3>
-                <p className={style.p}>o seu aplicativo para tornar a organização dos seus eventos ainda mais fácil.</p>
-                <Link to="/signin">
-                    <button>ENTRAR</button>
-                </Link>
-                <Link to="/signup">
-                    <button>CRIAR CONTA</button>
-                </Link>
-            </Main>
+            
             <Footer/>
         </div>
     )

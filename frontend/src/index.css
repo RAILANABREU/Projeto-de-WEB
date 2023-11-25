@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400&display=swap');
 
 :root{
-  --primary-color: #B983FF;
+  --primary-color: #f84791;
   --secondary-color: #7000FF;
-  --background-color: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  --tertiary-color: #7000FF;
+  --background-color: linear-gradient(to bottom, var(--primary-color), var(--secondary-color),var(--tertiary-color));
   --accent-color: #FB1F46;
   --light-accent-color: #F84767;
   --light-gray: #D9D9D9;
@@ -37,11 +38,12 @@ h1{
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-gap: 32px;
-
   width: 100vw;
   min-height: 100vh;
   display: grid;
 }
+
+
 button{
   width: 276px;
   height: 49px;
@@ -74,3 +76,23 @@ p{
   border-radius: 0px 20px 20px;
 }
 
+
+/* desktop */
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 800px) {
+  .page{
+    grid-gap: 10px;
+  }
+  .main-container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 2vw;
+    margin-top: 10vh
+      
+  }  
+}
