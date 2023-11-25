@@ -3,18 +3,16 @@ const jwt = require("jsonwebtoken");
 const auth = require("../../config/auth.json");
 
 const createUser = async (req, res) => {
-  const { nome, sobrenome, username, telefone, senha, avatar} = req.body;
-  const userData = req.body;
-  console.log('Dados recebidos no backend:', userData, req.body);
+  const { nome, sobrenome, username, telefone, senha} = req.body;
+  
 
   if (!nome || !sobrenome || !username || !telefone || !senha) {
     res.status(400).send({ message: "Todos os campos são obrigatórios" });
     return;
   }
-
-
   try {
     const user =  await userService.create(req.body);
+    console.log("passei por aqui 1");
 
     if (!user) {
       res.status(400).send({ message: "Não foi possível cadastrar o usuário" });
@@ -22,7 +20,9 @@ const createUser = async (req, res) => {
     }
     const token = jwt.sign({ id: user._id }, auth.secret , {
       expiresIn: 86400,
+    
     });
+    console.log("passei por aqui 2");
     res.status(201).send({
       message: "Usuário cadastrado com sucesso",
       user: {
