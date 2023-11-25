@@ -39,3 +39,16 @@ export async function getEventoByID(id, authToken){
         throw error;
     }
 }
+export async function editarEvento(data, authToken){
+    try{
+        const response = await axios.post(`${baseURL}/evento/update/`, data, {
+            headers:{
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+        return response.data
+    }catch(error){
+        console.error("Erro ao editar evento:", error.message);
+        throw error;
+    }
+}

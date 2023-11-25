@@ -4,7 +4,7 @@ import Input from "../components/common/Input";
 import Head from "../components/layout/Head";
 import Button from "../components/common/Button";
 import Footer from "../components/layout/Footer";
-import { createEventSchema } from "../Schemas/createEventSchema";
+import { createEventSchema } from "../Schemas/CreateEventSchema";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";

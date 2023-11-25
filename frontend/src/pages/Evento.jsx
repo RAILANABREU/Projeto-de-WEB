@@ -12,6 +12,8 @@ export default function Evento(){
     const {userId, eventoId} = useParams();
     const [evento, setEvento] = useState();
     const navigate  = useNavigate();
+    const [copiado, setCopiado] = useState(false);
+
     useEffect(() => {
         async function fetchData() {
           try {
@@ -35,6 +37,25 @@ export default function Evento(){
     const handleConvidar = () =>{
         navigate(`/convite/${userId}/${eventoId}`);
     };
+    const handleGastoChange = (event) => {
+      const gastoId = event.target.selectedOptions[0].getAttribute('gastoid');
+      
+      if (gastoId) {
+        navigate(`/gasto/${userId}/${eventoId}/${gastoId}`);
+      }
+    };
+    const handleConvidadoChange = (event) => {
+      const convidadoId = event.target.selectedOptions[0].getAttribute('convidadoid');
+      if (convidadoId){
+
+      }
+    }
+
+    const handleCopyToClipboard = () => {
+      navigator.clipboard.writeText(evento && evento.pix);
+      setCopiado(true);
+      alert("PIX copiado para a área de transferência");
+    };
     return(
         <div className="page">
             <Head onIconClick={handleCancelar}/>
@@ -44,16 +65,40 @@ export default function Evento(){
                 <Icon 
                     img={evento && evento.imagem}
                     type={"foto-evento"}/>
-                
                 </div>
+              <section>
                 <div className={style.info}>descrição: {evento && evento.descricao}</div>
-                <div className={style.info}>convidados:{evento && evento.covidados}</div>
-                <div className={style.info}>PIX: {evento && evento.pix}<Icon type={"copy"}/></div>
-                <div className={style.info}>gastos: {evento && evento.gastos.gasto}</div>
 
-                <Button type={"editar/convidar"} name={"EDITAR"} name2={"CONVIDAR"}
+                <details>
+                      <summary>convidados: {evento && evento.convidados.length}</summary>
+                      {evento && evento.convidados.map((convidado, index) => (
+                      <div>{convidado.username}</div>
+                      ))}
+                      
+                  </details>
+
+                  <div
+                    className={style.info}
+                    style={{ cursor: "pointer" }}
+                    onClick={handleCopyToClipboard}
+                  >
+                    PIX: {evento && evento.pix}
+                    <Icon type="copy"/>
+                  </div>
+
+                <details>
+                    <summary>gastos: {evento && evento.gastos.total}</summary>
+                    {evento && evento.gastos.gasto.map((gasto, index) => (
+                    <div>{gasto.valor + ' - ' + gasto.local}</div>
+                    ))}
+                </details>
+            </section>
+                <Button 
+                type={"editar/convidar"}
+                name={"EDITAR"} name2={"CONVIDAR"}
                 onClick={handleConvidar}
                 onClickCancelar={handleEditar}/>
+
                 <Link to={`/pagamento/${userId}/${eventoId}`}><button>LISTA DE PAGAMENTO</button></Link>
                 
                 

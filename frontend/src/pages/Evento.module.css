@@ -14,3 +14,18 @@
     align-items: center;
     justify-content: flex-start;
 }
+section details summary{
+    background-color: var(--light-gray);
+    width: 276px;
+    height: 49px;
+    padding: 16px;
+    border-radius: 10px;
+}
+section details[open] summary {
+    background-color: #c2c2c2;
+    border-radius: 10px 10px 0px 0px;
+}
+section details div{
+    background-color: #c2c2c2;
+    padding: 16px;
+}
