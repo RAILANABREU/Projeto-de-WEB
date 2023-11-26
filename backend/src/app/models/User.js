@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true, lowercase: true, trim: true },
     telefone: { type: String, required: true, trim: true },
     senha: { type: String, required: true, select: false, trim: true },
-    avatar: { type: Buffer, required: false, trim: true},
+    avatar: { type: Array, required: false, trim: true},
     createdAt: { type: Date, default: Date.now },
     secretWords: { type: String, required: false, trim: true },
     resetPasswordToken: { type: String, required: false, select: false, },
