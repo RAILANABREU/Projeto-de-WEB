@@ -53,3 +53,18 @@ export async function editarperfil(data, authToken){
     throw error;
   }
 }
+
+export async function userDel(userId, authToken){
+  try{
+    const response = await axios.delete(`${baseURL}/user/delete/${userId}`, {
+      headers:{
+        Authorization: `Bearer ${authToken}`
+      }
+    })
+    return response.status
+  }catch(error){
+    console.error('Erro ao deletar usuário:', error.message);
+    console.log(error)
+    throw error;
+  }
+}

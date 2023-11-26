@@ -27,7 +27,10 @@ export default function ModalUser ({isOpen, setOpen, userId, authToken}){
         return(
             <div className={style.background}>
                 <div className={style.modaluser}>
-                    <button className={style.close}onClick={() => setOpen(false)}>X</button>
+                    <div className={style.top}>
+                        <button className={style.close}onClick={() => setOpen(false)}>X</button>
+                        <Link to={"/signin"}><Button type="sair" name="sair"/></Link>
+                    </div>
                     {userData && <Perfil img={userData.avatar} />}
                     <h2>{userData && userData.username}</h2>
                     <Link style={{width: "100%"}}
@@ -39,7 +42,8 @@ export default function ModalUser ({isOpen, setOpen, userId, authToken}){
                         <p className={style.p}>{userData.telefone}</p>    
                     </div>
                     }
-                    <div className={style.logo}><Logo type="logo-branca"/></div>
+                    <div className={style.logo}>
+                    <Logo type="logo-branca"/></div>
                 </div>
             </div>
         )

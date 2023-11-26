@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, forwardRef, useImperativeHandle } from "react";
 import styles from './Checkbox.module.css'
 
-function Checkbox({text, onCheckboxChange}) {
+const Checkbox = forwardRef(({text, onCheckboxChange }, ref) => {
     const [isChecked, setIsChecked] = useState(false);
   
     const handleLocalCheckboxChange = (event) => {
@@ -12,6 +12,9 @@ function Checkbox({text, onCheckboxChange}) {
         onCheckboxChange(event.target.checked);
       }
     };
+    useImperativeHandle(ref, () => ({
+      isChecked: isChecked,
+    }));
   
     return (
       <div>
@@ -25,6 +28,6 @@ function Checkbox({text, onCheckboxChange}) {
         </label>
       </div>
     );
-  }
+  })
 
-  export default Checkbox
+  export default Checkbox;
