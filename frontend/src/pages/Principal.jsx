@@ -13,8 +13,8 @@ export default function Principal(){
                     <Logo type= '3'/>
                 </div>
                 <Main> 
-                    <h3>Bem-vindo ao <b>BILLBUDDY</b>,</h3>
-                    <p className={style.p}>o seu aplicativo para tornar a organização dos seus eventos ainda mais fácil.</p>
+                    <h3>Bem-vindo ao <b>BILLBUDDY</b></h3>
+                    <p className={style.p}>O seu aplicativo para tornar a organização dos seus eventos ainda mais fácil.</p>
                     <Link to="/signin">
                         <button>ENTRAR</button>
                     </Link>
