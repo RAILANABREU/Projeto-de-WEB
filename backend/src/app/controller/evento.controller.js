@@ -21,7 +21,7 @@ const createEvento = async (req, res) => {
 
     try {
         const evento = await eventoService.createEventoService(req.body);
-        evento.adm = user.username;
+        evento.admID = user._id;
         evento.updateOne(evento);
         user.isAdm = true;
         user.EventosAdm.push(evento);
