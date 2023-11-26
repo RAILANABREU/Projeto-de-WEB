@@ -13,14 +13,9 @@
 
 
 @media screen and (min-width: 800px){
-    h1, h3{
-      font-size: 2em;
-    }
+    
     .main{
       width: 60vw;
     }
 
 }
-
-
-
