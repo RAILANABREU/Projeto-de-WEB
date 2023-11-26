@@ -22,3 +22,20 @@ b{
     
 }
 
+@media screen and (min-width: 1400px){
+    h1, h3{
+        font-size: 3vw;
+    }
+    .p{
+        font-size: 1.5vw;
+        margin-bottom: 5vh
+    }
+    button{
+        width:18vw ;
+        height: 6vh;
+        font-size: 1.5vw;
+    }
+}
+
+
+
