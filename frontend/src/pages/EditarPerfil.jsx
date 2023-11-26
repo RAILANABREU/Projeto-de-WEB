@@ -11,7 +11,6 @@ import style from "./Sign.module.css";
 import Perfil from "../components/common/Perfil";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarPerfilSchema } from "../Schemas/editarPerfilSchema";
-import pako from 'pako';
 
 export default function EditarPerfil(){
     const {
@@ -44,24 +43,27 @@ export default function EditarPerfil(){
             
         },[message]);
 
+      
       const handleImagemChange = (event) => {
         const imagemArquivo = event.target.files[0];
-        setMessage(null);
-
+      
         if (imagemArquivo) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setImagemBase64(reader.result);
-            setUserData((prevUserData) => ({
-              ...prevUserData,
-              avatar: reader.result,
-            }));
-          };
-          reader.readAsDataURL(imagemArquivo);
-        }else{
-          setImagemBase64("");
+          try {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const base64String = reader.result;
+              setImagemBase64(base64String);
+              console.log(base64String);
+            };
+            reader.readAsDataURL(imagemArquivo);
+          } catch (error) {
+            console.error('Erro ao converter a imagem em base64:', error.message);
+          }
+        } else {
+          setImagemBase64(null);
         }
       };
+
     const handleCancelar = () => {
         reset();
         navigate(`/home/${userId}`);

@@ -40,10 +40,11 @@ export default function Home() {
       userId={userId}
       authToken={Cookies.get("token")}/>
       <Main>
+        <div className="top">
         <Link to={`/criarevento/${userId}`}><button>CRIAR EVENTO</button></Link>
         <Link to="/convites"><button style={{ background: "var(--secondary-color)" }}>CONVITES</button></Link>
-        {eventos.length > 0 ? (
-          eventos.map((item) => (
+        </div>
+        {eventos.map((item) => (
             item.adm === userId ? (
               <Card 
                 id={item._id} 
@@ -53,11 +54,7 @@ export default function Home() {
               />
             ) : null
           ))
-        ) : (
-          <div style={{ flex: 1}}>
-            Nenhum evento encontrado.
-          </div>
-        )}
+        }
       </Main>
       <Footer/>    
     </div>

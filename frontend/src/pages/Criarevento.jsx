@@ -33,10 +33,7 @@ export default function CriarEvento(){
       };
     
     async function handleCriar(dadosEvento){
-      const compressedBytes = pako.gzip(imagemBase64, { to: 'uint8array' });
-      const compressedBase64 = btoa(String.fromCharCode.apply(null, new Uint8Array(compressedBytes)));
-
-      const dados = { ...dadosEvento, adm: userId, imagem: compressedBase64};
+      const dados = { ...dadosEvento, adm: userId, imagem: imagemBase64};
       console.log(dados);
       if (isValid){
           try{

@@ -8,6 +8,8 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.5.1",
     "axios": "^1.6.0",
+    "browser-image-compression": "^2.0.2",
+    "image-compressor": "^2.0.3",
     "js-cookie": "^3.0.5",
     "pako": "^2.1.0",
     "react": "^18.2.0",

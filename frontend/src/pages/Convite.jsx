@@ -55,7 +55,7 @@ export default function Convite(){
             <Head onIconClick={() => navigate(`/home/${userId}`)}/>
             <Main>
                 <form className={style.form} onSubmit={handleSubmit(handleEnviar)}>
-                <div className={style.top}>
+                <div className="top">
                     <h1>CONVITE</h1>
                     <Icon type={"convite"}/>
                     <Input
