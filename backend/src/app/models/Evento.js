@@ -24,7 +24,7 @@ const eventoSchema = new mongoose.Schema({
     pix: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
     confirmado: { type: Boolean, required: false, select: false, default: true },
-        });
+});
 
 const eventoModel = mongoose.model('evento', eventoSchema);
 
