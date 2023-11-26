@@ -13,8 +13,13 @@ b{
 }
 
 @media screen and (min-width: 800px){
+    h1, h3{
+        font-size: 3vw;
+    }
     .p{
         text-align: center;
+        font-size: 1.5vw;
+        margin-bottom: 5vh
     }
     .head { 
         width: 30vw;
@@ -23,13 +28,8 @@ b{
 }
 
 @media screen and (min-width: 1400px){
-    h1, h3{
-        font-size: 3vw;
-    }
-    .p{
-        font-size: 1.5vw;
-        margin-bottom: 5vh
-    }
+    
+    
     button{
         width:18vw ;
         height: 6vh;
