@@ -17,7 +17,7 @@ const eventoSchema = new mongoose.Schema({
             valor: { type: Number, required: false },
             descricao: { type: String, required: false },
             local: { type: String, required: false },
-            comprovante: { type: String, required: false },
+            comprovante: { type: Buffer, required: false },
 
         }]
     },
