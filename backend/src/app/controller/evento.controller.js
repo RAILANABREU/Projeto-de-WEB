@@ -8,7 +8,7 @@ const createEvento = async (req, res) => {
         return res.status(400).json({ error: "Preencha todos os campos" });
     }
     const user = await userService.findUserByIdService(admID);
-    console.log(user);
+    
     if (!user) {
         return res.status(400).json({ error: "Usuário não encontrado" });
     }

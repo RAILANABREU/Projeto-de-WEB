@@ -17,8 +17,7 @@ const createPicture = async (req, res) => {
             name,
             src: file.path,
         });
-        console.log(req.body.referenciaEvento);
-        console.log(req.body.referenciaUser);
+
         if (req.body.referenciaEvento){
             const evento = await Evento.findById(req.body.referenciaEvento);
             if(!evento){
