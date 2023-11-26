@@ -8,7 +8,7 @@ export default function Principal(){
     
     return(
         <div className="page">
-            <div className="main-container main-principal"> 
+            <div className="main-container main-distance"> 
                 <div className={style.head}>
                     <Logo type= '3'/>
                 </div>
