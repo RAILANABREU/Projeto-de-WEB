@@ -50,8 +50,9 @@ function SignIn(){
   }
     return(
         <div className="page">
+          <div className="main-container main-distance">
           <div className={style.head}>
-            <Logo type= '2'/>
+            <Logo type= '3'/>
           </div>
           <Main>
               <h1>ENTRAR</h1>
@@ -86,6 +87,8 @@ function SignIn(){
                 
               </form>
           </Main>
+          </div>
+          
           <Footer/>  
         </div>
     )

@@ -87,7 +87,7 @@ span{
 
 /* desktop */
 
-.main-container {
+.main-container{
   display: flex;
   flex-direction: column;
 }
@@ -98,9 +98,17 @@ span{
   }
   .main-container {
     flex-direction: row;
-    justify-content: space-between;
     padding: 0 2vw;
     margin-top: 10vh
-      
-  }  
+  }
+  .main-container.main-distance{
+    justify-content: space-between;
+    height: 80vh;
+  }
+  
+
+}
+
+@media screen and (min-width: 1400px){
+  
 }

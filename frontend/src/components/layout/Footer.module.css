@@ -11,5 +11,11 @@
     grid-row: 3;
 }
 
+@media screen and (min-width: 800px){
+    .footer{
+        font-size: 2vh; 
+    }
+}
+
 
 
