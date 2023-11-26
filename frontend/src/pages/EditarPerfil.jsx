@@ -12,8 +12,11 @@ import Perfil from "../components/common/Perfil";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarPerfilSchema } from "../Schemas/editarPerfilSchema";
 import Modal from "../components/common/Modal";
+import useAuth from "../useAuth";
+import useImageUpload from "../useImage";
 
 export default function EditarPerfil(){
+  useAuth();
     const {
         register,
         handleSubmit,
@@ -27,7 +30,7 @@ export default function EditarPerfil(){
       const { userId } = useParams();
 
       const [openModal, setOpenModal] = useState(false);
-      const [imagemBase64, setImagemBase64] = useState(null);
+      const { imagemBase64, handleImagemChange, updateImagemBase64  } = useImageUpload();
       const [message, setMessage] = useState(null);
 
       const [userData, setUserData] = useState();
@@ -37,7 +40,7 @@ export default function EditarPerfil(){
             try {
                 const userFound = await FindUserByID(userId, Cookies.get("token"));
                 setUserData(userFound);
-                setImagemBase64(userFound && userFound.avatar)
+                updateImagemBase64(userFound && userFound.avatar)
             } catch (error) {
                 console.error('Erro ao buscar informações do usuário:', error);
             }
@@ -45,27 +48,6 @@ export default function EditarPerfil(){
           fetchUserData();
             
         },[message]);
-
-      
-      const handleImagemChange = (event) => {
-        const imagemArquivo = event.target.files[0];
-      
-        if (imagemArquivo) {
-          try {
-            const reader = new FileReader();
-            reader.onload = () => {
-              const base64String = reader.result;
-              setImagemBase64(base64String);
-              console.log(base64String);
-            };
-            reader.readAsDataURL(imagemArquivo);
-          } catch (error) {
-            console.error('Erro ao converter a imagem em base64:', error.message);
-          }
-        } else {
-          setImagemBase64(null);
-        }
-      };
 
     const handleCancelar = () => {
         reset();

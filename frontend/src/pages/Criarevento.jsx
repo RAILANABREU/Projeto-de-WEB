@@ -13,8 +13,11 @@ import style from "./Criarevento.module.css";
 import { useState } from "react";
 import { createEventSchema } from "../Schemas/eventSchema";
 import pako from 'pako';
+import useAuth from "../useAuth";
+import useImageUpload from "../useImage";
 
 export default function CriarEvento(){
+  useAuth();
     const {
         register,
         handleSubmit,
@@ -24,9 +27,10 @@ export default function CriarEvento(){
         resolver: zodResolver(createEventSchema),
         mode: 'onChange',
     });
+
     const navigate  = useNavigate();
     const { userId } = useParams();
-    const [imagemBase64, setImagemBase64] = useState(null);
+    const { imagemBase64, handleImagemChange} = useImageUpload();
     const handleCancelar = () => {
         reset();
         navigate(`/home/${userId}`);
@@ -54,21 +58,6 @@ export default function CriarEvento(){
           console.log("não foi possivel enviar");
         }
     }   
-
-    const handleImagemChange = (event) =>{
-        const imagemArquivo = event.target.files[0];
-
-        if (imagemArquivo) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImagemBase64(reader.result);
-        };
-
-        reader.readAsDataURL(imagemArquivo);
-        }else{
-        setImagemBase64("");
-        }
-    }
     return(
         <div className="page">
             <Head onIconClick={handleCancelar}/>

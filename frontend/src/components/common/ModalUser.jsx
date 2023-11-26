@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Perfil from "./Perfil";
 import { FindUserByID } from '../../services/userServices';
 import Logo from "../layout/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function ModalUser ({isOpen, setOpen, userId, authToken}){
     const [userData, setUserData] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -18,18 +20,23 @@ export default function ModalUser ({isOpen, setOpen, userId, authToken}){
             console.error('Erro ao buscar informações do usuário:', error);
           }
         };
+    
     if (isOpen && userId) {
         fetchUserData();
         }
-    }, [isOpen, userId]);
+    }, [isOpen]);
 
+    const userLogout = () =>{
+        Cookies.remove("token");
+        navigate("/signin");
+    }
     if (isOpen){
         return(
             <div className={style.background}>
                 <div className={style.modaluser}>
                     <div className={style.top}>
                         <button className={style.close}onClick={() => setOpen(false)}>X</button>
-                        <Link to={"/signin"}><Button type="sair" name="sair"/></Link>
+                        <Button type="sair" name="sair" onClick={userLogout}/>
                     </div>
                     {userData && <Perfil img={userData.avatar} />}
                     <h2>{userData && userData.username}</h2>

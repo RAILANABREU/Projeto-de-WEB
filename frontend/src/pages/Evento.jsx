@@ -9,8 +9,10 @@ import style from "./Evento.module.css"
 import Button from "../components/common/Button";
 import { FindUserByID } from "../services/userServices";
 import Footer from "../components/layout/Footer";
+import useAuth from "../useAuth";
 
 export default function Evento(){
+    useAuth();
     const {userId, eventoId} = useParams();
     const [userData, setUserData] = useState();
     const [evento, setEvento] = useState();

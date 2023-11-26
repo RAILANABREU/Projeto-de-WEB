@@ -5,9 +5,11 @@ import Checkbox from "../components/common/Checkbox";
 import Button from "../components/common/Button";
 import Footer from "../components/layout/Footer"
 import { useNavigate, useParams } from "react-router-dom";
+import useAuth from "../useAuth";
 
 
 export default function Pagamento(){
+    useAuth();
     const {userId, eventoId} = useParams()
     const navigate = useNavigate()
     return(

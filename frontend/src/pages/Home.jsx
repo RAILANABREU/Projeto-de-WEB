@@ -7,11 +7,15 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Footer from "../components/layout/Footer";
 import ModalUser from "../components/common/ModalUser";
+import useAuth from "../useAuth";
 
 export default function Home() {
+  useAuth();
+
   const [eventos, setEventos] = useState([]);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const { userId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {

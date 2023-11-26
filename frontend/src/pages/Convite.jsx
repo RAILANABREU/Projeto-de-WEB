@@ -11,8 +11,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { convidar } from "../services/eventosSevices";
 import Cookies from "js-cookie";
 import { useState } from "react";
+import useAuth from "../useAuth";
 
 export default function Convite(){
+    useAuth();
     const {userId, eventoId} = useParams();
     const navigate  = useNavigate();
     const [message, setMessage] = useState(null);

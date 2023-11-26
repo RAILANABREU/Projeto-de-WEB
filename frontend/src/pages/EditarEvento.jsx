@@ -12,11 +12,14 @@ import Icon from "../components/common/icons";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 import pako from 'pako';
+import useAuth from "../useAuth";
+import useImageUpload from "../useImage";
 
 export default function EditarEvento() {
+  useAuth();
   const { userId } = useParams();
   const navigate = useNavigate();
-  const [imagemBlob, setImagemBlob] = useState(null);
+  const { imagemBase64, handleImagemChange} = useImageUpload();
   const [message, setMessage] = useState(null);
   const [eventData, setEventData] = useState(null);
 
@@ -29,28 +32,6 @@ export default function EditarEvento() {
     resolver: zodResolver(editEventSchema),
     mode: "onChange",
   });
-
-  const handleImagemChange = (event) => {
-    const imagemArquivo = event.target.files[0];
-    setMessage(null);
-  
-    if (imagemArquivo) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const arrayBuffer = reader.result;
-        const blob = new Blob([arrayBuffer], { type: imagemArquivo.type });
-        
-        setImagemBlob(blob);
-        setEventData((prevUserData) => ({
-          ...prevUserData,
-          imagem: blob,
-        }));
-      };
-      reader.readAsArrayBuffer(imagemArquivo);
-    } else {
-      setImagemBlob(null);
-    }
-  };
 
   const handleCancelar = () => {
     reset();
@@ -66,7 +47,7 @@ export default function EditarEvento() {
         ])
       );
     
-      const dataComImagem = { ...dadosNaoVazios, avatar: imagemBlob, _id: userId };
+      const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, _id: userId };
   
       console.log(dataComImagem);
   
@@ -104,7 +85,7 @@ export default function EditarEvento() {
                 />
                 <label htmlFor="uploadInput" className={style.uploadLabel}>
                 <Icon 
-                img={imagemBlob}
+                img={imagemBase64}
                 type={"foto-evento"}/>
                 </label>
             </div>
