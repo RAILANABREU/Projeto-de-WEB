@@ -9,7 +9,7 @@ import convite from "../../assets/convite.png";
 export default function Icon({type, onClick, img}){
     if(img){
         return (
-        <img className={style.image} src={URL.createObjectURL(img)} alt={`imagem de ${type}`} onClick={onClick}/>)
+        <img className={style.image} src={img} alt={`imagem de ${type}`} onClick={onClick}/>)
     }
     else{
         return (
