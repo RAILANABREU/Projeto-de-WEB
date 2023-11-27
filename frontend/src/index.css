@@ -69,6 +69,21 @@ span{
   color: white;
   
 }
+details summary{
+  background-color: var(--light-gray);
+  width: 276px;
+  height: 49px;
+  padding: 16px;
+  border-radius: 10px;
+}
+details[open] summary {
+  background-color: #c2c2c2;
+  border-radius: 10px 10px 0px 0px;
+}
+details div{
+  background-color: #c2c2c2;
+  padding: 16px;
+}
 .top{
   display: flex;
   flex-direction: column;
@@ -83,6 +98,11 @@ span{
   margin: 0px 8px 8px;
   padding: 8px;
   border-radius: 0px 20px 20px;
+}
+.conviteContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* desktop */

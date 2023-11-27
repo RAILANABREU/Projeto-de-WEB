@@ -3,7 +3,7 @@ import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { getEventoByID } from "../services/eventosSevices";
+import { getEventoByID, respostaConvite } from "../services/eventosSevices";
 import Icon from "../components/common/icons";
 import style from "./Evento.module.css"
 import Button from "../components/common/Button";
@@ -20,6 +20,14 @@ export default function Evento(){
     const [copiado, setCopiado] = useState(false);
 
     useEffect(() => {
+        const fetchUserData = async () => {
+          try {
+            const userFound = await FindUserByID(userId, Cookies.get("token"));
+            setUserData(userFound);
+          } catch (error) {
+            console.error('Erro ao buscar informações do usuário:', error);
+          }
+        };
         async function fetchData() {
           try {
             const response = await getEventoByID(eventoId, Cookies.get("token"));
@@ -31,15 +39,10 @@ export default function Evento(){
           }
         }
         fetchData();
+        fetchUserData();
       },[]);
-    const fetchUserData = async () => {
-        try {
-          const userFound = await FindUserByID(userId, Cookies.get("token"));
-          setUserData(userFound);
-        } catch (error) {
-          console.error('Erro ao buscar informações do usuário:', error);
-        }
-      };
+
+
     const handleCancelar = () => {
         navigate(`/home/${userId}`);
       };
@@ -62,10 +65,19 @@ export default function Evento(){
 
       }
     }
-    async function respostaConvite(resposta){
+    async function resConvite(resposta){
       const data  = {idEvento: eventoId, idUsuario: userId, confirmar: resposta}
-      const response = await respostaConvite(eventoId, resposta, Cookies.get("token"));
+      try{
+        const response = await respostaConvite(data, Cookies.get("token"));
+        console.log(response.data)
+
+      }catch(error){
+        console.error("error ao enviar")
+      }
+      navigate(`/home/${userId}`)
     }
+
+
     const handleCopyToClipboard = () => {
       navigator.clipboard.writeText(evento && evento.pix);
       setCopiado(true);
@@ -112,7 +124,7 @@ export default function Evento(){
         </>
       )
     }
-    if (userId === evento.admID){
+    if (evento && userId === evento.admID){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
@@ -130,7 +142,7 @@ export default function Evento(){
         <Footer/>
         </div>
       ) 
-    }else if(eventoId in userData.convites){
+    }else if(userData && userData.convites && userData.convites.some(convite => convite._id === eventoId)){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
@@ -139,13 +151,13 @@ export default function Evento(){
           <Button 
           type={"cancelar/confirmar"}
           name={"RECUSAR"} name2={"ACEITAR"}
-          onClick={respostaConvite("aceito")}
-          onClickCancelar={respostaConvite("recusado")}/>
+          onClick={() =>resConvite("aceito")}
+          onClickCancelar={() =>resConvite("recusado")}/>
         </Main>
         <Footer/>
         </div>
       )
-    }else if(eventoId in userData.eventosConfirmados){
+    }else if(userData && userData.eventosConfirmados.includes(eventoId)){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
@@ -154,6 +166,16 @@ export default function Evento(){
           <Button 
           type={"confirmar"}
           name={"SAIR DO EVENTO"}/>
+        </Main>
+        <Footer/>
+        </div>
+      )
+    }else{
+      return(
+        <div className="page">
+        <Head onIconClick={handleCancelar}/>
+        <Main>
+          Você não faz parte desse evento
         </Main>
         <Footer/>
         </div>

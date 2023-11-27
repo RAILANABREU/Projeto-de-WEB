@@ -73,3 +73,17 @@ export async function convidar(data, authToken) {
         return { success: false, error: error.response.data.message };
     }
 }
+
+export async function respostaConvite(data, authToken){
+    try {
+        const response = await axios.post(`${baseURL}/evento/accept/`, data, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.error("Erro ao responder convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}

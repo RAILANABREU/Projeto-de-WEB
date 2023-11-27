@@ -70,7 +70,7 @@ export default function Convite(){
                         )}
                     
                     {message && (
-                            <p>{message}</p>
+                            <p className="error">{message}</p>
                         )}
                 </div>
                  

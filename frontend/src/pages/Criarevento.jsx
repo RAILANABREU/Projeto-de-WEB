@@ -37,7 +37,7 @@ export default function CriarEvento(){
       };
     
     async function handleCriar(dadosEvento){
-      const dados = { ...dadosEvento, adm: userId, imagem: imagemBase64};
+      const dados = { ...dadosEvento, admID: userId, imagem: imagemBase64};
       console.log(dados);
       if (isValid){
           try{

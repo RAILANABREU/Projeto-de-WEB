@@ -8,12 +8,14 @@ import { useEffect, useState } from "react";
 import Footer from "../components/layout/Footer";
 import ModalUser from "../components/common/ModalUser";
 import useAuth from "../useAuth";
+import { FindUserByID } from "../services/userServices";
 
 export default function Home() {
   useAuth();
 
   const [eventos, setEventos] = useState([]);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [ userData, setUserData] = useState();
   const { userId } = useParams();
   const navigate = useNavigate();
 
@@ -23,14 +25,20 @@ export default function Home() {
         const response = await getAllEvents(Cookies.get("token"));
         console.log(response);
         setEventos(response.data.evento);
-
       } catch (error) {
         console.error("Erro ao buscar eventos:", error);
+      }
+
+      try {
+        const user = await FindUserByID(userId, Cookies.get("token"));
+        setUserData(user)
+      } catch (error) {
+        console.error("Erro ao buscar usuário:", error);
       }
     }
     fetchData();
     console.log(Cookies.get("token"))
-  },[]);
+},[]);
   const openDrawer = () => {
     setDrawerOpen(true);
   };
@@ -46,10 +54,21 @@ export default function Home() {
       <Main>
         <div className="top">
         <Link to={`/criarevento/${userId}`}><button>CRIAR EVENTO</button></Link>
-        <Link to="/convites"><button style={{ background: "var(--secondary-color)" }}>CONVITES</button></Link>
+        <details>
+          <summary>CONVITES</summary>
+          {userData && userData.convites.map((item) => (
+            <div className="conviteContainer">
+              <Card
+                id={item._id} 
+                eventos={item} 
+                foto={item.imagem} 
+                titulo={item.titulo}/>
+            </div>
+          ))}
+        </details>
         </div>
         {eventos.map((item) => (
-            item.adm === userId ? (
+            item.admID === userId ? (
               <Card 
                 id={item._id} 
                 eventos={item} 
