@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseURL = 'https://billbuddy-et97.onrender.com'
+//const baseURL = 'https://billbuddy-et97.onrender.com'
+const baseURL = 'http://localhost:3000';
 
 export function getAllEvents(authToken){
     try{
