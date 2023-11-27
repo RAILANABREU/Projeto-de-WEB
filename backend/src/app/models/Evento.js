@@ -9,7 +9,10 @@ const eventoSchema = new mongoose.Schema({
     local: { type: String, required: false },
     valor: { type: String, required: false },
     imagem: { type: String, required: false },
-    convidados: [],
+    convidados: [{
+        idConvidado: { type: String, required: false },
+        jaPagou: { type: Boolean, required: false, default: false }
+    }],
     gastos: {
         total: { type: Number, required: false, default: 0 },
         gasto: [{
