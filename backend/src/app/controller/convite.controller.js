@@ -54,7 +54,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         }
-        if (user._id === admID) {
+        if (user.id === admID) {
             res.status(400).send({
                 message: "Você não pode se convidar"
             });
