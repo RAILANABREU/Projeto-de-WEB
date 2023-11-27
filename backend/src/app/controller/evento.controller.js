@@ -71,7 +71,17 @@ const findEventoService = async (req, res) => {
 const deleteEventoService = async (req, res) => {
     const { id } = req.params;
     try {
-        const evento = await eventoService.deleteEventoService(id);
+        const evento = await eventoService.findEventoByIdService(id);
+        
+        // Remove evento do atributo eventosConfirmados de todos os usuários
+        await userService.updateMany({}, { $pull: { eventosConfirmados: evento } });
+        
+        // Remove evento do atributo EventosAdm do usuário
+        await userService.updateMany({ _id: evento.admID }, { $pull: { EventosAdm: evento } });
+        
+        // Remove evento do atributo convites de todos os usuários
+        await userService.updateMany({}, { $pull: { convites: evento } });
+        
         return res.status(200).json({ message: "Evento deletado com sucesso" });
     } catch (error) {
         return res.status(400).json({ error: error.message });
