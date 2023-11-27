@@ -198,20 +198,15 @@ const deleteEventoService = async (req, res) => {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
         const users = await userService.findAllUserService();
-        for (const user of users) {
-            const indexAdm = user.EventosAdm.indexOf(evento);
-            if (indexAdm !== -1) {
-                user.EventosAdm.splice(indexAdm, 1);
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].admEvento.includes(evento._id)) {
+                users[i].admEvento.pull(evento._id);
+                await users[i].updateOne(users[i]);
             }
-            const indexConfirmados = user.eventosConfirmados.indexOf(evento);
-            if (indexConfirmados !== -1) {
-                user.eventosConfirmados.splice(indexConfirmados, 1);
+            if (users[i].participaEvento.includes(evento._id)) {
+                users[i].participaEvento.pull(evento);
+                await users[i].updateOne(users[i]);
             }
-            const indexConvites = user.convites.indexOf(evento);
-            if (indexConvites !== -1) {
-                user.convites.splice(indexConvites, 1);
-            }
-            await user.updateOne(user);
         }
 
         await eventoService.deleteEventoService(id);
