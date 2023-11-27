@@ -30,13 +30,6 @@
   button:disabled{
     background-color: var(--light-gray);
   }
-  .message{
-    background: none;
-    padding: 0px;
-    border-radius: 0px;
-    color: var(--accent-color);
-    margin: 8px;
-  }
 
 
   

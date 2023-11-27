@@ -29,7 +29,9 @@ export default function Convite(){
     });
 
     async function handleEnviar(username) {
-        const dados = { ...username, idAdm: userId, idEvento: eventoId };
+        const dados = { ...username, admID: userId, idEvento: eventoId };
+
+        console.log(dados)
     
         if (isValid) {
             try {

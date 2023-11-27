@@ -1,10 +1,9 @@
+import style from "./Tabela.module.css"
 
-
-export default function Tabela(){
+export default function Tabela({convidados}){
     return(
-        <div>
-            <h2>Tabela de Convidados</h2>
-                <table>
+        <div class={style.container}>
+            <table>
                 <thead>
                     <tr>
                     <th>Convidados</th>
@@ -12,16 +11,16 @@ export default function Tabela(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class={style.item}>
                     <td>Convidado 1</td>
-                    <td><input type="checkbox" name="pago1"/></td>
+                    <td><input className={style.chekbox} type="checkbox" name="pago1"/></td>
                     </tr>
-                    <tr>
+                    <tr class={style.item}>
                     <td>Convidado 2</td>
                     <td><input type="checkbox" name="pago2"/></td>
                     </tr>
                 </tbody>
-                </table>
+            </table>
         </div>
     )
 }

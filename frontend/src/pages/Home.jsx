@@ -23,7 +23,6 @@ export default function Home() {
     async function fetchData() {
       try {
         const response = await getAllEvents(Cookies.get("token"));
-        console.log(response);
         setEventos(response.data.evento);
       } catch (error) {
         console.error("Erro ao buscar eventos:", error);

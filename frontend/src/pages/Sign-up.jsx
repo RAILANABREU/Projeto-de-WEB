@@ -20,17 +20,10 @@ function SignUp(){
     reset,
     formState: {errors, isValid},
   } = useForm({
-    resolver: zodResolver(signupSchema),
-    mode: 'onChange',
+      resolver: zodResolver(signupSchema),
+      mode: 'onChange',
   });
   const navigate  = useNavigate();
-  console.log('Errors:', errors);
-
-  useEffect(() => {
-    console.log('Erros atualizados:', errors);
-  }, [errors]);
-
-
 
   const checkboxRef = useRef();
   const [openModal, setOpenModal] = useState(false);
@@ -86,7 +79,7 @@ function SignUp(){
       console.log("não foi possivel enviar");
     }
   }
-  console.log('Errors:', errors);
+console.log("ERROR:", errors)
   return(
       <div className="page">
         <Modal type="up" 
@@ -165,7 +158,7 @@ function SignUp(){
                   )}
               </div>
               <button type="submit"
-              disabled={isValid === false || termosAceitos === false}
+              disabled={termosAceitos === false}
               >CRIAR CONTA</button>
               <p className={style.p}>Já tem uma conta?<Link to ="/signin">Entrar</Link></p>
               

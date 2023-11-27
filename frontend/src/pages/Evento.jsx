@@ -1,47 +1,22 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
-import { getEventoByID, respostaConvite } from "../services/eventosSevices";
 import Icon from "../components/common/icons";
 import style from "./Evento.module.css"
 import Button from "../components/common/Button";
-import { FindUserByID } from "../services/userServices";
 import Footer from "../components/layout/Footer";
 import useAuth from "../useAuth";
+import useData from "../useData";
+import { respostaConvite } from "../services/eventosSevices";
 
 export default function Evento(){
     useAuth();
     const {userId, eventoId} = useParams();
-    const [userData, setUserData] = useState();
-    const [evento, setEvento] = useState();
+    const { userData, eventoData } = useData(userId,eventoId);
     const navigate  = useNavigate();
     const [copiado, setCopiado] = useState(false);
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-          try {
-            const userFound = await FindUserByID(userId, Cookies.get("token"));
-            setUserData(userFound);
-          } catch (error) {
-            console.error('Erro ao buscar informações do usuário:', error);
-          }
-        };
-        async function fetchData() {
-          try {
-            const response = await getEventoByID(eventoId, Cookies.get("token"));
-            console.log(response);
-            setEvento(response.evento)
-    
-          } catch (error) {
-            console.error("Erro ao buscar evento:", error);
-          }
-        }
-        fetchData();
-        fetchUserData();
-      },[]);
-
 
     const handleCancelar = () => {
         navigate(`/home/${userId}`);
@@ -79,7 +54,7 @@ export default function Evento(){
 
 
     const handleCopyToClipboard = () => {
-      navigator.clipboard.writeText(evento && evento.pix);
+      navigator.clipboard.writeText(eventoData && eventoData.pix);
       setCopiado(true);
       alert("PIX copiado para a área de transferência");
     };
@@ -89,17 +64,17 @@ export default function Evento(){
       return(
         <>
         <div className={style.top}>
-                    <h1 style={{textTransform: "uppercase"}}>{evento && evento.titulo}</h1>
+                    <h1 style={{textTransform: "uppercase"}}>{eventoData && eventoData.titulo}</h1>
                     <Icon 
-                        img={evento && evento.imagem}
+                        img={eventoData && eventoData.imagem}
                         type={"foto-evento"}/>
                     </div>
                   <section>
-                    <div className={style.info}>descrição: {evento && evento.descricao}</div>
+                    <div className={style.info}>descrição: {eventoData && eventoData.descricao}</div>
     
                     <details>
-                          <summary>convidados: {evento && evento.convidados.length}</summary>
-                          {evento && evento.convidados.map((convidado, index) => (
+                          <summary>convidados: {eventoData && eventoData.convidados.length}</summary>
+                          {eventoData && eventoData.convidados.map((convidado) => (
                           <div>{convidado.username}</div>
                           ))}
                           
@@ -110,13 +85,13 @@ export default function Evento(){
                         style={{ cursor: "pointer" }}
                         onClick={handleCopyToClipboard}
                       >
-                        PIX: {evento && evento.pix}
+                        PIX: {eventoData && eventoData.pix}
                         <Icon type="copy"/>
                       </div>
     
                     <details>
-                        <summary>gastos: {evento && evento.gastos.total}</summary>
-                        {evento && evento.gastos.gasto.map((gasto, index) => (
+                        <summary>gastos: {eventoData && eventoData.gastos.total}</summary>
+                        {eventoData && eventoData.gastos.gasto.map((gasto) => (
                         <div>{gasto.valor + ' - ' + gasto.local}</div>
                         ))}
                     </details>
@@ -124,7 +99,7 @@ export default function Evento(){
         </>
       )
     }
-    if (evento && userId === evento.admID){
+    if (eventoData && userId === eventoData.admID){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>

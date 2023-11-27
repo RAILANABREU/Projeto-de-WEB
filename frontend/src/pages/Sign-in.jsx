@@ -24,23 +24,26 @@ function SignIn(){
   });
   const navigate  = useNavigate();
   const [usuario, setUsuario] = useState(null);
+  const [message, setMessage] = useState(null);
 
   async function onSubmit(credenciais) {
     if (isValid){
       try{
         const response = await signin(credenciais);
         console.log(response)
-
-        const {status, data} = response;
     
-        if (status === 200){
-          const {id, token} = data;
+        if (response.success){
+          const {id, token} = response.data;
           Cookies.set("token", token, { expires: 7});
           setUsuario(id);
           navigate(`/home/${id}`)
+        }else{
+          console.error("erro:", response.error)
+          setMessage(response.error)
         }
         reset()
       }catch(error){
+        setMessage(error.message)
         console.error(error.message)
       }
       
@@ -56,6 +59,7 @@ function SignIn(){
           </div>
           <Main>
               <h1>ENTRAR</h1>
+              {message && <p className="message">{message}</p>}
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input 
                 id= 'usuário'
@@ -63,7 +67,7 @@ function SignIn(){
                 type= 'text'
                 reg= {register}/>
                 {errors.username && (
-                          <p><span>{errors.username.message}</span></p>
+                          <p className="error"><span>{errors.username.message}</span></p>
                         )}
 
                 <Input
@@ -72,7 +76,7 @@ function SignIn(){
                 type= 'password'
                 reg= {register}/>
                 {errors.senha && (
-                          <p><span>{errors.senha.message}</span></p>
+                          <p className="error"><span>{errors.senha.message}</span></p>
                         )}
 
                
@@ -81,7 +85,7 @@ function SignIn(){
                 </Link>
                 <button
                 type="submit"
-                disabled={isValid === false}>
+                >
                 Entrar</button>
                 <p className={style.p}>Ainda não tem uma conta?<Link to="/signup">Criar conta</Link></p>
                 

@@ -96,7 +96,7 @@ export default function EditarEvento() {
                 type = 'text'
                 reg = {register}/>
                 {errors.titulo && (
-                          <p><span>{errors.titulo.message}</span></p>
+                          <p className="error"><span>{errors.titulo.message}</span></p>
                         )}
             <Input 
                 id= 'descrição' 
@@ -104,7 +104,7 @@ export default function EditarEvento() {
                 type= 'text'
                 reg = {register}/>
                 {errors.descricao && (
-                          <p><span>{errors.descricao.message}</span></p>
+                          <p className="error"><span>{errors.descricao.message}</span></p>
                         )}
             <Input 
                 id= 'chave pix' 
@@ -112,7 +112,7 @@ export default function EditarEvento() {
                 type= 'text'
                 reg = {register}/>
                 {errors.pix && (
-                          <p><span>{errors.pix.message}</span></p>
+                          <p className="error"><span>{errors.pix.message}</span></p>
                         )}
                     <Button 
                         type='cancelar/confirmar' 

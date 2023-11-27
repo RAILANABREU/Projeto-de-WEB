@@ -116,7 +116,7 @@ export default function EditarPerfil(){
             </div>
             <Button name="deletar usuário" onClick={() => {
               setOpenModal(true)}}></Button>
-            {message && <p className={style.message}>{message}</p>}
+            {message && <p className="message">{message}</p>}
             <form onSubmit={handleSubmit(handleSave)}>
             <Input 
               reg={register}
@@ -124,7 +124,7 @@ export default function EditarPerfil(){
               id={userData && userData.nome} name='nome' type = 'text'
               onChange={() => setMessage(null)}/>
               {errors.nome && (
-                          <p><span>{errors.nome.message}</span></p>
+                          <p className="error"><span>{errors.nome.message}</span></p>
                         )}
 
               <Input 
@@ -134,21 +134,21 @@ export default function EditarPerfil(){
               type = 'text'
               onChange={() => setMessage(null)}/>
               {errors.sobrenome && (
-                          <p><span>{errors.sobrenome.message}</span></p>
+                          <p className="error"><span>{errors.sobrenome.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= {userData && userData.username} name= 'username' type= 'text'
               onChange={() => setMessage(null)}/>
               {errors.username && (
-                          <p><span>{errors.username.message}</span></p>
+                          <p className="error"><span>{errors.username.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= {userData && userData.telefone} name= 'telefone' type= 'number'
               onChange={() => setMessage(null)}/>
               {errors.telefone && (
-                          <p><span>{errors.telefone.message}</span></p>
+                          <p className="error"><span>{errors.telefone.message}</span></p>
                         )}
               
               <Input 
@@ -156,14 +156,14 @@ export default function EditarPerfil(){
               id= 'nova senha' name= 'senha' type= 'password'
               onChange={() => setMessage(null)}/>
               {errors.senha2 && (
-                          <p><span>{errors.senha2.message}</span></p>
+                          <p className="error"><span>{errors.senha2.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'repita a nova senha' name= 'senha2' type= 'password'
               onChange={() => setMessage(null)}/>
               {errors.senha2 && (
-                          <p><span>{errors.senha2.message}</span></p>
+                          <p className="error"><span>{errors.senha2.message}</span></p>
                         )}
                 <Button 
                         type='cancelar/confirmar' 

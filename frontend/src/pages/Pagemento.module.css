@@ -1,0 +1,13 @@
+.valor{
+    margin: 8px 0px;
+    padding: 16px;
+    border-radius: 10px;
+    background-color: var(--light-gray);
+    border: None;
+}
+.valores{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

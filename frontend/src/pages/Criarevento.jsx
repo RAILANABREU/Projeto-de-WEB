@@ -27,7 +27,7 @@ export default function CriarEvento(){
         resolver: zodResolver(createEventSchema),
         mode: 'onChange',
     });
-
+    const [message, setMessage] = useState(null);
     const navigate  = useNavigate();
     const { userId } = useParams();
     const { imagemBase64, handleImagemChange} = useImageUpload();
@@ -44,11 +44,14 @@ export default function CriarEvento(){
             const response = await criarEvento(dados, Cookies.get("token"));
             console.log(response)
     
-            const {status, data} = response;
-        
-            if (status === 200){
-              const {idevento} = data;
+            if (response.success){
+              console.log("Evento Criado");
+              navigate(`/home/${userId}`);
+            }else{
+              console.error(response.error)
+              setMessage("Erro ao criar evento")
             }
+            
             reset()
           }catch(error){
             console.error(error.message)
@@ -75,6 +78,9 @@ export default function CriarEvento(){
                 img={imagemBase64}
                 type={"foto-evento"}/>
                 </label>
+                {message && (
+                            <p style={{color: "red"}}>{message}</p>
+                        )}
                 <form onSubmit={handleSubmit(handleCriar)}>
                     <Input
                     id='título' 
@@ -82,7 +88,7 @@ export default function CriarEvento(){
                     type = 'text'
                     reg = {register}/>
                     {errors.titulo && (
-                          <p><span>{errors.titulo.message}</span></p>
+                          <p className="error"><span>{errors.titulo.message}</span></p>
                         )}
                     <Input 
                     id= 'descrição' 
@@ -90,7 +96,7 @@ export default function CriarEvento(){
                     type= 'text'
                     reg = {register}/>
                     {errors.descricao && (
-                          <p><span>{errors.descricao.message}</span></p>
+                          <p className="error"><span>{errors.descricao.message}</span></p>
                         )}
                     <Input 
                     id= 'chave pix' 
@@ -98,7 +104,7 @@ export default function CriarEvento(){
                     type= 'text'
                     reg = {register}/>
                     {errors.pix && (
-                          <p><span>{errors.pix.message}</span></p>
+                          <p className="error"><span>{errors.pix.message}</span></p>
                         )}
                     <Button 
                         type='cancelar/confirmar' 

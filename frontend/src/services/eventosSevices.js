@@ -25,10 +25,11 @@ export async function criarEvento(data, authToken){
             }
           })
           
-        return response
-    }catch(error){
-        console.error("Erro ao criar evento:", error.response.data.message);
-        throw error;
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.log(error)
+        console.error("Erro ao criar Evento convite:", error.response.data.message);
+        return { success: false, error: error.response.data.error };
     }
 }
 
