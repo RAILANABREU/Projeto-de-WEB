@@ -191,30 +191,33 @@ const sairEvento = async (req, res) => {
 }
 
 const deleteEventoService = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params; // Este é o ID do evento a ser removido
     try {
         const evento = await eventoService.findEventoByIdService(id);
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
+
+        // Buscar todos os usuários
         const users = await userService.findAllUserService();
         for (let i = 0; i < users.length; i++) {
-            if (users[i].admEvento.includes(evento._id)) {
-                users[i].admEvento.pull(evento._id);
-                await users[i].updateOne(users[i]);
-            }
-            if (users[i].participaEvento.includes(evento._id)) {
-                users[i].participaEvento.pull(evento);
-                await users[i].updateOne(users[i]);
+            // Verifica se o evento está na lista de EventosAdm e remove usando pull
+            const indexAdm = users[i].EventosAdm.indexOf(id);
+            if (indexAdm !== -1) {
+                users[i].EventosAdm.splice(indexAdm, 1); // Usando splice para remover o evento pelo índice
+                await users[i].save(); // Salva o usuário com a lista atualizada
             }
         }
 
+        // Exclui o evento do serviço de eventos
         await eventoService.deleteEventoService(id);
         return res.status(200).json({ message: "Evento excluído com sucesso" });
     } catch (error) {
-        return res.status(400).json({ error: error.message });
+        console.error(error); // Adicione o registro do erro para ajudar na depuração
+        return res.status(500).json({ error: error.message });
     }
-}
+};
+
 
 module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, sairEvento, incluirGasto, excluirGasto };
 
