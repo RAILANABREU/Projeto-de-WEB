@@ -199,9 +199,9 @@ const deleteEventoService = async (req, res) => {
         }
         const users = await userService.findAllUserService();
         for (const user of users) {
-            user.EventosAdm.pull(evento);
-            user.eventosConfirmados.pull(evento);
-            user.convites.pull(evento);
+            user.EventosAdm.splice(evento);
+            user.eventosConfirmados.splice(evento);
+            user.convites.splice(evento);
             await user.save();
         }
 
