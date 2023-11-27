@@ -131,7 +131,6 @@ const enviarConvite = async (req, res) => {
             if (confirmar === "aceito") {
                 const custoConvidado = {
                     idConvidado: user._id,
-                    custo: evento.custo / evento.convidados.length,
                     jaPagou: false
                 }
 
@@ -142,7 +141,9 @@ const enviarConvite = async (req, res) => {
                     return;
                 }else{
                     user.convites[conviteIndex].status = "aceito";
-                    evento.convidados.push(user.username);
+                    evento.convidados.push(custoConvidado);
+                    user.eventosConfirmados.push(evento._id);
+                    user.convites.splice(conviteIndex, 1);
                     await evento.updateOne(evento);
                 }
             } else if (confirmar === "recusado") {
