@@ -68,15 +68,7 @@ const findEventoService = async (req, res) => {
 }
 
 
-const deleteEventoService = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const evento = await eventoService.deleteEventoService(id);
-        return res.status(200).json({ message: "Evento deletado com sucesso" });
-    } catch (error) {
-        return res.status(400).json({ error: error.message });
-    }
-}
+
 
 const updateEvento = async (req, res) => {
     try {
@@ -198,29 +190,27 @@ const sairEvento = async (req, res) => {
     }
 }
 
-const excluirEvento = async (req, res) => {
-    const { Id } = req.body;
-
+const deleteEventoService = async (req, res) => {
+    const { id } = req.params;
     try {
-        const evento = await eventoService.findEventoByIdService(Id);
+        const evento = await eventoService.findEventoByIdService(id);
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
-        const user = await userService.findUserService(username);
-        if (!user) {
-            return res.status(400).json({ message: "Usuário não encontrado" });
-        }
-        user.admEvento.pull(evento);
-        user.participaEvento.pull(evento);
-        await user.updateOne(user);
-        res.status(200).send({
-            message: "Usuário removido do evento",
+        const users = await userService.findAllUserService();
+        users.forEach(user => {
+            user.EventosAdm.pull(evento);
+            user.eventosConfirmados.pull(evento);
+            user.convites.pull(evento);
+            user.updateOne(user);
         });
+
+        await eventoService.deleteEventoService(id);
+        return res.status(200).json({ message: "Evento excluído com sucesso" });
     } catch (error) {
-        res.status(400).send({ message: "Não foi possível remover o usuário" });
-        return;
+        return res.status(400).json({ error: error.message });
     }
-}   
+}
 
 
 module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto, excluirGasto };
