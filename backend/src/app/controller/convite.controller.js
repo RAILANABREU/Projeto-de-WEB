@@ -171,14 +171,6 @@ const enviarConvite = async (req, res) => {
     };
 
 const findConvidados = async (req, res) => {
-    const { idEvento } = req.params;
-
-    if (!idEvento) {
-        res.status(400).send({
-            message: "Todos os campos são obrigatórios"
-        });
-        return;
-    }
 
     try {
         const evento = await eventoService.findEventoByIdService(idEvento);
