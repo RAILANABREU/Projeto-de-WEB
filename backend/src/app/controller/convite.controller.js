@@ -173,7 +173,7 @@ const enviarConvite = async (req, res) => {
 const findConvidados = async (req, res) => {
 
     try {
-        const evento = await eventoService.findEventoByIdService(idEvento);
+        const evento = await eventoService.findEventoByIdService(req.params.idEvento);
 
         if (!evento) {
             res.status(400).send({
