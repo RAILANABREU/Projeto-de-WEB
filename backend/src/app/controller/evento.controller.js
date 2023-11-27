@@ -198,12 +198,12 @@ const deleteEventoService = async (req, res) => {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
         const users = await userService.findAllUserService();
-        users.forEach(async (user) => {
+        for (const user of users) {
             user.EventosAdm.pull(evento);
             user.eventosConfirmados.pull(evento);
             user.convites.pull(evento);
-            await user.updateOne(user);
-        });
+            await user.save();
+        }
 
         await eventoService.deleteEventoService(id);
         return res.status(200).json({ message: "Evento excluído com sucesso" });
