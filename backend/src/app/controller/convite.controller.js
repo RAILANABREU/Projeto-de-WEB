@@ -164,4 +164,80 @@ const enviarConvite = async (req, res) => {
         }
     };
 
-module.exports = { enviarConvite, aceitarConvite };
+const findConvidados = async (req, res) => {
+    const { idEvento } = req.body;
+
+    if (!idEvento) {
+        res.status(400).send({
+            message: "Todos os campos são obrigatórios"
+        });
+        return;
+    }
+
+    try {
+        const evento = await eventoService.findEventoByIdService(idEvento);
+
+        if (!evento) {
+            res.status(400).send({
+                message: "Não foi possível encontrar o evento"
+            });
+            return;
+        }
+
+        res.status(200).send({
+            message: "Lista de convidados",
+            convidados: evento.convidados
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Erro ao listar convidados"
+        });
+    }
+};
+
+const alterarConvidados = async (req, res) => {
+    const { idEvento, idConvidado, jaPagou } = req.body;
+
+    if (!idEvento || !idConvidado || !jaPagou) {
+        res.status(400).send({
+            message: "Todos os campos são obrigatórios"
+        });
+        return;
+    }
+
+    try {
+        const evento = await eventoService.findEventoByIdService(idEvento);
+
+        if (!evento) {
+            res.status(400).send({
+                message: "Não foi possível encontrar o evento"
+            });
+            return;
+        }
+
+        const convidadoIndex = evento.convidados.findIndex(convidado => convidado.idConvidado.toString() === idConvidado);
+
+        if (convidadoIndex === -1) {
+            res.status(400).send({
+                message: "Não foi possível encontrar o convidado"
+            });
+            return;
+        }
+
+        evento.convidados[convidadoIndex].jaPagou = jaPagou;
+
+        await evento.updateOne(evento);
+
+        res.status(200).send({
+            message: "Convidado atualizado com sucesso",
+            convidados: evento.convidados
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Erro ao atualizar convidado"
+        });
+    }
+};
+module.exports = { enviarConvite, aceitarConvite, findConvidados, alterarConvidados };
