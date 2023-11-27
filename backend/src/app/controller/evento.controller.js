@@ -198,5 +198,30 @@ const sairEvento = async (req, res) => {
     }
 }
 
+const excluirEvento = async (req, res) => {
+    const { Id } = req.body;
+
+    try {
+        const evento = await eventoService.findEventoByIdService(Id);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        const user = await userService.findUserService(username);
+        if (!user) {
+            return res.status(400).json({ message: "Usuário não encontrado" });
+        }
+        user.admEvento.pull(evento);
+        user.participaEvento.pull(evento);
+        await user.updateOne(user);
+        res.status(200).send({
+            message: "Usuário removido do evento",
+        });
+    } catch (error) {
+        res.status(400).send({ message: "Não foi possível remover o usuário" });
+        return;
+    }
+}   
+
+
 module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto, excluirGasto };
 
