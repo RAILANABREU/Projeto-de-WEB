@@ -123,7 +123,13 @@ const enviarConvite = async (req, res) => {
 
             if (conviteIndex === -1) {
                 res.status(400).send({
-                    message: "Você não foi convidado para este evento"
+                    message: "Usuario não foi convidado para este evento"
+                });
+                return;
+            }
+            if (user._id === evento.admID) {
+                res.status(400).send({
+                    message: "Você não pode enviar um convite para si mesmo"
                 });
                 return;
             }
@@ -136,7 +142,7 @@ const enviarConvite = async (req, res) => {
 
                 if(evento.convidados.includes(custoConvidado)){
                     res.status(400).send({
-                        message: "Você já está na lista de convidados"
+                        message: "Usuario já está na lista de convidados"
                     });
                     return;
                 }else{
@@ -165,17 +171,9 @@ const enviarConvite = async (req, res) => {
     };
 
 const findConvidados = async (req, res) => {
-    const { idEvento } = req.body;
-
-    if (!idEvento) {
-        res.status(400).send({
-            message: "Todos os campos são obrigatórios"
-        });
-        return;
-    }
 
     try {
-        const evento = await eventoService.findEventoByIdService(idEvento);
+        const evento = await eventoService.findEventoByIdService(req.body.idEvento);
 
         if (!evento) {
             res.status(400).send({
