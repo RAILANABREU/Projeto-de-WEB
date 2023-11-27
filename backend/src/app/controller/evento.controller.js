@@ -24,7 +24,7 @@ const createEvento = async (req, res) => {
         evento.admID = user._id;
         evento.updateOne(evento);
         user.isAdm = true;
-        user.EventosAdm.push(evento);
+        user.EventosAdm.push(evento._id);
         await user.updateOne(user);
         return res.status(201).json({ evento });
         
@@ -220,5 +220,6 @@ const deleteEventoService = async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 }
+
 module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, sairEvento, incluirGasto, excluirGasto };
 
