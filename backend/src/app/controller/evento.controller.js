@@ -202,7 +202,7 @@ const deleteEventoService = async (req, res) => {
             user.EventosAdm.splice(evento);
             user.eventosConfirmados.splice(evento);
             user.convites.splice(evento);
-            await user.save();
+            await user.updateOne(user);
         }
 
         await eventoService.deleteEventoService(id);
