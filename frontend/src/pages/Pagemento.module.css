@@ -1,16 +1,13 @@
-.info{
+.valor{
     margin: 8px 0px;
     padding: 16px;
     border-radius: 10px;
-    width: 276px;
-    height: 49px;
     background-color: var(--light-gray);
     border: None;
 }
-.top{
+.valores{
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    flex: 1;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start;
 }

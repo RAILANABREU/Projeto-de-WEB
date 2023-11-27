@@ -12,8 +12,8 @@
 .button-box{
     display: flex;
     justify-content: space-between;
-    width: 276px;
-    height: 50px;
+    align-items: end;
+    width: 100%;
 }
 .add{
     background-color: rgba(255, 255, 255, 0);
@@ -50,4 +50,12 @@
     border: solid 2px var(--secondary-color);
     width: 129px;
     height: 49px;
+}
+.sair{
+    background: none;
+    color: white;
+    width: 80px;
+    height: 40px;
+    border:  solid 2px white;
+    border-radius: 10px;
 }

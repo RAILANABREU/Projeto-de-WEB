@@ -4,8 +4,10 @@ import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import Icon from "../components/common/icons";
 import Footer from "../components/layout/Footer"
+import useAuth from "../useAuth";
 
 export default function Gastos(){
+    useAuth();
     return(
         <div className="page">
             <Head/>

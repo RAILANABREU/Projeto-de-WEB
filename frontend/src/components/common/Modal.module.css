@@ -17,11 +17,19 @@
     border-radius: 30px;
     width: 90vw;
 }
+.p1{
+    background: none;
+    padding: 0px;
+    margin: 8px;
+    font-size: 16px;
+    color: black;
+}
 .p{
     background: none;
     padding: 0px;
     margin: 8px;
     font-size: 16px;
+    color: white;
 }
 .h2{
     margin: 8px;
@@ -53,11 +61,16 @@
     color: var(--secondary-color);
     font-weight: 800;
     background-color: white;
-    align-self: first baseline;
 }
 .logo{
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+.top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

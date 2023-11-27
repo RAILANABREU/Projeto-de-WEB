@@ -64,7 +64,7 @@ const enviarConvite = async (req, res) => {
         const conviteIndex = user.convites.findIndex(convite => convite._id.toString() === idEvento)
         if (conviteIndex !== -1) {
             res.status(400).send({
-                message: "Você já foi convidado para este evento"
+                message: "Usuário já foi convidado para este evento"
             });
             return;
         };

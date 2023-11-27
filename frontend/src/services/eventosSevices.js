@@ -1,14 +1,20 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000'
+const baseURL = 'https://billbuddy-et97.onrender.com'
 
 export function getAllEvents(authToken){
-    const response = axios.get(`${baseURL}/evento/findAll`,{
-        headers:{
-            Authorization: `Bearer ${authToken}`
-        }
-    });
-    return response;
+    try{
+        const response = axios.get(`${baseURL}/evento/findAll`,{
+            headers:{
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return response;
+    }catch(error){
+        console.error("Erro ao encontrar evento:", error.response.data.message);
+        throw error;
+    }
+    
 }
 
 export async function criarEvento(data, authToken){
@@ -19,10 +25,11 @@ export async function criarEvento(data, authToken){
             }
           })
           
-        return response
-    }catch(error){
-        console.error("Erro ao criar evento:", error.message);
-        throw error;
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.log(error)
+        console.error("Erro ao criar Evento convite:", error.response.data.message);
+        return { success: false, error: error.response.data.error };
     }
 }
 
@@ -35,7 +42,49 @@ export async function getEventoByID(id, authToken){
         })
         return response.data
     }catch(error){
-        console.error("Erro ao encontrar evento:", error.message);
+        console.error("Erro ao encontrar evento:", error.response.data.message);
         throw error;
+    }
+}
+export async function editarEvento(data, authToken){
+    try{
+        const response = await axios.post(`${baseURL}/evento/update/`, data, {
+            headers:{
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+        return response.data
+    }catch(error){
+        console.error("Erro ao editar evento:", error.response.data.message);
+        throw error;
+    }
+}
+
+export async function convidar(data, authToken) {
+    try {
+        const response = await axios.post(`${baseURL}/evento/invite/`, data, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+
+    } catch (error) {
+        console.error("Erro ao enviar convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}
+
+export async function respostaConvite(data, authToken){
+    try {
+        const response = await axios.post(`${baseURL}/evento/accept/`, data, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.error("Erro ao responder convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
     }
 }

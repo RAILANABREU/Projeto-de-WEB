@@ -45,9 +45,16 @@ export default function Button({ type, name, name2, onClickCancelar, onClick }) 
             </button>
           );
           break;
+          case 'sair':
+            buttonContent = (
+              <button className={style.sair} onClick={onClick}>
+                {name}
+              </button>
+            );
+            break;  
       default:
         buttonContent = (
-          <button className={style.edit}>
+          <button className={style.edit} onClick={onClick}>
               {name}
             </button>
         );

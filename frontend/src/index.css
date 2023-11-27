@@ -5,7 +5,7 @@
   --secondary-color: #7000FF;
   --tertiary-color: #7000FF;
   --background-color: linear-gradient(to bottom, var(--primary-color), var(--secondary-color),var(--tertiary-color));
-  --accent-color: #FB1F46;
+  --accent-color: #f84791;
   --light-accent-color: #F84767;
   --light-gray: #D9D9D9;
   --gray: #474747;
@@ -69,13 +69,48 @@ span{
   color: white;
   
 }
-p{
+details summary{
+  background-color: var(--light-gray);
+  width: 276px;
+  height: 49px;
+  padding: 16px;
+  border-radius: 10px;
+}
+details[open] summary {
+  background-color: #c2c2c2;
+  border-radius: 10px 10px 0px 0px;
+}
+details div{
+  background-color: #c2c2c2;
+  padding: 16px;
+}
+.top{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10%;
+}
+.error{
   background-color: var(--secondary-color);
+  color: white;
   margin: 0px 8px 8px;
   padding: 8px;
   border-radius: 0px 20px 20px;
 }
-
+.conviteContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.message{
+  background: none;
+  padding: 0px;
+  border-radius: 0px;
+  color: var(--accent-color);
+  margin: 8px;
+}
 
 /* desktop */
 

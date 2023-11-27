@@ -8,13 +8,13 @@
     margin-right: 8px;
     width: 28px;
     height: 28px;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: none;
     border: 2px solid var(--accent-color);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    border-radius: 0;
+    border-radius: 5px;
   }
   input[type="checkbox"]::before{
     content: '';
