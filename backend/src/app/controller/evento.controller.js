@@ -199,9 +199,18 @@ const deleteEventoService = async (req, res) => {
         }
         const users = await userService.findAllUserService();
         for (const user of users) {
-            user.EventosAdm.splice(evento);
-            user.eventosConfirmados.splice(evento);
-            user.convites.splice(evento);
+            const indexAdm = user.EventosAdm.indexOf(evento);
+            if (indexAdm !== -1) {
+                user.EventosAdm.splice(indexAdm, 1);
+            }
+            const indexConfirmados = user.eventosConfirmados.indexOf(evento);
+            if (indexConfirmados !== -1) {
+                user.eventosConfirmados.splice(indexConfirmados, 1);
+            }
+            const indexConvites = user.convites.indexOf(evento);
+            if (indexConvites !== -1) {
+                user.convites.splice(indexConvites, 1);
+            }
             await user.updateOne(user);
         }
 
@@ -211,6 +220,5 @@ const deleteEventoService = async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 }
-
 module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, sairEvento, incluirGasto, excluirGasto };
 
