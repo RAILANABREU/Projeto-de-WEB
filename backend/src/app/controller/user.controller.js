@@ -1,4 +1,6 @@
 const userServices = require('../services/user.service');
+const eventoServices = require('../services/evento.service');
+
 
 const updateUser = async (req, res) => {
 
@@ -98,7 +100,18 @@ const findUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await userServices.deleteUserService(id);
+        const evento = await eventoServices.findAllEventoService();
+        const user = await userServices.findUserByIdService(id);
+        if (!user) {
+            return res.status(400).json({ message: "Usuário não encontrado" });
+        }
+        for (const element of evento) {
+            if (element.admID === id )
+            console.log(element._id); {
+                await eventoServices.deleteEventoService(element._id); // Delete evento
+            }
+        await userServices.deleteUserService(id);
+        }
         return res.status(200).json({ message: "Usuário deletado com sucesso" });
     } catch (error) {
         return res.status(400).json({ error: error.message });
