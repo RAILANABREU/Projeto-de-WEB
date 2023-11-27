@@ -198,11 +198,11 @@ const deleteEventoService = async (req, res) => {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
         const users = await userService.findAllUserService();
-        users.forEach(user => {
+        users.forEach(async (user) => {
             user.EventosAdm.pull(evento);
             user.eventosConfirmados.pull(evento);
             user.convites.pull(evento);
-            user.updateOne(user);
+            await user.updateOne(user);
         });
 
         await eventoService.deleteEventoService(id);
@@ -212,6 +212,5 @@ const deleteEventoService = async (req, res) => {
     }
 }
 
-
-module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto, excluirGasto };
+module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, sairEvento, incluirGasto, excluirGasto };
 
