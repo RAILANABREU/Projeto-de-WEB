@@ -12,7 +12,6 @@ const createUser = async (req, res) => {
   }
   try {
     const user =  await userService.create(req.body);
-    console.log("passei por aqui 1");
 
     if (!user) {
       res.status(400).send({ message: "Não foi possível cadastrar o usuário" });
@@ -22,7 +21,6 @@ const createUser = async (req, res) => {
       expiresIn: 86400,
     
     });
-    console.log("passei por aqui 2");
     res.status(201).send({
       message: "Usuário cadastrado com sucesso",
       user: {

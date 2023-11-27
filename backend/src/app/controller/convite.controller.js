@@ -10,11 +10,11 @@ const userService = require("../services/user.service");
 const enviarConvite = async (req, res) => {
     const {
         idEvento,
-        idAdm,
+        admID,
         convidado,
     } = req.body;
 
-    if (!idEvento || !convidado || !idAdm) {
+    if (!idEvento || !convidado || !admID) {
         res.status(400).send({
         message: "Todos os campos são obrigatórios"
         });
@@ -22,7 +22,7 @@ const enviarConvite = async (req, res) => {
     }
 
     try {
-        const userAdm = await userService.findUserByIdService(idAdm);
+        const userAdm = await userService.findUserByIdService(admID);
 
         if (!userAdm) {
         res.status(400).send({
@@ -39,7 +39,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         }
-        if (evento.adm !== idAdm) {
+        if (evento.admID !== admID) {
             res.status(400).send({
                 message: "Você não é o adm do evento"
             });
@@ -54,7 +54,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         }
-        if (user.username === idAdm) {
+        if (user._id === admID) {
             res.status(400).send({
                 message: "Você não pode se convidar"
             });
@@ -129,14 +129,21 @@ const enviarConvite = async (req, res) => {
             }
 
             if (confirmar === "aceito") {
-                if(evento.convidados.includes(user.username)){
+                const custoConvidado = {
+                    idConvidado: user._id,
+                    jaPagou: false
+                }
+
+                if(evento.convidados.includes(custoConvidado)){
                     res.status(400).send({
                         message: "Você já está na lista de convidados"
                     });
                     return;
                 }else{
                     user.convites[conviteIndex].status = "aceito";
-                    evento.convidados.push(user.username);
+                    evento.convidados.push(custoConvidado);
+                    user.eventosConfirmados.push(evento._id);
+                    user.convites.splice(conviteIndex, 1);
                     await evento.updateOne(evento);
                 }
             } else if (confirmar === "recusado") {
@@ -157,4 +164,80 @@ const enviarConvite = async (req, res) => {
         }
     };
 
-module.exports = { enviarConvite, aceitarConvite };
+const findConvidados = async (req, res) => {
+    const { idEvento } = req.body;
+
+    if (!idEvento) {
+        res.status(400).send({
+            message: "Todos os campos são obrigatórios"
+        });
+        return;
+    }
+
+    try {
+        const evento = await eventoService.findEventoByIdService(idEvento);
+
+        if (!evento) {
+            res.status(400).send({
+                message: "Não foi possível encontrar o evento"
+            });
+            return;
+        }
+
+        res.status(200).send({
+            message: "Lista de convidados",
+            convidados: evento.convidados
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Erro ao listar convidados"
+        });
+    }
+};
+
+const alterarConvidados = async (req, res) => {
+    const { idEvento, idConvidado, jaPagou } = req.body;
+
+    if (!idEvento || !idConvidado || !jaPagou) {
+        res.status(400).send({
+            message: "Todos os campos são obrigatórios"
+        });
+        return;
+    }
+
+    try {
+        const evento = await eventoService.findEventoByIdService(idEvento);
+
+        if (!evento) {
+            res.status(400).send({
+                message: "Não foi possível encontrar o evento"
+            });
+            return;
+        }
+
+        const convidadoIndex = evento.convidados.findIndex(convidado => convidado.idConvidado.toString() === idConvidado);
+
+        if (convidadoIndex === -1) {
+            res.status(400).send({
+                message: "Não foi possível encontrar o convidado"
+            });
+            return;
+        }
+
+        evento.convidados[convidadoIndex].jaPagou = jaPagou;
+
+        await evento.updateOne(evento);
+
+        res.status(200).send({
+            message: "Convidado atualizado com sucesso",
+            convidados: evento.convidados
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Erro ao atualizar convidado"
+        });
+    }
+};
+module.exports = { enviarConvite, aceitarConvite, findConvidados, alterarConvidados };

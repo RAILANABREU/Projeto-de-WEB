@@ -13,6 +13,9 @@ router.post('/accept', authToken ,conviteController.aceitarConvite);
 router.post('/update', authToken ,eventoController.updateEvento);
 router.post('/incluirgasto', authToken ,eventoController.incluirGasto);
 router.post('/excluirgasto', authToken ,eventoController.excluirGasto);
+router.get('/findConvidados/:id',authToken ,conviteController.findConvidados);
+router.post('/alterarConvidados', authToken ,conviteController.alterarConvidados);
+
 
 
 module.exports = router;

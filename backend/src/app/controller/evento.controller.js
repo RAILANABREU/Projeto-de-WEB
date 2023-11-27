@@ -8,7 +8,7 @@ const createEvento = async (req, res) => {
         return res.status(400).json({ error: "Preencha todos os campos" });
     }
     const user = await userService.findUserByIdService(admID);
-    console.log(user);
+    
     if (!user) {
         return res.status(400).json({ error: "Usuário não encontrado" });
     }
@@ -21,7 +21,7 @@ const createEvento = async (req, res) => {
 
     try {
         const evento = await eventoService.createEventoService(req.body);
-        evento.adm = user.username;
+        evento.admID = user._id;
         evento.updateOne(evento);
         user.isAdm = true;
         user.EventosAdm.push(evento);
@@ -197,6 +197,31 @@ const sairEvento = async (req, res) => {
         return;
     }
 }
+
+const excluirEvento = async (req, res) => {
+    const { Id } = req.body;
+
+    try {
+        const evento = await eventoService.findEventoByIdService(Id);
+        if (!evento) {
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        const user = await userService.findUserService(username);
+        if (!user) {
+            return res.status(400).json({ message: "Usuário não encontrado" });
+        }
+        user.admEvento.pull(evento);
+        user.participaEvento.pull(evento);
+        await user.updateOne(user);
+        res.status(200).send({
+            message: "Usuário removido do evento",
+        });
+    } catch (error) {
+        res.status(400).send({ message: "Não foi possível remover o usuário" });
+        return;
+    }
+}   
+
 
 module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto, excluirGasto };
 
