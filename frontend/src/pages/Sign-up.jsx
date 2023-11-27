@@ -5,7 +5,7 @@ import Checkbox from "../components/common/Checkbox";
 import Perfil from "../components/common/Perfil";
 import style from "./Sign.module.css";
 import Modal from "../components/common/Modal";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../Schemas/signupSchema";
@@ -20,11 +20,12 @@ function SignUp(){
     reset,
     formState: {errors, isValid},
   } = useForm({
-    resolver: zodResolver(signupSchema),
-    mode: 'onChange',
+      resolver: zodResolver(signupSchema),
+      mode: 'onChange',
   });
   const navigate  = useNavigate();
 
+  const checkboxRef = useRef();
   const [openModal, setOpenModal] = useState(false);
   const [termosAceitos, setTermosAceitos] = useState(false);
   const [imagemBase64, setImagemBase64] = useState(null);
@@ -33,26 +34,27 @@ function SignUp(){
   const handleCheckboxChange = () => {
     setTermosAceitos(!termosAceitos);
   };
+
   const handleRedirecionamento = (userId) => {
     navigate(`/home/${userId}`);
   };
+
   const handleImagemChange = (event) => {
     const imagemArquivo = event.target.files[0];
-
+  
     if (imagemArquivo) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagemBase64(reader.result);
+          setImagemBase64(reader.result);
       };
 
       reader.readAsDataURL(imagemArquivo);
-    }else{
+      }else{
       setImagemBase64("");
-    }
+      }
   };
 
-  async function onSubmit(data) {
-    
+  async function onSubmit(data) {    
     if (isValid && termosAceitos) {
       const dataComImagem = { ...data, avatar: imagemBase64 };
       console.log(dataComImagem);
@@ -67,10 +69,6 @@ function SignUp(){
           setUsuario(user);
           Cookies.set("token", user.token, { expires: 1});
           setOpenModal(true);
-          
-          if (setOpenModal === false){
-            handleRedirecionamento(user.id);
-          }
         }
         reset();
       }catch(error){
@@ -81,10 +79,14 @@ function SignUp(){
       console.log("não foi possivel enviar");
     }
   }
+console.log("ERROR:", errors)
   return(
       <div className="page">
-        <Modal isOpen={openModal} 
-        setOpen={() => setOpenModal(!openModal)}>
+        <Modal type="up" 
+        isOpen={openModal} 
+        setOpen={() => {
+          setOpenModal(!openModal);
+          handleRedirecionamento(usuario.id)}}>
           {usuario && usuario.secretWords}
         </Modal>
         <div className={style.head}>
@@ -107,7 +109,7 @@ function SignUp(){
               className={style.nome}
               id='nome' name='nome' type = 'text'/>
               {errors.nome && (
-                          <p><span>{errors.nome.message}</span></p>
+                          <p className="error"><span>{errors.nome.message}</span></p>
                         )}
 
               <Input 
@@ -115,31 +117,31 @@ function SignUp(){
               className={style.nome}
               id='sobrenome' name='sobrenome' type = 'text'/>
               {errors.sobrenome && (
-                          <p><span>{errors.sobrenome.message}</span></p>
+                          <p className="error"><span>{errors.sobrenome.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'usuário' name= 'username' type= 'text'/>
               {errors.username && (
-                          <p><span>{errors.username.message}</span></p>
+                          <p className="error"><span>{errors.username.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'celular' name= 'telefone' type= 'number'/>
               {errors.telefone && (
-                          <p><span>{errors.telefone.message}</span></p>
+                          <p className="error"><span>{errors.telefone.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'senha' name= 'senha' type= 'password'/>
               {errors.senha && (
-                          <p><span>{errors.senha.message}</span></p>
+                          <p className="error"><span>{errors.senha.message}</span></p>
                         )}
               <Input 
               reg={register}
               id= 'repita a senha' name= 'senha2' type= 'password'/>
               {errors.senha2 && (
-                          <p><span>{errors.senha2.message}</span></p>
+                          <p className="error"><span>{errors.senha2.message}</span></p>
                         )}
 
               <div className="requisitos-senha"></div>
@@ -147,13 +149,16 @@ function SignUp(){
               <div className="checkbox-container">
                   <Checkbox 
                   text='Concordo com os termos de serviço'
+                  ref={checkboxRef}
                   onCheckboxChange={handleCheckboxChange}
                   {...register("termos", { required: "Você deve concordar com os termos" })}
                   />
-                  {errors.termos && <p><span>{errors.termos.message}</span></p>}
+                  {errors.termos && (
+                  <p className="error">{errors.termos.message}</p>
+                  )}
               </div>
               <button type="submit"
-              disabled={isValid === false || termosAceitos === false}
+              disabled={termosAceitos === false}
               >CRIAR CONTA</button>
               <p className={style.p}>Já tem uma conta?<Link to ="/signin">Entrar</Link></p>
               

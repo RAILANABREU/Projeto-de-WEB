@@ -1,9 +1,10 @@
-import burge from "../../assets/hamburger-icon.png"
-import homeicon from "../../assets/home-icon.png"
-import fotoevento from "../../assets/foto-evento.png"
-import fotocomprovante from "../../assets/foto-comprovante.png"
-import copia from "../../assets/copy-icon.png"
-import style from "../Img.module.css"
+import burge from "../../assets/hamburger-icon.png";
+import homeicon from "../../assets/home-icon.png";
+import fotoevento from "../../assets/foto-evento.png";
+import fotocomprovante from "../../assets/foto-comprovante.png";
+import copia from "../../assets/copy-icon.png";
+import style from "../Img.module.css";
+import convite from "../../assets/convite.png";
 
 export default function Icon({type, onClick, img}){
     if(img){
@@ -20,6 +21,8 @@ export default function Icon({type, onClick, img}){
                     ? style.homeicon
                     : type === 'copy'
                     ? style.copy
+                    : type === 'convite'
+                    ? style.convite 
                     : style.image
                 }
                 src={
@@ -33,7 +36,9 @@ export default function Icon({type, onClick, img}){
                     ? fotocomprovante
                     : type === 'copy'
                     ? copia
-                    : ''
+                    : type === 'convite'
+                    ? convite
+                    : ""
                 }
                 alt={`ícone de ${type}`}
                 onClick={onClick}

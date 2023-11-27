@@ -36,8 +36,8 @@ export const signupSchema = z
     })
     .transform((value) => `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`),
 
-    senha: z.string().min(6, "A senha precisa ter no minímo 6 caracteres"),
-    senha2: z.string().min(6, "A senha precisa ter no minímo 6 caracteres"),
+    senha: z.string().min(6, {message:"A senha precisa ter no minímo 6 caracteres"} ),
+    senha2: z.string().min(6, {message:"A senha precisa ter no minímo 6 caracteres"}),
   })
   .refine((data) => data.senha === data.senha2, {
     message: "As senhas não correspondem",

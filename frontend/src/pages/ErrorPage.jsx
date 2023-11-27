@@ -1,5 +1,6 @@
 import { useRouteError } from "react-router-dom";
 import Footer from "../components/layout/Footer"
+import useAuth from "../useAuth";
 
 export default function ErrorPage() {
   const error = useRouteError();
