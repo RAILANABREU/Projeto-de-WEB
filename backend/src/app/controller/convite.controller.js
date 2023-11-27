@@ -214,7 +214,7 @@ const alterarConvidados = async (req, res) => {
             return;
         }
 
-        const convidadoIndex = evento.convidados.findIndex(convidado => convidado.idConvidado.toString() === idConvidado);
+        const convidadoIndex = evento.convidados.findIndex(convidado => convidado.idConvidado && convidado.idConvidado.toString() === idConvidado);
 
         if (convidadoIndex === -1) {
             res.status(400).send({
@@ -223,8 +223,10 @@ const alterarConvidados = async (req, res) => {
             return;
         }
 
-        evento.convidados[convidadoIndex].jaPagou = jaPagou;
-
+        if (evento.convidados[convidadoIndex]) {
+            evento.convidados[convidadoIndex].jaPagou = jaPagou; 
+        }
+        
         await evento.updateOne(evento);
 
         res.status(200).send({
