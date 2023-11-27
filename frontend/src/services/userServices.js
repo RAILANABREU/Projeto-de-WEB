@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'https://billbuddy-et97.onrender.com';
+//const baseURL = 'https://billbuddy-et97.onrender.com';
+const baseURL = 'http://localhost:3000';
 
 export async function signup(data) {
   try {
@@ -16,6 +17,7 @@ export async function signup(data) {
 export async function signin(data) {
   try {
     const response = await axios.post(`${baseURL}/login`, data);
+    
     return { success: true, data: response.data };
     } catch (error) {
       console.error("Erro no login:", error.response.data.error);
