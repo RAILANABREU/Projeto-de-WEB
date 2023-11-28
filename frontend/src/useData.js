@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { FindUserByID } from './services/userServices';
-import { getEventoByID } from './services/eventosSevices';
+import { getEventoByID } from './services/eventosServices';
 
 export const useData = (userId, eventoId) => {
   const [userData, setUserData] = useState(null);

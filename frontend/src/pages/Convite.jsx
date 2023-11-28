@@ -8,7 +8,7 @@ import Button from "../components/common/Button";
 import { conviteSchema } from "../Schemas/conviteSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { convidar } from "../services/eventosSevices";
+import { convidar } from "../services/eventosServices";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import useAuth from "../useAuth";
@@ -63,7 +63,8 @@ export default function Convite(){
                     <h1>CONVITE</h1>
                     <Icon type={"convite"}/>
                     <Input
-                    id='nome de usuário do convidado' 
+                    className={style.input}
+                    id='nome de usuário' 
                     name='convidado' 
                     type = 'text'
                     reg = {register}/>

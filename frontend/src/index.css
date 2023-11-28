@@ -6,7 +6,7 @@
   --tertiary-color: #7000FF;
   --background-color: linear-gradient(to bottom, var(--primary-color), var(--secondary-color),var(--tertiary-color));
   --accent-color: #f84791;
-  --contrast-accent-color:#e51d71;
+  --contrast-accent-color:rgb(150, 18, 111);
   --light-accent-color: #F84767;
   --light-gray: #D9D9D9;
   --gray: #474747;
@@ -87,6 +87,12 @@ details[open] summary {
 details div{
   background-color: #c2c2c2;
   padding: 16px;
+}
+details{
+  margin: 8px 0px;
+}
+section{
+  margin-bottom: 24px;
 }
 .top{
   display: flex;

@@ -42,6 +42,18 @@ export default function Modal ({isOpen, setOpen, children, type, onClick}){
                 </div>
             </div>)
         }
+        if (type == "sair"){
+            return(
+            <div className={style.background}>
+                <div className={style.modal}>
+                    <p className={style.p1}>{children}</p>
+                    <Button 
+                    onClickCancelar={setOpen}
+                    onClick={onClick}
+                    type="cancelar/confirmar" name="X" name2="SAIR"/>
+                </div>
+            </div>)
+        }
     }
     return null
 } 
