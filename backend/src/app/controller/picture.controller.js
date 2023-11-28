@@ -49,7 +49,6 @@ const createPicture = async (req, res) => {
     });
 
     } catch (error) {
-        console.log(error);
         res.status(400).send({ message: "Não foi possível cadastrar a imagem" });
         return;
     };
