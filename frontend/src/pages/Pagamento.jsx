@@ -31,10 +31,6 @@ export default function Pagamento() {
     calcularValorUnitario();
   }, [eventoData]);
 
-  const handleButtonToggle = () => {
-    
-  }
-
   return (
     <div className="page">
       <Head onIconClick={() => navigate(`/home/${userId}`)} />
