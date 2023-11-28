@@ -115,7 +115,9 @@ details div{
   color: var(--accent-color);
   margin: 8px;
 }
-
+.eventoContainer{
+  display: contents;
+}
 /* desktop */
 
 .main-container{
@@ -136,10 +138,26 @@ details div{
     justify-content: space-between;
     height: 80vh;
   }
+
+  .eventoContainer{
+    display: flex;
+    flex-wrap:wrap;
+    grid-gap:1%;
+  }
+  details summary{
+    width: 38vw;
+    height: auto;
+    
+  }
   
 
 }
 
 @media screen and (min-width: 1400px){
-  
+  details summary{
+    width: 32vw;
+    height: auto;
+    text-align: center;
+    font-size: 1vw;
+  }
 }

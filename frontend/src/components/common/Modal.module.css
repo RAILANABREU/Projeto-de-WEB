@@ -75,3 +75,38 @@
     justify-content: space-between;
     align-items: center;
 }
+
+@media screen and (max-width: 800px){
+    .close{
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .close {
+        display: none;
+    }
+    .p{
+        font-size: 1.5vw;
+    }
+    .background{
+        background-color: transparent;
+        width: 0;
+    }
+    .modaluser{
+        width: 30%;
+        padding-top: 1%;
+    }
+    .top{
+        margin-bottom: 2vh;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .modaluser{
+        padding-top: 4%;
+    }
+    h2{
+        font-size: 2vw;
+    }
+}

@@ -58,5 +58,20 @@
     height: 40px;
     border:  solid 2px white;
     border-radius: 10px;
-    margin: 0px;
+}
+
+@media screen and (max-width:800px){
+    .sair{
+        margin: 0;
+    }
+}
+@media screen and (min-width:1400px){
+    .sair{
+        height: auto;
+        width:5vw;
+    }
+    .modal{
+        height: auto;
+        font-size: 1.8vw;
+    }
 }

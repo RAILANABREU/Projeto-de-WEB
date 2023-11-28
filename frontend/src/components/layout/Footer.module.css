@@ -9,6 +9,7 @@
     padding: 10px;
     width: 100%;
     grid-row: 3;
+    z-index: 1000;
 }
 
 @media screen and (min-width: 800px){
