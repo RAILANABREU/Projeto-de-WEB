@@ -33,7 +33,7 @@ const createEvento = async (req, res) => {
     }
 }
 
-const findAllEventoService = async (req, res) => {
+const findAllEvento = async (req, res) => {
     try {
         const evento = await eventoService.findAllEventoService();
         return res.status(200).json({ evento });
@@ -42,7 +42,7 @@ const findAllEventoService = async (req, res) => {
     }
 }
 
-const findEventoByIdService = async (req, res) => {
+const findEventoById = async (req, res) => {
     const { id } = req.params;
     try {
         const evento = await eventoService.findEventoByIdService(id);
@@ -53,7 +53,7 @@ const findEventoByIdService = async (req, res) => {
     }
 }
 
-const findEventoService = async (req, res) => {
+const findEvento = async (req, res) => {
     const { titulo } = req.body;
     try {
         const evento = await eventoService.findEventoService(titulo);
@@ -170,7 +170,7 @@ const excluirGasto = async (req, res) => {
 
 // deletarConvidado é igual sairevento!
 
-const deleteEventoService = async (req, res) => {
+const deleteEvento = async (req, res) => {
     const { id } = req.params;
     try {
         const evento = await eventoService.findEventoByIdService(id);
@@ -214,5 +214,5 @@ const deleteEventoService = async (req, res) => {
 
 
 
-module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, incluirGasto, excluirGasto };
+module.exports = { createEvento, findAllEvento, findEventoById, findEvento, deleteEvento, updateEvento, incluirGasto, excluirGasto };
 
