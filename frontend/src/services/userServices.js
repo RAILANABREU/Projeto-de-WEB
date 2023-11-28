@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-//const baseURL = 'https://billbuddy-et97.onrender.com';
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://billbuddy-et97.onrender.com';
 
 export async function signup(data) {
   try {

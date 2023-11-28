@@ -4,7 +4,7 @@ import style from "./Tabela.module.css";
 import Cookies from "js-cookie";
 import { alterarConvidados } from "../../services/eventosServices";
 
-export default function Tabela({ convidados, onButtonToggle }) {
+export default function Tabela({ convidados }) {
     const atualizarPagina = () => {
         window.location.reload();
       };
@@ -17,7 +17,6 @@ export default function Tabela({ convidados, onButtonToggle }) {
             const response = await alterarConvidados(data, Cookies.get("token"));
             if(response.success){
                 console.log(response)
-                onButtonToggle();
                 atualizarPagina();
             }
         }catch(error){
