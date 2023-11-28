@@ -191,31 +191,33 @@ const sairEvento = async (req, res) => {
 }
 
 const deleteEventoService = async (req, res) => {
-    const { id } = req.params; // Este é o ID do evento a ser removido
+    const { id } = req.params;
     try {
         const evento = await eventoService.findEventoByIdService(id);
+
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
+        await evento.deleteOne(evento);
 
-        // Buscar todos os usuários
-        const users = await userService.findAllUserService();
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].EventosAdm.includes(id)) { // Se o array inclui o ID do evento
-              await users[i].updateOne({ $pull: { EventosAdm: id } }); // Remove o evento usando $pull
-            }
-          }
-          
-        
-
-        // Exclui o evento do serviço de eventos
-        await eventoService.deleteEventoService(id);
-        return res.status(200).json({ message: "Evento excluído com sucesso" });
+        const user = await userService.findUserByIdService(evento.admID);
+        const index = user.EventosAdm.indexOf(evento._id);
+        if (index > -1){
+            user.EventosAdm.splice(index, 1);
+            await user.updateOne(user);
+        }else{
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
+        res.status(200).send({
+            message: "Evento excluido com sucesso",
+        });
     } catch (error) {
-        console.error(error); // Adicione o registro do erro para ajudar na depuração
-        return res.status(500).json({ error: error.message });
+        res.status(400).send({ message: "Não foi possível excluir o evento" });
+        return;
     }
 };
+
+
 
 
 module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, sairEvento, incluirGasto, excluirGasto };
