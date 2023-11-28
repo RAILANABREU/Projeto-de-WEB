@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import Input from '../components/common/Input'
 import Logo from '../components/layout/Logo'
 import Main from '../components/layout/Main'
-import style from './RecuperarSenha.module.css'
+import style from './Sign.module.css'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';

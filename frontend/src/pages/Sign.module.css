@@ -72,8 +72,9 @@
   input{
     font-size: 1.2vw;
     width: 100%;
+    margin: 6px 0!important;
     padding: 2vh!important;
-    height: auto!important;
+    height: 5vh!important;
   }
   a{
     font-size: 1.2vw;

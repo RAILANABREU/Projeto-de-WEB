@@ -83,6 +83,7 @@ export default function Home() {
           ))}
         </details>
         </div>
+        <div className="eventoContainer">
         {eventos.map((item) => (
           (item.admID === userId || userData?.eventosConfirmados.includes(item._id)) ? (
             <Card 
@@ -93,6 +94,7 @@ export default function Home() {
             />
           ) : null
         ))}
+        </div>
       </Main>
       <Footer/>    
     </div>
