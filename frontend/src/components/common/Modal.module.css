@@ -99,6 +99,7 @@
     }
     .top{
         margin-bottom: 2vh;
+        justify-content: center;
     }
 }
 
