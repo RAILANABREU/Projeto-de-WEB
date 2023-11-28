@@ -1,7 +1,6 @@
 const userServices = require('../services/user.service');
 const eventoServices = require('../services/evento.service');
 
-
 const updateUser = async (req, res) => {
 
     try {
@@ -97,25 +96,61 @@ const findUser = async (req, res) => {
     }
 }
 
-const deleteUser = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const evento = await eventoServices.findAllEventoService();
-        const user = await userServices.findUserByIdService(id);
-        if (!user) {
-            return res.status(400).json({ message: "Usuário não encontrado" });
-        }
-        for (const element of evento) {
-            if (element.admID === id )
-            console.log(element._id); {
-                await eventoServices.deleteEventoService(element._id); // Delete evento
-            }
-        await userServices.deleteUserService(id);
-        }
-        return res.status(200).json({ message: "Usuário deletado com sucesso" });
-    } catch (error) {
-        return res.status(400).json({ error: error.message });
-    }
-}
+const deleteEventoService = async (id) => {
+    const evento = await eventoServices.findEventoByIdService(id);
 
+    if (!evento) {
+        return console.log({ message: "Evento não encontrado" });
+    }
+    await evento.deleteOne(evento);
+
+    const user = await userServices.findUserByIdService(evento.admID);
+    const index = user.EventosAdm.indexOf(evento._id);
+    if (index > -1){
+        user.EventosAdm.splice(index, 1);
+        await user.updateOne(user);
+    }else{
+        return console.log({ message: "Evento não encontrado" });
+    }
+    const users = await userServices.findAllUserService();
+    for ( const user of users){
+        for(const evento of user.eventosConfirmados){
+            if(evento.toString() === id){
+                user.eventosConfirmados.pull(evento)
+                await user.updateOne(user);
+            }
+        }
+        for(const evento of user.convites){
+            if(evento.toString() === id){
+                user.convites.pull(evento)
+                await user.updateOne(user);
+            }}
+        }
+    };
+
+    const deleteUser = async (req, res) => {
+        const { id } = req.params;
+        try {
+            const user = await userServices.findUserByIdService(id);
+            if (!user) {
+                return res.status(400).json({ message: "Usuário não encontrado" });
+            }
+            for (const idevento of user.eventosConfirmados) {
+                const evento = await eventoServices.findEventoByIdService(idevento);
+                for (const convidado of evento.convidados) {
+                    if (convidado.idConvidado === id) {
+                        evento.convidados.pull(convidado);
+                        await evento.updateOne(evento);
+                    }
+                };
+            }
+            for (const idevento of user.EventosAdm) {
+                await deleteEventoService(idevento);
+                }
+            await userServices.deleteUserService(id);
+            return res.status(200).json({ message: "Usuário deletado com sucesso" });
+        } catch (error) {
+            return res.status(400).json({ error: error.message });
+        }
+    }
 module.exports = { updateUser, findAllUsers, findUserById, findUser, deleteUser };

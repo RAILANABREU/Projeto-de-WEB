@@ -68,7 +68,7 @@ const enviarConvite = async (req, res) => {
             });
             return;
         };
-        const eventosConfirmadosIndex = user.eventosConfirmados.findIndex(evento => evento._id.toString() === idEvento)
+        const eventosConfirmadosIndex = user.eventosConfirmados.findIndex(evento => evento._id === idEvento)
         if (eventosConfirmadosIndex !== -1) {
             res.status(400).send({
                 message: "Usuário já está confirmado neste evento"
