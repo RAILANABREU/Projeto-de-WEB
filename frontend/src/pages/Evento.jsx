@@ -180,6 +180,7 @@ export default function Evento(){
           <p className={style.p}>usuário: {convidadoSelecionado?.username}</p>
           <p className={style.p}>{`Pagou sua parte? ${convidadoSelecionado?.jaPagou ? 'PAGO' : 'NÃO PAGO'}`}</p>
           </Modal>
+        <div className="containerCentral">
         <Main>
           <Base/>
           <Link to={`/gastos/${userId}/${eventoId}`}><Button type={"add"}/></Link>
@@ -191,6 +192,8 @@ export default function Evento(){
 
           <Link to={`/pagamento/${userId}/${eventoId}`}><button>LISTA DE PAGAMENTO</button></Link>
         </Main>
+        </div>
+        
         <Footer/>
         </div>
       ) 

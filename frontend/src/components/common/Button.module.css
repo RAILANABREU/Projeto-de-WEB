@@ -38,7 +38,7 @@
     align-items: center;
     justify-content: center;
     margin: 0px 8px;
-    margin-left: 50%;
+    
 }
 .modal{
     background: white;
@@ -83,7 +83,28 @@
     .sair{
         margin: 0;
     }
+    
 }
+
+@media screen and (min-width:800px){
+    .add{
+        height: auto;
+        width: 100%;
+        margin-left: 0;
+    }
+    .editar{
+        width: 10vw;
+        padding: 16px;
+        height: auto;
+    }
+    .convidar{
+        width: 10vw;
+        padding: 16px;
+        height: auto;
+    }
+    
+}
+
 @media screen and (min-width:1400px){
     .sair{
         height: auto;

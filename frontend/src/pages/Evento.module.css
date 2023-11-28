@@ -21,3 +21,11 @@
     margin: 20px 0px;
 
 }
+
+@media screen and (min-width:800px){
+    .info{
+        width: 100%;
+        height: auto;
+        font-size: 1.5vw;
+    }
+}
