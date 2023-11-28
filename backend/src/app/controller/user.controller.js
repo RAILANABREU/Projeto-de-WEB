@@ -89,7 +89,7 @@ const findUserById = async (req, res) => {
 const findUser = async (req, res) => {
     const { username } = req.body;
     try {
-        const user = await userServices.findUserService(req.body);
+        const user = await userServices.findUserService(username);
         return res.status(200).json({ user });
     } catch (error) {
         return res.status(400).json({ error: error.message });
