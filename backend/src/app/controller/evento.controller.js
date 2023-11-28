@@ -206,7 +206,7 @@ const deleteEventoService = async (req, res) => {
             }
           }
           
-        }
+        
 
         // Exclui o evento do serviço de eventos
         await eventoService.deleteEventoService(id);
