@@ -9,6 +9,10 @@
         {
             "url": "http://localhost:3000/evento",
             "description": "Local server"
+        },
+        {
+            "url": "https://billbuddy-et97.onrender.com/evento",
+            "description": "Server Online"
         }
     ],
     "paths": {
