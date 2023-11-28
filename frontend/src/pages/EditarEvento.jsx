@@ -44,11 +44,11 @@ export default function EditarEvento() {
       const dadosNaoVazios = Object.fromEntries(
         Object.entries(data).map(([key, value]) => [
           key,
-          value !== null && value !== "" ? value : (eventData && eventData[key]) || null,
+          value !== null && value !== "" ? value : "",
         ])
       );
     
-      const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, _id: userId };
+      const dataComImagem = { ...dadosNaoVazios, imagem: imagemBase64, _id: eventoId };
   
       try {
         const response = await editarEvento(dataComImagem, Cookies.get("token"));

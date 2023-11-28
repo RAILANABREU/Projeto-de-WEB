@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useImageUpload = () => {
-  const [imagemBase64, setImagemBase64] = useState(null);
+  const [imagemBase64, setImagemBase64] = useState("");
 
   const handleImagemChange = (event) => {
     const imagemArquivo = event.target.files[0];
