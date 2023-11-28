@@ -52,3 +52,10 @@
   width: 178.6px;
   height: 151px;
 }
+
+@media screen and (min-width: 1400px){
+  .bigiconname{
+    height: auto;
+    width: 20vw;
+  }
+}

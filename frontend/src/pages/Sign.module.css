@@ -24,12 +24,56 @@
     display: inline-block;
     cursor: pointer;
   }
+  h1 {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
   input[type= "file"]{
     display: none;
   }
   button:disabled{
     background-color: var(--light-gray);
   }
+  button{
+    margin:0 auto;
+  }
+  .column{
+    display: grid;
+  }
 
+@media screen and (min-width: 1400px){
+  h1{
+    font-size: 3vw!important;
+  }
+  input{
+    height: 6vh!important;
+  }
+  form{
+    display: grid;
+    grid-gap: 2vh;
+  }
+  .column{
+    grid-gap: 2vh;
+  }
+}
 
+@media screen and (min-width: 800px){
+  h1{
+    font-size: 2.5vw;
+    margin-bottom: 2vh;
+  }
+  
+  input{
+    font-size: 1.2vw;
+    width: 100%;
+    padding: 2vh!important;
+    height: auto!important;
+  }
+  a{
+    font-size: 1.2vw;
+  }
+  .p{
+    font-size: 1.4vw;
+  }
+}
   

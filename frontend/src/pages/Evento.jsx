@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
-import { useState } from "react";
+import { useId, useState } from "react";
 import Cookies from "js-cookie";
 import Icon from "../components/common/icons";
 import style from "./Evento.module.css"
@@ -9,14 +9,23 @@ import Button from "../components/common/Button";
 import Footer from "../components/layout/Footer";
 import useAuth from "../useAuth";
 import useData from "../useData";
-import { respostaConvite } from "../services/eventosSevices";
+import { delGasto, respostaConvite } from "../services/eventosSevices";
+import Modal from "../components/common/Modal";
 
 export default function Evento(){
     useAuth();
+    const [openModalGasto, setOpenModalGasto] = useState(false);
+    const [gastoSelecionado, setGastoSelecionado] = useState(null);
     const {userId, eventoId} = useParams();
     const { userData, eventoData } = useData(userId,eventoId);
     const navigate  = useNavigate();
     const [copiado, setCopiado] = useState(false);
+
+    const handleAbrirModalGasto = (gasto) => {
+      setGastoSelecionado(gasto);
+      setOpenModalGasto(true);
+    };
+
 
     const handleCancelar = () => {
         navigate(`/home/${userId}`);
@@ -59,6 +68,21 @@ export default function Evento(){
       alert("PIX copiado para a área de transferência");
     };
 
+    async function deletarGasto(){
+      const data = {idEvento: eventoId, idGasto: gastoSelecionado._id}
+      console.log(data)
+      try{
+        const response = await delGasto(data, Cookies.get("token"));
+
+        if(response.success){
+          console.log(response.message)
+        }else{
+          console.log(response.error)
+        }
+      }catch(error){
+        console.error("error ao excluir")
+      }
+    }
 
     function Base(){
       return(
@@ -90,9 +114,13 @@ export default function Evento(){
                       </div>
     
                     <details>
-                        <summary>gastos: {eventoData && eventoData.gastos.total}</summary>
+                        <summary>total gastos: {eventoData && eventoData.gastos.total}</summary>
                         {eventoData && eventoData.gastos.gasto.map((gasto) => (
-                        <div>{gasto.valor + ' - ' + gasto.local}</div>
+                        <div
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleAbrirModalGasto(gasto)}>
+                          {gasto.valor + ' - ' + gasto.local}
+                        </div>
                         ))}
                     </details>
                   </section>
@@ -103,9 +131,18 @@ export default function Evento(){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
+        <Modal type="info"
+          isOpen={openModalGasto} 
+          setOpen={() => {setOpenModalGasto(!openModalGasto)}}
+          onClick={deletarGasto}>
+          <h2>Detalhes do Gasto</h2>
+          <p>Local: {gastoSelecionado?.local}</p>
+          <p>Descrição: {gastoSelecionado?.descricao}</p>
+          <p>Valor: {gastoSelecionado?.valor}</p>
+          </Modal>
         <Main>
           <Base/>
-          <Button type={"add"}/>
+          <Link to={`/gastos/${userId}/${eventoId}`}><Button type={"add"}/></Link>
           <Button 
           type={"editar/convidar"}
           name={"EDITAR"} name2={"CONVIDAR"}
@@ -117,7 +154,7 @@ export default function Evento(){
         <Footer/>
         </div>
       ) 
-    }else if(userData && userData.convites && userData.convites.some(convite => convite._id === eventoId)){
+    }else if(userData?.convites?.some(convite => convite._id === eventoId)){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
@@ -132,7 +169,7 @@ export default function Evento(){
         <Footer/>
         </div>
       )
-    }else if(userData && userData.eventosConfirmados.includes(eventoId)){
+    }else if(userData?.eventosConfirmados.includes(eventoId)){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
