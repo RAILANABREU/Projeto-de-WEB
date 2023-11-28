@@ -72,7 +72,7 @@ const findEvento = async (req, res) => {
 
 const updateEvento = async (req, res) => {
     try {
-        const evento = await eventoService.findEventoByIdService(req.body.idEvento);
+        const evento = await eventoService.findEventoByIdService(req.body.id);
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
