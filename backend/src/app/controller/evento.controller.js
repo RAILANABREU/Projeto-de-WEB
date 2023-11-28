@@ -201,13 +201,11 @@ const deleteEventoService = async (req, res) => {
         // Buscar todos os usuários
         const users = await userService.findAllUserService();
         for (let i = 0; i < users.length; i++) {
-            // Verifica se o evento está na lista de EventosAdm e remove usando pull
-            const indexAdm = users[i].EventosAdm.indexOf(id);
-
-            if (indexAdm !== -1) {
-                users[i].EventosAdm.splice(indexAdm, 1); // Usando splice para remover o evento pelo índice
-                await users[i].save(); // Salva o usuário com a lista atualizada
+            if (users[i].EventosAdm.includes(id)) { // Se o array inclui o ID do evento
+              await users[i].updateOne({ $pull: { EventosAdm: id } }); // Remove o evento usando $pull
             }
+          }
+          
         }
 
         // Exclui o evento do serviço de eventos
