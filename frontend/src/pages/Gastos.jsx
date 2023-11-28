@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { gastoSchema } from "../Schemas/gastoSchema";
-import { addGasto } from "../services/eventosSevices";
+import { addGasto } from "../services/eventosServices";
 import Cookies from "js-cookie";
 import { useState } from "react";
 

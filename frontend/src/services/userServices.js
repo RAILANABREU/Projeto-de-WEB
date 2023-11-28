@@ -80,3 +80,13 @@ export async function recuperarSenha(data){
         return { success: false, error: error.response.data.message };
     }
 }
+
+export async function resetarSenha(data){
+  try{
+    const response = await axios.post(`${baseURL}/user/resetPassword`, data)
+    return { success: true, userId: response.data.user.id, token: response.data.user.token};
+    } catch (error) {
+        console.error("Erro ao recuperar senha:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}

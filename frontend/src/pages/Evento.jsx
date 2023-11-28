@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Cookies from "js-cookie";
 import Icon from "../components/common/icons";
 import style from "./Evento.module.css"
@@ -9,21 +9,30 @@ import Button from "../components/common/Button";
 import Footer from "../components/layout/Footer";
 import useAuth from "../useAuth";
 import useData from "../useData";
-import { delGasto, respostaConvite } from "../services/eventosSevices";
+import { delConvidado, delGasto, respostaConvite } from "../services/eventosServices";
 import Modal from "../components/common/Modal";
 
 export default function Evento(){
     useAuth();
-    const [openModalGasto, setOpenModalGasto] = useState(false);
-    const [openModalConvidado, setOpenModalConvidado] = useState(false);
-    const [gastoSelecionado, setGastoSelecionado] = useState(null);
-    const [convidadoSelecionado, setConvidadoSelecionado] = useState(null);
+    const navigate  = useNavigate();
     const {userId, eventoId} = useParams();
     const { userData, eventoData } = useData(userId,eventoId);
-    const navigate  = useNavigate();
+
+    
+    const [openModalGasto, setOpenModalGasto] = useState(false);
+    const [openModalConvidado, setOpenModalConvidado] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [gastoSelecionado, setGastoSelecionado] = useState(null);
+    const [convidadoSelecionado, setConvidadoSelecionado] = useState(null);
+    const [message, setMessage] = useState(null);
+    
+    
     const [copiado, setCopiado] = useState(false);
 
-    console.log(eventoData)
+    const atualizarPagina = () => {
+      window.location.reload();
+    };
+    
     const handleAbrirModalGasto = (gasto) => {
       setGastoSelecionado(gasto);
       setOpenModalGasto(true);
@@ -36,44 +45,37 @@ export default function Evento(){
     const handleCancelar = () => {
         navigate(`/home/${userId}`);
       };
-    const handleEditar = () =>{
-        navigate(`/editarevento/${userId}/${eventoId}`);
-    };
-    const handleConvidar = () =>{
-        navigate(`/convite/${userId}/${eventoId}`);
-    };
-    const handleGastoChange = (event) => {
-      const gastoId = event.target.selectedOptions[0].getAttribute('gastoid');
-      
-      if (gastoId) {
-        navigate(`/gasto/${userId}/${eventoId}/${gastoId}`);
-      }
-    };
-    const handleConvidadoChange = (event) => {
-      const convidadoId = event.target.selectedOptions[0].getAttribute('convidadoid');
-      if (convidadoId){
-
-      }
-    }
-    async function resConvite(resposta){
-      const data  = {idEvento: eventoId, idUsuario: userId, confirmar: resposta}
-      try{
-        const response = await respostaConvite(data, Cookies.get("token"));
-        console.log(response.data)
-
-      }catch(error){
-        console.error("error ao enviar")
-      }
-      navigate(`/home/${userId}`)
-    }
-
 
     const handleCopyToClipboard = () => {
       navigator.clipboard.writeText(eventoData?.pix);
       setCopiado(true);
       alert("PIX copiado para a área de transferência");
     };
+    //membro
+    async function sairEvento(){
+      console.log("sairEVENTO")
+      const data = {idEvento: eventoId, idConvidado: userId};
+      try{
+        await delConvidado(data, Cookies.get("token"));
 
+      }catch(error){
+        setMessage("erro ao sair do evento")
+      }
+      navigate(`/home/${userId}`)
+    }
+
+    //covidado
+    async function resConvite(resposta){
+      const data  = {idEvento: eventoId, idUsuario: userId, confirmar: resposta}
+      try{
+        await respostaConvite(data, Cookies.get("token"));
+      }catch(error){
+        setMessage("erro ao enviar resposta")
+      }
+      navigate(`/home/${userId}`)
+    }
+    
+    //adm
     async function deletarGasto(){
       const data = {idEvento: eventoId, idGasto: gastoSelecionado._id}
       console.log(data)
@@ -88,11 +90,26 @@ export default function Evento(){
       }catch(error){
         console.error("error ao excluir")
       }
+      atualizarPagina();
     }
     async function deletarConvidado(){
       const data = {idEvento: eventoId, idConvidado: convidadoSelecionado._id}
       console.log(data)
+      try{
+        const response = await delConvidado(data, Cookies.get("token"));
+
+        if(response.success){
+          console.log(response.message)
+        }else{
+          console.log(response.error)
+        }
+      }catch(error){
+        console.error("error ao excluir")
+      }
+      atualizarPagina();
     }
+
+    //base da pagina
     function Base(){
       return(
         <>
@@ -101,6 +118,7 @@ export default function Evento(){
                     <Icon 
                         img={eventoData?.imagem}
                         type={"foto-evento"}/>
+                        {message && <p className="message">{message}</p>}
                     </div>
                   <section>
                     <div className={style.info}>descrição: {eventoData?.descricao}</div>
@@ -159,8 +177,8 @@ export default function Evento(){
           setOpen={() => {setOpenModalConvidado(!openModalConvidado)}}
           onClick={deletarConvidado}>
           <h2>Sobre</h2>
-          <p>usuário: {convidadoSelecionado?.username}</p>
-          <p>já pagou?: {convidadoSelecionado?.japago}</p>
+          <p className={style.p}>usuário: {convidadoSelecionado?.username}</p>
+          <p className={style.p}>{`Pagou sua parte? ${convidadoSelecionado?.jaPagou ? 'PAGO' : 'NÃO PAGO'}`}</p>
           </Modal>
         <Main>
           <Base/>
@@ -168,8 +186,8 @@ export default function Evento(){
           <Button 
           type={"editar/convidar"}
           name={"EDITAR"} name2={"CONVIDAR"}
-          onClick={handleConvidar}
-          onClickCancelar={handleEditar}/>
+          onClick={() =>{navigate(`/convite/${userId}/${eventoId}`)}}
+          onClickCancelar={() =>{navigate(`/editarevento/${userId}/${eventoId}`)}}/>
 
           <Link to={`/pagamento/${userId}/${eventoId}`}><button>LISTA DE PAGAMENTO</button></Link>
         </Main>
@@ -195,11 +213,17 @@ export default function Evento(){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
+        <Modal
+        type="sair"
+        isOpen={openModal} 
+        setOpen={() => {setOpenModal(!openModal)}}
+        onClick={sairEvento}>
+        Tem certeza que deseja sair do evento?
+        </Modal>
         <Main>
           <Base/>
-          <Button 
-          type={"confirmar"}
-          name={"SAIR DO EVENTO"}/>
+          <button style={{width: "95%",background: "none",color: "var(--accent-color)", border: "solid 2px var(--accent-color)"}}
+          onClick={()=>setOpenModal(!openModal)}>SAIR DO EVENTO</button>
         </Main>
         <Footer/>
         </div>
@@ -215,5 +239,5 @@ export default function Evento(){
         </div>
       )
     }
-}
+  }
 

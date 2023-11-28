@@ -8,8 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Footer from '../components/layout/Footer';
 import { recuperarsenhaSchema } from '../Schemas/recuperarsenhaSchema';
-import { recuperarSenha } from '../services/userServices';
+import { recuperarSenha, resetarSenha } from '../services/userServices';
 import Button from '../components/common/Button';
+import Cookies from 'js-cookie';
 
 
 export default function RecuperarSenha(){
@@ -33,6 +34,7 @@ export default function RecuperarSenha(){
             const response = await recuperarSenha(data)
             if(response.success){
                 console.log(response)
+                resetPassword(response.userId, response.token, dados.senha)
             }else{
                 setMessage(response.error)
             }
@@ -41,6 +43,21 @@ export default function RecuperarSenha(){
         }
     }
 
+    const resetPassword = async (userId, Token, novaSenha) =>{
+        const data = {id: userId, token: Token, password: novaSenha }
+
+        try{
+            const response = await resetarSenha(data)
+            if(response.success){
+                console.log(response)
+                setMessage("senha alterada com sucesso")
+            }else{
+                setMessage(response.error)
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
     return(
         <div className="page">
           <div className="main-container main-distance">
@@ -48,7 +65,7 @@ export default function RecuperarSenha(){
             <Logo type= '3'/>
           </div>
           <Main>
-              <h1>RECUPERAR SENHA</h1>
+          <h1>RECUPERAÇÃO</h1>
               {message && <p className="message">{message}</p>}
               <form onSubmit={handleSubmit(Submit)}>
                 <Input 
@@ -91,6 +108,22 @@ export default function RecuperarSenha(){
                 reg= {register}/>
                 {errors.secretWords4 && (
                           <p className="error"><span>{errors.secretWords4.message}</span></p>
+                        )}
+                <Input
+                id= 'nova senha'
+                name= 'senha'
+                type= 'password'
+                reg= {register}/>
+                {errors.senha && (
+                          <p className="error"><span>{errors.senha.message}</span></p>
+                        )}
+                <Input
+                id= 'repita a nova senha'
+                name= 'senha2'
+                type= 'password'
+                reg= {register}/>
+                {errors.senha2 && (
+                          <p className="error"><span>{errors.senha2.message}</span></p>
                         )}
 
                

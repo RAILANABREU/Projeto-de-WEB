@@ -117,6 +117,20 @@ export async function delGasto(data, authToken){
     }
 }
 
+export async function delConvidado(data, authToken){
+    try{
+        const response = await axios.post(`${baseURL}/evento/deletarConvidado`, data, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.error("Erro ao deletar convidado:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}
+
 export async function excluirEvento(eventoid, authToken){
     try{
         const response = await axios.delete(`${baseURL}/evento/delete/${eventoid}`, {
@@ -129,4 +143,19 @@ export async function excluirEvento(eventoid, authToken){
         console.error("Erro ao excluir evento convite:", error.response.data.message);
         return { success: false, error: error.response.data.message };
     }
-} 
+}
+
+export async function alterarConvidados(data, authToken){
+    try{
+        const response = await axios.put(`${baseURL}/evento/alterarConvidados`,data, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.log(error)
+        console.error("Erro ao alterar Convidados:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}
