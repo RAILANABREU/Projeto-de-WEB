@@ -4,7 +4,7 @@ const eventoServices = require('../services/evento.service');
 const updateUser = async (req, res) => {
 
     try {
-        const user = await userServices.findUserService(req.body.username);
+        const user = await userServices.findUserByIdService(req.body.id);
         
         if (!user) {
             res.status(400).send({ message: "Não foi possível localizar o usuário" });

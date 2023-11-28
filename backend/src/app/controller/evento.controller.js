@@ -72,7 +72,7 @@ const findEvento = async (req, res) => {
 
 const updateEvento = async (req, res) => {
     try {
-        const evento = await eventoService.findEventoService(req.body.titulo);
+        const evento = await eventoService.findEventoByIdService(req.body.idEvento);
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
@@ -111,7 +111,6 @@ const updateEvento = async (req, res) => {
         await evento.updateOne(evento);
         res.status(200).send({
             message: "Evento atualizado com sucesso",
-            evento,
         });
     
     }}catch (error) {
