@@ -13,48 +13,51 @@ import { FindUserByID } from "../services/userServices";
 export default function Home() {
   useAuth();
   const [eventos, setEventos] = useState([]);
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const [ userData, setUserData] = useState();
-  const { userId } = useParams();
-  const navigate = useNavigate();
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const [userData, setUserData] = useState();
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 800);
+    const { userId } = useParams();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await getAllEvents(Cookies.get("token"));
-        setEventos(response.data.evento);
-      } catch (error) {
-        console.error("Erro ao buscar eventos:", error);
-      }
-      try {
-        const user = await FindUserByID(userId, Cookies.get("token"));
-        setUserData(user);
-      } catch (error) {
-        console.error("Erro ao buscar usuário:", error);
-      }
-    }
-    fetchData();
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await getAllEvents(Cookies.get("token"));
+                setEventos(response.data.evento);
+            } catch (error) {
+                console.error("Erro ao buscar eventos:", error);
+            }
+
+            try {
+                const user = await FindUserByID(userId, Cookies.get("token"));
+                setUserData(user);
+            } catch (error) {
+                console.error("Erro ao buscar usuário:", error);
+            }
+        }
+        fetchData();
+        console.log(Cookies.get("token"));
     }, []);
 
     useEffect(() => {
-    function handleResize() {
-        setIsLargeScreen(window.innerWidth > 800);
-    }
+        function handleResize() {
+            setIsLargeScreen(window.innerWidth > 800);
+        }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     useEffect(() => {
-    if (isLargeScreen) {
-        setDrawerOpen(true); // Sempre aberto em telas grandes
-    } else {
-        setDrawerOpen(false); // Fecha o modal em telas menores
-    }
+        if (isLargeScreen) {
+            setDrawerOpen(true); // Sempre aberto em telas grandes
+        } else {
+            setDrawerOpen(false); // Fecha o modal em telas menores
+        }
     }, [isLargeScreen]);
 
     const openDrawer = () => {
-    setDrawerOpen(true);
+        setDrawerOpen(true);
     };
 
 
