@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     element: <CriarEvento/>,
   },
   {
-    path: "/gastos",
+    path: "/gastos/:userId/:eventoId",
     element: <Gastos/>,
   },
   {

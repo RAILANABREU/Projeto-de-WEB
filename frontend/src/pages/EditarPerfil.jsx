@@ -95,11 +95,11 @@ export default function EditarPerfil(){
     return(
         <div className="page">
             <Head onIconClick={handleCancelar}/>
-            <Modal type="userdel"
+            <Modal type="del"
             isOpen={openModal} 
             setOpen={() => {
               setOpenModal(!openModal)}}
-              onClick={userDelete}/>
+              onClick={userDelete}>Confirmar a exclusão da conta resultará na remoção permanente de todos os eventos associados. Esta ação é irreversível. Deseja prosseguir?</Modal>
             
             <Main>
             <div className={style.head}>

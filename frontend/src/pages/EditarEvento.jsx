@@ -4,24 +4,25 @@ import Main from "../components/layout/Main";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createEventSchema, editEventSchema } from "../Schemas/eventSchema";
-import { editarEvento } from "../services/eventosSevices";
+import { editEventSchema } from "../Schemas/eventSchema";
+import { editarEvento, excluirEvento } from "../services/eventosSevices";
 import Cookies from "js-cookie";
 import style from "./EditarEvento.module.css";
 import Icon from "../components/common/icons";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
-import pako from 'pako';
 import useAuth from "../useAuth";
 import useImageUpload from "../useImage";
+import Modal from "../components/common/Modal";
 
 export default function EditarEvento() {
   useAuth();
-  const { userId } = useParams();
+  const { userId, eventoId } = useParams();
   const navigate = useNavigate();
   const { imagemBase64, handleImagemChange} = useImageUpload();
   const [message, setMessage] = useState(null);
   const [eventData, setEventData] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const {
     register,
@@ -70,9 +71,30 @@ export default function EditarEvento() {
       setMessage("Formulário inválido");
     }
   };
+  const delEvento = async () =>{
+    try {
+      const response = await excluirEvento(eventoId, Cookies.get("token"));
+      console.log(response);
+
+      if (response.success) {
+        setMessage("Evento Excluido com sucesso");
+        reset();
+        navigate(`/home/${userId}`);
+      }
+
+    } catch (error) {
+      console.error(error.message);
+      setMessage("Erro ao salvar as modificações");
+    }
+  }
     return(
         <div className="page">
             <Head onIconClick={() => navigate(`/home/${userId}`)}/>
+            <Modal type="del"
+            isOpen={openModal} 
+            setOpen={() => {
+              setOpenModal(!openModal)}}
+              onClick={delEvento}>Confirmar a exclusão do evento resultará na remoção permanente do evento e de todas as informações associadas a ele. Esta ação é irreversível. Deseja prosseguir?</Modal>
             <Main>
             <div className={style.top}>
                 <h1>Editar Evento</h1>
@@ -88,6 +110,7 @@ export default function EditarEvento() {
                 img={imagemBase64}
                 type={"foto-evento"}/>
                 </label>
+                <Button name={"deletar evento"} onClick={() => setOpenModal(true)}/>
             </div>
             <form onSubmit={handleSubmit(handleSave)}>
             <Input

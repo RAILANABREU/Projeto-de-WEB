@@ -89,3 +89,44 @@ export async function respostaConvite(data, authToken){
         return { success: false, error: error.response.data.message };
     }
 }
+
+export async function addGasto(data, authToken){
+    try{
+        const response = await axios.post(`${baseURL}/evento/incluirgasto`, data, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.error("Erro ao incluir gasto convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}
+export async function delGasto(data, authToken){
+    try{
+        const response = await axios.post(`${baseURL}/evento/excluirgasto`, data, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.error("Erro ao incluir gasto convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}
+
+export async function excluirEvento(eventoid, authToken){
+    try{
+        const response = await axios.delete(`${baseURL}/evento/delete/${eventoid}`, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.error("Erro ao excluir evento convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+} 
