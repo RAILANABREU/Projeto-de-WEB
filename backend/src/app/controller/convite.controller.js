@@ -140,23 +140,22 @@ const enviarConvite = async (req, res) => {
                 });
                 return;
             }
-
             if (confirmar === "aceito") {
-                const custoConvidado = {
+                const convidado = {
                     username: user.username,
                     idConvidado: user._id,
                     jaPagou: false,
                     createdAt: Date.now()
                 }
 
-                if(evento.convidados.includes(custoConvidado)){
+                if(evento.convidados.includes(convidado)){
                     res.status(400).send({
                         message: "Usuario já está na lista de convidados"
                     });
                     return;
                 }else{
                     user.convites[conviteIndex].status = "aceito";
-                    evento.convidados.push(custoConvidado);
+                    evento.convidados.push(convidado);
                     user.eventosConfirmados.push(evento.id);
                     user.convites.splice(conviteIndex, 1);
                     await evento.updateOne(evento);
