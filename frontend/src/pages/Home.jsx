@@ -36,7 +36,6 @@ export default function Home() {
             }
         }
         fetchData();
-        console.log(Cookies.get("token"));
     }, []);
 
     useEffect(() => {
