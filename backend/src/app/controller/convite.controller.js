@@ -279,8 +279,15 @@ const deletarConvidado = async (req, res) => {
             return;
         }
 
-        const convidado = await userService.findUserByIdService(idConvidado);  
-        convidado.eventosConfirmados.splice(convidado.eventosConfirmados.indexOf(evento.id), 1);
+        const convidado = await userService.findUserByIdService(idConvidado);
+        const index = convidado.eventosConfirmados.indexOf(evento._id);
+        if (index > -1){
+            console.log("entrou aqui")
+            convidado.eventosConfirmados.splice(index, 1);
+            await convidado.updateOne(convidado);
+        }else{
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
         evento.convidados.splice(convidadoIndex, 1);
         await evento.updateOne(evento);
 
