@@ -25,8 +25,6 @@ export default function Evento(){
       setGastoSelecionado(gasto);
       setOpenModalGasto(true);
     };
-
-
     const handleCancelar = () => {
         navigate(`/home/${userId}`);
       };
@@ -154,7 +152,7 @@ export default function Evento(){
         <Footer/>
         </div>
       ) 
-    }else if(userData?.convites?.some(convite => convite._id === eventoId)){
+    }else if(userData?.convites?.some(convite => convite === eventoId)){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
