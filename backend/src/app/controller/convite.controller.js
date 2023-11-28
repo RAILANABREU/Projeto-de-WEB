@@ -69,7 +69,7 @@ const enviarConvite = async (req, res) => {
             return;
         };
         try {
-            user.convites.push(evento);
+            user.convites.push(evento._id);
             await user.updateOne(user);
             res.status(200).send({
                 message: "Convite enviado com sucesso",
@@ -123,7 +123,7 @@ const enviarConvite = async (req, res) => {
 
             if (conviteIndex === -1) {
                 res.status(400).send({
-                    message: "Usuario não foi convidado para este evento"
+                    message: "Convite não encontrado"
                 });
                 return;
             }
@@ -137,7 +137,8 @@ const enviarConvite = async (req, res) => {
             if (confirmar === "aceito") {
                 const custoConvidado = {
                     idConvidado: user._id,
-                    jaPagou: false
+                    jaPagou: false,
+                    createdAt: Date.now()
                 }
 
                 if(evento.convidados.includes(custoConvidado)){
@@ -148,9 +149,10 @@ const enviarConvite = async (req, res) => {
                 }else{
                     user.convites[conviteIndex].status = "aceito";
                     evento.convidados.push(custoConvidado);
-                    user.eventosConfirmados.push(evento._id);
+                    user.eventosConfirmados.push(evento.id);
                     user.convites.splice(conviteIndex, 1);
                     await evento.updateOne(evento);
+                    await user.updateOne(user);
                 }
             } else if (confirmar === "recusado") {
                 user.convites[conviteIndex].status = "recusado";
