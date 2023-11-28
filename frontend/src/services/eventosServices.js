@@ -52,7 +52,7 @@ export async function editarEvento(data, authToken){
                 Authorization: `Bearer ${authToken}`
             }
         })
-        return response.data
+        return response
     }catch(error){
         console.error("Erro ao editar evento:", error.response.data.message);
         throw error;

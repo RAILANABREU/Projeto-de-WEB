@@ -52,10 +52,8 @@ export default function EditarEvento() {
       try {
         const response = await editarEvento(dataComImagem, Cookies.get("token"));
   
-        if (response.status === 200) {
-          setEventData(dataComImagem);
-          setMessage("Modificações salvas");
-        }
+        setEventData(dataComImagem);
+        setMessage("Modificações salvas");
   
         reset();
       } catch (error) {
