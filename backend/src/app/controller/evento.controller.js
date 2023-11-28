@@ -128,12 +128,14 @@ const incluirGasto = async (req, res) => {
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
-        evento.gastos.total = evento.gastos.total + gasto.valor;
+        // Arredonda o valor para duas casas decimais
+        gasto.valor = gasto.valor.toFixed(2);
+        evento.gastos.total = (parseFloat(evento.gastos.total) + parseFloat(gasto.valor)).toFixed(2);
         evento.gastos.gasto.push(gasto);
         await evento.updateOne(evento);
         res.status(200).send({
-            message: "Gasto incluido com sucesso",
-            gastos:evento.gastos,
+            message: "Gasto incluído com sucesso",
+            gastos: evento.gastos,
         });
     } catch (error) {
         res.status(400).send({ message: "Não foi possível incluir o gasto" });
