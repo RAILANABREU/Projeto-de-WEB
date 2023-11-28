@@ -82,7 +82,7 @@ const recuperarSenha = async (req, res) => {
                 });
                 return;
             }
-            console.log(user.resetPasswordToken, token)
+            
             if (user.resetPasswordToken.toString() !== token) {
                 res.status(400).send({
                     message: "Token inválido"
