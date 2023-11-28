@@ -16,7 +16,7 @@ const recuperarSenha = async (req, res) => {
     }
     
     try {
-        const user = await userService.findUserService(req.body);
+        const user = await userService.findUserService(username);
 
         if (!user) {
         res.status(400).send({
@@ -57,6 +57,8 @@ const recuperarSenha = async (req, res) => {
     
     }
 
+    const bcrypt = require("bcrypt");
+
     const resetarSenha = async (req, res) => {
         const {
             id,
@@ -72,7 +74,7 @@ const recuperarSenha = async (req, res) => {
         }
         
         try {
-            const user = await userService.findUserById(req.body);
+            const user = await userService.findUserByIdRZT(id);
             if (!user) {
                 res.status(400).send({
                     message: "Não foi possível encontrar o usuário"
@@ -80,10 +82,10 @@ const recuperarSenha = async (req, res) => {
                 });
                 return;
             }
-            if (user.resetPasswordToken !== token) {
+            
+            if (user.resetPasswordToken.toString() !== token) {
                 res.status(400).send({
-                    message: "Token inválido",
-                    
+                    message: "Token inválido"
                 });
                 return;
             }
@@ -96,15 +98,14 @@ const recuperarSenha = async (req, res) => {
             user.senha = await bcrypt.hash(password, 10)
             user.resetPasswordToken = null;
             user.resetPasswordExpires = null;
-            try {
-                await user.updateOne(user);
-            } catch (error) {
-                console.error(error);
-                // Aqui você pode imprimir o erro para debug ou tratá-lo de outra forma
-            }
-    
+          
+            await user.updateOne(user);
+          
             res.status(200).send({
                 message: "Senha alterada com sucesso",
+                user: {
+                    "id": user._id,
+                }
             });
         } catch (error) {
             res.status(400).send({
@@ -112,7 +113,6 @@ const recuperarSenha = async (req, res) => {
             });
             return;
         }
-        
     }
-    
+
     module.exports = { recuperarSenha, resetarSenha };

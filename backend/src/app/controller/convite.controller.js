@@ -68,6 +68,13 @@ const enviarConvite = async (req, res) => {
             });
             return;
         };
+        const eventosConfirmadosIndex = user.eventosConfirmados.findIndex(evento => evento._id.toString() === idEvento)
+        if (eventosConfirmadosIndex !== -1) {
+            res.status(400).send({
+                message: "Usuário já está confirmado neste evento"
+            });
+            return;
+        };
         try {
             user.convites.push(evento._id);
             await user.updateOne(user);
@@ -136,6 +143,7 @@ const enviarConvite = async (req, res) => {
 
             if (confirmar === "aceito") {
                 const custoConvidado = {
+                    username: user.username,
                     idConvidado: user._id,
                     jaPagou: false,
                     createdAt: Date.now()
@@ -162,7 +170,7 @@ const enviarConvite = async (req, res) => {
 
             res.status(200).send({
                 message: confirmar === "aceito" ? "Convite aceito com sucesso" : "Convite recusado com sucesso",
-                user: user.convites
+                userconvites: user.convites
             });
         } catch (error) {
             console.error(error);
