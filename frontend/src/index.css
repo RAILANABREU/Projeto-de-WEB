@@ -135,6 +135,10 @@ section{
   .page{
     grid-gap: 10px;
   }
+  .top{
+    margin-bottom: 1%;
+    flex: 0;
+  }
   .main-container {
     flex-direction: row;
     padding: 0 2vw;
