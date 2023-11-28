@@ -83,7 +83,7 @@ const enviarConvite = async (req, res) => {
                 user
                 });
             } catch (error) {
-                console.error(error);
+            
                 // Aqui você pode imprimir o erro para debug ou tratá-lo de outra forma
             }
     }
@@ -172,7 +172,6 @@ const enviarConvite = async (req, res) => {
                 userconvites: user.convites
             });
         } catch (error) {
-            console.error(error);
             res.status(500).send({
                 message: "Erro ao aceitar convite"
             });
@@ -196,7 +195,6 @@ const findConvidados = async (req, res) => {
             convidados: evento.convidados
         });
     } catch (error) {
-        console.error(error);
         res.status(500).send({
             message: "Erro ao listar convidados"
         });
@@ -243,7 +241,6 @@ const alterarConvidados = async (req, res) => {
             convidados: evento.convidados
         });
     } catch (error) {
-        console.error(error);
         res.status(500).send({
             message: "Erro ao atualizar convidado"
         });
@@ -279,8 +276,14 @@ const deletarConvidado = async (req, res) => {
             return;
         }
 
-        const convidado = await userService.findUserByIdService(idConvidado);  
-        convidado.eventosConfirmados.splice(convidado.eventosConfirmados.indexOf(evento.id), 1);
+        const convidado = await userService.findUserByIdService(idConvidado);
+        const index = convidado.eventosConfirmados.indexOf(evento._id);
+        if (index > -1){
+            convidado.eventosConfirmados.splice(index, 1);
+            await convidado.updateOne(convidado);
+        }else{
+            return res.status(400).json({ message: "Evento não encontrado" });
+        }
         evento.convidados.splice(convidadoIndex, 1);
         await evento.updateOne(evento);
 
