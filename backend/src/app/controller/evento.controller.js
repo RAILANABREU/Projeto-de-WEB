@@ -24,7 +24,7 @@ const createEvento = async (req, res) => {
         evento.admID = user._id;
         evento.updateOne(evento);
         user.isAdm = true;
-        user.EventosAdm.push(evento);
+        user.EventosAdm.push(evento._id);
         await user.updateOne(user);
         return res.status(201).json({ evento });
         
@@ -68,15 +68,7 @@ const findEventoService = async (req, res) => {
 }
 
 
-const deleteEventoService = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const evento = await eventoService.deleteEventoService(id);
-        return res.status(200).json({ message: "Evento deletado com sucesso" });
-    } catch (error) {
-        return res.status(400).json({ error: error.message });
-    }
-}
+
 
 const updateEvento = async (req, res) => {
     try {
@@ -198,30 +190,35 @@ const sairEvento = async (req, res) => {
     }
 }
 
-const excluirEvento = async (req, res) => {
-    const { Id } = req.body;
-
+const deleteEventoService = async (req, res) => {
+    const { id } = req.params;
     try {
-        const evento = await eventoService.findEventoByIdService(Id);
+        const evento = await eventoService.findEventoByIdService(id);
+
         if (!evento) {
             return res.status(400).json({ message: "Evento não encontrado" });
         }
-        const user = await userService.findUserService(username);
-        if (!user) {
-            return res.status(400).json({ message: "Usuário não encontrado" });
+        await evento.deleteOne(evento);
+
+        const user = await userService.findUserByIdService(evento.admID);
+        const index = user.EventosAdm.indexOf(evento._id);
+        if (index > -1){
+            user.EventosAdm.splice(index, 1);
+            await user.updateOne(user);
+        }else{
+            return res.status(400).json({ message: "Evento não encontrado" });
         }
-        user.admEvento.pull(evento);
-        user.participaEvento.pull(evento);
-        await user.updateOne(user);
         res.status(200).send({
-            message: "Usuário removido do evento",
+            message: "Evento excluido com sucesso",
         });
     } catch (error) {
-        res.status(400).send({ message: "Não foi possível remover o usuário" });
+        res.status(400).send({ message: "Não foi possível excluir o evento" });
         return;
     }
-}   
+};
 
 
-module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento,sairEvento, incluirGasto, excluirGasto };
+
+
+module.exports = { createEvento, findAllEventoService, findEventoByIdService, findEventoService, deleteEventoService, updateEvento, sairEvento, incluirGasto, excluirGasto };
 
