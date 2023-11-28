@@ -21,6 +21,7 @@ export default function Evento(){
     const navigate  = useNavigate();
     const [copiado, setCopiado] = useState(false);
 
+    console.log(eventoData)
     const handleAbrirModalGasto = (gasto) => {
       setGastoSelecionado(gasto);
       setOpenModalGasto(true);

@@ -70,3 +70,13 @@ export async function userDel(userId, authToken){
     throw error;
   }
 }
+
+export async function recuperarSenha(data){
+  try{
+    const response = await axios.post(`${baseURL}/user/forgotPasswordToken`, data)
+    return { success: true, data: response };
+    } catch (error) {
+        console.error("Erro ao incluir gasto convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
+}

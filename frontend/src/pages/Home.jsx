@@ -63,16 +63,15 @@ export default function Home() {
         </details>
         </div>
         {eventos.map((item) => (
-            item.admID === userId ? (
-              <Card 
-                id={item._id} 
-                eventos={item} 
-                foto={item.imagem} 
-                titulo={item.titulo} 
-              />
-            ) : null
-          ))
-        }
+          (item.admID === userId || userData?.eventosConfirmados.includes(item._id)) ? (
+            <Card 
+              id={item._id} 
+              eventos={item} 
+              foto={item.imagem} 
+              titulo={item.titulo} 
+            />
+          ) : null
+        ))}
       </Main>
       <Footer/>    
     </div>
