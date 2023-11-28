@@ -15,6 +15,7 @@ router.post('/incluirgasto', authToken ,eventoController.incluirGasto);
 router.post('/excluirgasto', authToken ,eventoController.excluirGasto);
 router.post('/findConvidados',authToken ,conviteController.findConvidados);
 router.post('/alterarConvidados', authToken ,conviteController.alterarConvidados);
+router.post('/deletarConvidado', authToken ,conviteController.deletarConvidado);
 
 
 
