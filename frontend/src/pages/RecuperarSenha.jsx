@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import Input from '../components/common/Input'
 import Logo from '../components/layout/Logo'
 import Main from '../components/layout/Main'
-import style from './Sign.module.css'
+import style from './RecuperarSenha.module.css'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -75,7 +75,7 @@ export default function RecuperarSenha(){
                           <p className="error"><span>{errors.username.message}</span></p>
                         )}
 
-                <Input
+                <Input 
                 id= 'secretWord 1'
                 name= 'secretWords1'
                 type= 'text'
@@ -83,7 +83,7 @@ export default function RecuperarSenha(){
                 {errors.secretWords1 && (
                           <p className="error"><span>{errors.secretWords1.message}</span></p>
                         )}
-                <Input
+                <Input 
                 id= 'secretWord 2'
                 name= 'secretWords2'
                 type= 'text'
@@ -91,7 +91,7 @@ export default function RecuperarSenha(){
                 {errors.secretWords2 && (
                           <p className="error"><span>{errors.secretWords2.message}</span></p>
                         )}
-                <Input
+                <Input 
                 id= 'secretWord 3'
                 name= 'secretWords3'
                 type= 'text'
@@ -99,7 +99,7 @@ export default function RecuperarSenha(){
                 {errors.secretWords3 && (
                           <p className="error"><span>{errors.secretWords3.message}</span></p>
                         )}
-                <Input
+                <Input 
                 id= 'secretWord 4'
                 name= 'secretWords4'
                 type= 'text'
@@ -107,7 +107,7 @@ export default function RecuperarSenha(){
                 {errors.secretWords4 && (
                           <p className="error"><span>{errors.secretWords4.message}</span></p>
                         )}
-                <Input
+                <Input 
                 id= 'nova senha'
                 name= 'senha'
                 type= 'password'
@@ -115,7 +115,7 @@ export default function RecuperarSenha(){
                 {errors.senha && (
                           <p className="error"><span>{errors.senha.message}</span></p>
                         )}
-                <Input
+                <Input 
                 id= 'repita a nova senha'
                 name= 'senha2'
                 type= 'password'
