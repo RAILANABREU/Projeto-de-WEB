@@ -279,8 +279,9 @@ const deletarConvidado = async (req, res) => {
             return;
         }
 
+        const convidado = await userService.findUserByIdService(idConvidado);  
+        convidado.eventosConfirmados.splice(convidado.eventosConfirmados.indexOf(evento.id), 1);
         evento.convidados.splice(convidadoIndex, 1);
-
         await evento.updateOne(evento);
 
         res.status(200).send({
