@@ -16,6 +16,7 @@ export default function Evento(){
     useAuth();
     const [openModalGasto, setOpenModalGasto] = useState(false);
     const [openModalConvidado, setOpenModalConvidado] = useState(false);
+    const [openModal, setOpenModal] = useState();
     const [gastoSelecionado, setGastoSelecionado] = useState(null);
     const [convidadoSelecionado, setConvidadoSelecionado] = useState(null);
     const {userId, eventoId} = useParams();
@@ -55,6 +56,10 @@ export default function Evento(){
 
       }
     }
+    function sairEvento(){
+      console.log("sairEVENTO")
+    }
+
     async function resConvite(resposta){
       const data  = {idEvento: eventoId, idUsuario: userId, confirmar: resposta}
       try{
@@ -195,11 +200,17 @@ export default function Evento(){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
+        <Modal
+        type="sair"
+        isOpen={openModal} 
+        setOpen={() => {setOpenModal(!openModal)}}
+        onClick={sairEvento}>
+        Tem certeza que deseja sair do evento?
+        </Modal>
         <Main>
           <Base/>
-          <Button 
-          type={"confirmar"}
-          name={"SAIR DO EVENTO"}/>
+          <button style={{width: "95%",background: "none",color: "var(--accent-color)", border: "solid 2px var(--accent-color)"}}
+          onClick={()=>setOpenModal(!openModal)}>SAIR DO EVENTO</button>
         </Main>
         <Footer/>
         </div>
