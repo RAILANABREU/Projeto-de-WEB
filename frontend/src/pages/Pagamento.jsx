@@ -34,6 +34,7 @@ export default function Pagamento() {
   return (
     <div className="page">
       <Head onIconClick={() => navigate(`/home/${userId}`)} />
+      <div className="containerCentral">
       <Main>
         <h1>{eventoData?.titulo.toUpperCase()}</h1>
         <div className={style.valores}>
@@ -43,6 +44,8 @@ export default function Pagamento() {
         <div className="pix" />
         <Tabela convidados={eventoData?.convidados}/>
       </Main>
+      </div>
+      
       <Footer />
     </div>
   );
