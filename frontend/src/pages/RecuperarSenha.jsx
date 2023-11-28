@@ -48,7 +48,7 @@ export default function RecuperarSenha(){
             <Logo type= '3'/>
           </div>
           <Main>
-              <h1>RECUPERAR SENHA</h1>
+          <h1>RECUPERAÇÃO</h1>
               {message && <p className="message">{message}</p>}
               <form onSubmit={handleSubmit(Submit)}>
                 <Input 
