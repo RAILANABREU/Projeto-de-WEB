@@ -61,6 +61,7 @@
     color: var(--secondary-color);
     font-weight: 800;
     background-color: white;
+    margin: 0px;
 }
 .logo{
     flex: 1;

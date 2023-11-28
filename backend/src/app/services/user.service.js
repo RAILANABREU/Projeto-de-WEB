@@ -8,7 +8,7 @@ const findUserService = async (username) => User.findOne({ username });
 
 // Nesta busca por id eu gostaria de trazer mais dois campo o token e data token
 
-const findUserByIdRZT = async (body) => User.findOne({ _id: body.id }, { resetPasswordToken: 1, resetPasswordExpires: 1 } );
+const findUserByIdRZT = async (id) => User.findById(id, { resetPasswordToken: 1, resetPasswordExpires: 1 } );
 
 const findUserByIdService = async (id) => User.findById(id);
 

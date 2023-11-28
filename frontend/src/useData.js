@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { FindUserByID } from './services/userServices';
 import { getEventoByID } from './services/eventosSevices';
 
-const useData = (userId, eventoId) => {
+export const useData = (userId, eventoId) => {
   const [userData, setUserData] = useState(null);
   const [eventoData, setEvento] = useState(null);
 

@@ -12,7 +12,6 @@ import { FindUserByID } from "../services/userServices";
 
 export default function Home() {
   useAuth();
-
   const [eventos, setEventos] = useState([]);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [ userData, setUserData] = useState();
@@ -55,28 +54,24 @@ export default function Home() {
         <Link to={`/criarevento/${userId}`}><button>CRIAR EVENTO</button></Link>
         <details>
           <summary>CONVITES</summary>
-          {userData && userData.convites.map((item) => (
+          {userData?.convites.map((item) => (
             <div className="conviteContainer">
               <Card
-                id={item._id} 
-                eventos={item} 
-                foto={item.imagem} 
-                titulo={item.titulo}/>
+                id={item}/>
             </div>
           ))}
         </details>
         </div>
         {eventos.map((item) => (
-            item.admID === userId ? (
-              <Card 
-                id={item._id} 
-                eventos={item} 
-                foto={item.imagem} 
-                titulo={item.titulo} 
-              />
-            ) : null
-          ))
-        }
+          (item.admID === userId || userData?.eventosConfirmados.includes(item._id)) ? (
+            <Card 
+              id={item._id} 
+              eventos={item} 
+              foto={item.imagem} 
+              titulo={item.titulo} 
+            />
+          ) : null
+        ))}
       </Main>
       <Footer/>    
     </div>

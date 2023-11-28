@@ -44,7 +44,7 @@ export default function EditarEvento() {
       const dadosNaoVazios = Object.fromEntries(
         Object.entries(data).map(([key, value]) => [
           key,
-          value !== null && value !== "" ? value : eventData[key],
+          value !== null && value !== "" ? value : (eventData && eventData[key]) || null,
         ])
       );
     

@@ -16,6 +16,7 @@ import EditarPerfil from './pages/EditarPerfil'
 import Evento from './pages/Evento';
 import Convite from './pages/Convite';
 import EditarEvento from './pages/EditarEvento';
+import RecuperarSenha from './pages/RecuperarSenha';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,11 @@ const router = createBrowserRouter([
   {
     path: "/editarevento/:userId/:eventoId",
     element: <EditarEvento/>,
+  }
+  ,
+  {
+    path: "/recuperarsenha",
+    element: <RecuperarSenha/>,
   }
 ]);
 

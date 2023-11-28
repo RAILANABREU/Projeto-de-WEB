@@ -7,17 +7,17 @@ export async function signup(data) {
   try {
     delete data.senha2;
     const response = await axios.post(`${baseURL}/user/register`, data);
-    return response;
-  } catch (error) {
-    console.error('Erro no cadastro:', error.message, error.response.data.message);
-    throw error;
-  }
+    return { success: true, data: response.data };
+    } catch (error) {
+      console.log(error)
+      console.error("Erro no cadastro:", error.response.data.error);
+      return { success: false, error: error.response.data.message };
+    }
 }
 
 export async function signin(data) {
   try {
     const response = await axios.post(`${baseURL}/login`, data);
-    
     return { success: true, data: response.data };
     } catch (error) {
       console.error("Erro no login:", error.response.data.error);
@@ -69,4 +69,14 @@ export async function userDel(userId, authToken){
     console.log(error)
     throw error;
   }
+}
+
+export async function recuperarSenha(data){
+  try{
+    const response = await axios.post(`${baseURL}/user/forgotPasswordToken`, data)
+    return { success: true, userId: response.data.user.id, token: response.data.user.token};
+    } catch (error) {
+        console.error("Erro ao recuperar senha:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
 }
