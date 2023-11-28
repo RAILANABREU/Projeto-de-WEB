@@ -10,11 +10,11 @@ router.delete('/delete/:id',authToken ,eventoController.deleteEventoService);
 router.post('/find',authToken ,eventoController.findEventoService);
 router.post('/invite', authToken ,conviteController.enviarConvite);
 router.post('/accept', authToken ,conviteController.aceitarConvite);
-router.post('/update', authToken ,eventoController.updateEvento);
+router.put('/update', authToken ,eventoController.updateEvento);
 router.post('/incluirgasto', authToken ,eventoController.incluirGasto);
 router.post('/excluirgasto', authToken ,eventoController.excluirGasto);
 router.post('/findConvidados',authToken ,conviteController.findConvidados);
-router.post('/alterarConvidados', authToken ,conviteController.alterarConvidados);
+router.put('/alterarConvidados', authToken ,conviteController.alterarConvidados);
 router.post('/deletarConvidado', authToken ,conviteController.deletarConvidado);
 
 
