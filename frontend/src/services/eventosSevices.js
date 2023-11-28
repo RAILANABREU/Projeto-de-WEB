@@ -129,4 +129,18 @@ export async function excluirEvento(eventoid, authToken){
         console.error("Erro ao excluir evento convite:", error.response.data.message);
         return { success: false, error: error.response.data.message };
     }
+}
+
+export async function sairEvento(data, authToken){
+    try{
+        const response = await axios.post(`${baseURL}/evento/`, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+        return { success: true, data: response.data.message };
+    } catch (error) {
+        console.error("Erro ao excluir evento convite:", error.response.data.message);
+        return { success: false, error: error.response.data.message };
+    }
 } 
