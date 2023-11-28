@@ -8,7 +8,6 @@ export async function signup(data) {
     const response = await axios.post(`${baseURL}/user/register`, data);
     return { success: true, data: response.data };
     } catch (error) {
-      console.log(error)
       console.error("Erro no cadastro:", error.response.data.error);
       return { success: false, error: error.response.data.message };
     }
@@ -32,7 +31,6 @@ export async function FindUserByID(id, authToken) {
       }
     })
     const userFound = response.data.user;
-    console.log('Usuário Encontrado:', userFound);
     return userFound;
   }catch(error){
     console.error('Erro ao buscar usuário:', error.message);
@@ -50,7 +48,6 @@ export async function editarperfil(data, authToken){
     return response.status
   }catch(error){
     console.error('Erro ao buscar usuário:', error.message);
-    console.log(error)
     throw error;
   }
 }
@@ -65,7 +62,6 @@ export async function userDel(userId, authToken){
     return response.status
   }catch(error){
     console.error('Erro ao deletar usuário:', error.message);
-    console.log(error)
     throw error;
   }
 }

@@ -27,7 +27,6 @@ export async function criarEvento(data, authToken){
           
         return { success: true, data: response.data.message };
     } catch (error) {
-        console.log(error)
         console.error("Erro ao criar Evento convite:", error.response.data.message);
         return { success: false, error: error.response.data.error };
     }
@@ -153,7 +152,6 @@ export async function alterarConvidados(data, authToken){
         });
         return { success: true, data: response.data.message };
     } catch (error) {
-        console.log(error)
         console.error("Erro ao alterar Convidados:", error.response.data.message);
         return { success: false, error: error.response.data.message };
     }

@@ -50,11 +50,8 @@ export default function EditarEvento() {
     
       const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, _id: userId };
   
-      console.log(dataComImagem);
-  
       try {
         const response = await editarEvento(dataComImagem, Cookies.get("token"));
-        console.log(response);
   
         if (response.status === 200) {
           setEventData(dataComImagem);
@@ -67,14 +64,13 @@ export default function EditarEvento() {
         setMessage("Erro ao salvar as modificações");
       }
     } else {
-      console.log("Não foi possível enviar");
+      console.error("Não foi possível enviar");
       setMessage("Formulário inválido");
     }
   };
   const delEvento = async () =>{
     try {
       const response = await excluirEvento(eventoId, Cookies.get("token"));
-      console.log(response);
 
       if (response.success) {
         setMessage("Evento Excluido com sucesso");

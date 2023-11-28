@@ -53,7 +53,6 @@ export default function Evento(){
     };
     //membro
     async function sairEvento(){
-      console.log("sairEVENTO")
       const data = {idEvento: eventoId, idConvidado: userId};
       try{
         await delConvidado(data, Cookies.get("token"));
@@ -78,14 +77,11 @@ export default function Evento(){
     //adm
     async function deletarGasto(){
       const data = {idEvento: eventoId, idGasto: gastoSelecionado._id}
-      console.log(data)
       try{
         const response = await delGasto(data, Cookies.get("token"));
 
-        if(response.success){
-          console.log(response.message)
-        }else{
-          console.log(response.error)
+        if(!response.success){
+          console.error(response.error)
         }
       }catch(error){
         console.error("error ao excluir")
@@ -94,14 +90,11 @@ export default function Evento(){
     }
     async function deletarConvidado(){
       const data = {idEvento: eventoId, idConvidado: convidadoSelecionado._id}
-      console.log(data)
       try{
         const response = await delConvidado(data, Cookies.get("token"));
 
-        if(response.success){
-          console.log(response.message)
-        }else{
-          console.log(response.error)
+        if(!response.success){
+          console.error(response.error)
         }
       }catch(error){
         console.error("error ao excluir")

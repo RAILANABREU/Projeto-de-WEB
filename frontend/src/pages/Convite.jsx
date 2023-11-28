@@ -30,8 +30,6 @@ export default function Convite(){
 
     async function handleEnviar(username) {
         const dados = { ...username, admID: userId, idEvento: eventoId };
-
-        console.log(dados)
     
         if (isValid) {
             try {
@@ -51,7 +49,7 @@ export default function Convite(){
             }
     
         } else {
-            console.log("não foi possível enviar");
+            console.error("não foi possível enviar");
         }
     }
     return(
