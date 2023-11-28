@@ -25,6 +25,7 @@
     cursor: pointer;
   }
   h1 {
+    font-size: 20px;
     margin-bottom: 30px;
   }
   input[type= "file"]{
@@ -55,6 +56,8 @@
     grid-gap: 2vh;
   }
 }
+
+
 
 @media screen and (min-width: 800px){
   h1{
