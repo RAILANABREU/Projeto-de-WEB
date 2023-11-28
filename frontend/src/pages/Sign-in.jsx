@@ -78,15 +78,13 @@ function SignIn(){
                 {errors.senha && (
                           <p className="error"><span>{errors.senha.message}</span></p>
                         )}
-
-               
-                <Link to = "/recuperarsenha">
-                Esqueci a senha
-                </Link>
-                <button
-                type="submit"
-                >
-                Entrar</button>
+                <div className={style.column}>
+                  <Link to = "/recuperarsenha">
+                  Esqueci a senha
+                  </Link>
+                  <button type="submit">Entrar</button>
+                </div>
+                
                 <p className={style.p}>Ainda não tem uma conta?<Link to="/signup">Criar conta</Link></p>
                 
               </form>
