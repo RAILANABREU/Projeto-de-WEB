@@ -48,8 +48,7 @@ export default function EditarEvento() {
         ])
       );
     
-      const dataComImagem = { ...dadosNaoVazios, imagem: imagemBase64, _id: eventoId };
-  
+      const dataComImagem = { ...dadosNaoVazios, imagem: imagemBase64, id: eventoId };  
       try {
         const response = await editarEvento(dataComImagem, Cookies.get("token"));
   

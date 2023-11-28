@@ -65,8 +65,7 @@ export default function EditarPerfil(){
             }
           }
 
-          const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, _id: userId };
-      
+          const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, id: userId };
           try{
             const response = await editarperfil(dataComImagem, Cookies.get("token"));
             if (response === 200){
