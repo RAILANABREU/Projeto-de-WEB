@@ -64,6 +64,7 @@ export default function CriarEvento(){
     return(
         <div className="page">
             <Head onIconClick={handleCancelar}/>
+            <div className="containerCentral">
             <Main>
                 <h1>CRIAR EVENTO</h1>
                 <input
@@ -114,6 +115,8 @@ export default function CriarEvento(){
                     />
                 </form>
             </Main>
+            </div>
+            
             <Footer/>
         </div>
     )
