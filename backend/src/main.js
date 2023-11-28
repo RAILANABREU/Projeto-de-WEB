@@ -4,6 +4,7 @@ const userRouter = require("./app/router/user.router");
 const loginRouter = require("./app/router/login.router");
 const eventoRouter = require("./app/router/evento.router");
 const pictureRouter = require("./app/router/picture.router");
+const swaggerRouter = require("./app/router/swagger.router");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -26,6 +27,7 @@ app.use("/user", userRouter);
 app.use("/login", loginRouter);
 app.use("/evento", eventoRouter);
 app.use("/picture", pictureRouter);
+app.use("/doc", swaggerRouter);
 
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 

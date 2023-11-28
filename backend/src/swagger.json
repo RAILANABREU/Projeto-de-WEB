@@ -1,0 +1,1318 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "BillBuddy API Documentation",
+        "description": "Nessa documentação você será capaz de consultar os endpoints da API e testar todas as rotas disponíveis.",
+        "version": "1.0.0",
+        },
+    "servers": [
+        {
+            "url": "https://billbuddy-et97.onrender.com",
+            "description": "Deploy server"
+        }
+    ],
+    "paths": {
+        "/user/register":{
+            "post":{
+                "summary":"Cria um novo usuário",
+                "description":"Cria um novo usuário",
+                "tags":[
+                    "User"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "example":{
+                                "name":"João",
+                                "sobrenome":"Silva",
+                                "username":"joao.silva",
+                                "telefone":"(11) 99999-9999",
+                                "senha":"123456",
+                                "avatar":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F677651075174879821%2F&psig=AOvVaw0QZ3Z4Z9Z4Z9Z4Z9Z4Z9Z4&ust=1623346160000000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJjQ9Z7X0_ECFQAAAAAdAAAAABAD",
+                                "createdAt":"2021-06-10T00:00:00.000Z",
+                                "secretWords":"palavra secreta",
+                                "resetPasswordToken":"token",
+                                "resetPasswordExpires":"2021-06-10T00:00:00.000Z",
+                                "authenticatorToken":"token",
+                                "authenticatorExpires":"2021-06-10T00:00:00.000Z",
+                                "jaPagou":false,
+                                "eventosConfirmados":[
+                                    "idEvento"
+                                ],
+                                "isAdm":false,
+                                "EventosAdm":[
+                                    "idEvento"
+                                ],
+                                "confirmado":false,
+                                "isAtivo":true,
+                                "isOnline":true,
+                                "convites":[
+                                    "idEvento"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Usuário criado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao criar usuário"
+                    },
+                }
+            }
+        },
+        "/user/forgotPasswordToken":{
+            "post":{
+                "summary":"Envia token para resetar senha",
+                "description":"Envia token para resetar senha",
+                "tags":[
+                    "User"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "example":{
+                                "username":"joao.silva",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Token enviado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao enviar token"
+                    },
+                }
+            }
+        },
+        },
+        "/user/resetPassword":{
+            "post":{
+                "summary":"Reseta a senha do usuário",
+                "description":"Reseta a senha do usuário",
+                "tags":[
+                    "User"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "example":{
+                                "username":"joao.silva",
+                                "senha":"123456",
+                                "resetPasswordToken":"token",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Senha resetada com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao resetar senha"
+                    },
+                }
+            }
+        },
+        "/user/update":{
+            "put":{
+                "summary":"Atualiza os dados do usuário",
+                "description":"Atualiza os dados do usuário",
+                "tags":[
+                    "User"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "example":{
+                                "name":"João",
+                                "sobrenome":"Silva",
+                                "username":"joao.silva",
+                                "telefone":"(11) 99999-9999",
+                                "senha":"123456",
+                                "avatar":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F677651075174879821%2F&psig=AOvVaw0QZ3Z4Z9Z4Z9Z4Z9Z4Z9Z4&ust=1623346160000000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJjQ9Z7X0_ECFQAAAAAdAAAAABAD",
+                                "createdAt":"2021-06-10T00:00:00.000Z",
+                                "secretWords":"palavra secreta",
+                                "resetPasswordToken":"token",
+                                "resetPasswordExpires":"2021-06-10T00:00:00.000Z",
+                                "authenticatorToken":"token",
+                                "authenticatorExpires":"2021-06-10T00:00:00.000Z",
+                                "jaPagou":false,
+                                "eventosConfirmados":[
+                                    
+                                ],
+                                "isAdm":false,
+                                "EventosAdm":[
+                                    
+                                ],
+                                "confirmado":false,
+                                "isAtivo":true,
+                                "isOnline":true,
+                                "convites":[
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Usuário atualizado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao atualizar usuário"
+                    },
+                }
+            }
+        },
+        "/user/findAll":{
+            "get":{
+                "summary":"Retorna todos os usuários",
+                "description":"Retorna todos os usuários",
+                "tags":[
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Usuários retornados com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar usuários"
+                    },
+                }
+            }
+        },
+        "/user/find/{id}":{
+            "get":{
+                "summary":"Retorna um usuário através do ID",
+                "description":"Retorna um usuário",
+                "tags":[
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID do usuário",
+                        "required":true,
+                        "schema":{
+                            "type":"string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Usuário retornado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar usuário"
+                    },
+                }
+            }
+        },
+        "/user/findUserById":{
+            "get":{
+                "summary":"Retorna um usuário através do ID",
+                "description":"Retorna um usuário",
+                "tags":[
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID do usuário",
+                        "required":true,
+                        "schema":{
+                            "type":"string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Usuário retornado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar usuário"
+                    },
+                }
+            }
+        },
+        "/user/find":{
+            "post":{
+                "summary":"Retorna um usuário através do username",
+                "description":"Retorna um usuário",
+                "tags":[
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "example":{
+                                "username":"joao.silva",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Usuário retornado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar usuário"
+                    },
+                }
+        },
+    },
+        "/user/delete/{id}":{
+            "delete":{
+                "summary":"Deleta um usuário através do ID",
+                "description":"Deleta um usuário",
+                "tags":[
+                    "User"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID do usuário",
+                        "required":true,
+                        "schema":{
+                            "type":"string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Usuário deletado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao deletar usuário"
+                    },
+                },
+            },
+        },
+        "/login/":{
+            "post":{
+                "summary":"Realiza o login do usuário",
+                "description":"Realiza o login do usuário",
+                "tags":[
+                    "User"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "example":{
+                                "username":"joao.silva",
+                                "senha":"123456",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Login realizado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao realizar login"
+                    },
+                }
+            }
+        },
+        "evento/create":{
+            "post":{
+                "summary":"Cria um novo evento",
+                "description":"Cria um novo evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "admID":"idAdm",
+                                "titulo":"titulo",
+                                "descricao":"descricao",
+                                "data":"2021-06-10T00:00:00.000Z",
+                                "horario":"00:00",
+                                "local":"local",
+                                "valor":"valor",
+                                "imagem":"imagem",
+                                "convidados":[
+                                    {
+                                        "username":"username",
+                                        "idConvidado":"idConvidado",
+                                        "jaPagou":false,
+                                        "createdAt":"2021-06-10T00:00:00.000Z",
+                                    }
+                                ],
+                                "gastos":[
+                                    {
+                                        "total":0,
+                                        "nome":"nome",
+                                        "valor":0,
+                                        "descricao":"descricao",
+                                        "local":"local",
+                                        "comprovante":"comprovante",
+                                    }
+                                ],
+                                "pix":"pix",
+                                "createdAt":"2021-06-10T00:00:00.000Z",
+                                "confirmado":false,
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Evento criado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao criar evento"
+                    },
+                }
+            }
+        },
+        "evento/findAll":{
+            "get":{
+                "summary":"Retorna todos os eventos",
+                "description":"Retorna todos os eventos",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Eventos retornados com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar eventos"
+                    },
+                }
+            }
+        },
+        "evento/find/{id}":{
+            "get":{
+                "summary":"Retorna um evento através do ID",
+                "description":"Retorna um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID do evento",
+                        "required":true,
+                        "schema":{
+                            "type":"string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Evento retornado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar evento"
+                    },
+                }
+            }
+        },
+        "evento/delete/{id}":{
+            "delete":{
+                "summary":"Deleta um evento através do ID",
+                "description":"Deleta um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID do evento",
+                        "required":true,
+                        "schema":{
+                            "type":"string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Evento deletado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao deletar evento"
+                    },
+                },
+            },
+        },
+        "evento/find":{
+            "post":{
+                "summary":"Retorna um evento através do titulo",
+                "description":"Retorna um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "titulo":"titulo",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Evento retornado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar evento"
+                    },
+                }
+        },
+        },
+        "evento/invite":{
+            "post":{
+                "summary":"Convida um usuário para um evento",
+                "description":"Convida um usuário para um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                                "idConvidado":"idConvidado",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Usuário convidado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao convidar usuário"
+                    },
+                }
+            }
+        },
+        "evento/accept":{
+            "post":{
+                "summary":"Aceita um convite para um evento",
+                "description":"Aceita um convite para um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                                "idConvidado":"idConvidado",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Convite aceito com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao aceitar convite"
+                    },
+                }
+            }
+        },
+        "evento/update":{
+            "put":{
+                "summary":"Atualiza os dados do evento",
+                "description":"Atualiza os dados do evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "admID":"idAdm",
+                                "titulo":"titulo",
+                                "descricao":"descricao",
+                                "data":"2021-06-10T00:00:00.000Z",
+                                "horario":"00:00",
+                                "local":"local",
+                                "valor":"valor",
+                                "imagem":"imagem",
+                                "convidados":[
+                                    {
+                                        "username":"username",
+                                        "idConvidado":"idConvidado",
+                                        "jaPagou":false,
+                                        "createdAt":"2021-06-10T00:00:00.000Z",
+                                    }
+                                ],
+                                "gastos":[
+                                    {
+                                        "total":0,
+                                        "nome":"nome",
+                                        "valor":0,
+                                        "descricao":"descricao",
+                                        "local":"local",
+                                        "comprovante":"comprovante",
+                                    }
+                                ],
+                                "pix":"pix",
+                                "createdAt":"2021-06-10T00:00:00.000Z",
+                                "confirmado":false,
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Evento atualizado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao atualizar evento"
+                    },
+                }
+            }
+        },
+        "evento/incluirgasto":{
+            "post":{
+                "summary":"Inclui um gasto no evento",
+                "description":"Inclui um gasto no evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                                "total":0,
+                                "nome":"nome",
+                                "valor":0,
+                                "descricao":"descricao",
+                                "local":"local",
+                                "comprovante":"comprovante",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Gasto incluído com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao incluir gasto"
+                    },
+                }
+            }
+        },
+        "evento/excluirgasto":{
+            "post":{
+                "summary":"Exclui um gasto no evento",
+                "description":"Exclui um gasto no evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                                "idGasto":"idGasto",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Gasto excluído com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao excluir gasto"
+                    },
+                }
+            }
+        },
+        "evento/findConvidados":{
+            "post":{
+                "summary":"Retorna os convidados de um evento",
+                "description":"Retorna os convidados de um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Convidados retornados com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar convidados"
+                    },
+                }
+            }
+        },
+        "evento/alterarConvidados":{
+            "put":{
+                "summary":"Altera os convidados de um evento",
+                "description":"Altera os convidados de um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Evento"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                                "convidados":[
+                                    {
+                                        "username":"username",
+                                        "idConvidado":"idConvidado",
+                                        "jaPagou":false,
+                                        "createdAt":"2021-06-10T00:00:00.000Z",
+                                    }
+                                ],
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Convidados alterados com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Evento"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao alterar convidados"
+                    },
+                }
+            }
+        },
+        "evento/deletarConvidado":{
+            "post":{
+                "summary":"Deleta um convidado de um evento",
+                "description":"Deleta um convidado de um evento",
+                "tags":[
+                    "Evento"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                                "idConvidado":"idConvidado",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Convidado deletado com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao deletar convidado"
+                    },
+                }
+            }
+        },
+        "picture/create":{
+            "post":{
+                "summary":"Cria uma nova imagem",
+                "description":"Cria uma nova imagem",
+                "tags":[
+                    "Picture"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Picture"
+                            },
+                            "example":{
+                                "idEvento":"idEvento",
+                                "idConvidado":"idConvidado",
+                                "jaPagou":false,
+                                "createdAt":"2021-06-10T00:00:00.000Z",
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Imagem criada com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Picture"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao criar imagem"
+                    },
+                }
+            }
+        },
+        "picture/findAllPictures":{
+            "get":{
+                "summary":"Retorna todas as imagens",
+                "description":"Retorna todas as imagens",
+                "tags":[
+                    "Picture"
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Imagens retornadas com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Picture"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar imagens"
+                    },
+                }
+            }
+        },
+        "picture/find/{id}":{
+            "get":{
+                "summary":"Retorna uma imagem através do ID",
+                "description":"Retorna uma imagem",
+                "tags":[
+                    "Picture"
+                ],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID da imagem",
+                        "required":true,
+                        "schema":{
+                            "type":"string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Imagem retornada com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Picture"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao retornar imagem"
+                    },
+                }
+            }
+        },
+        "picture/delete/{id}":{
+            "delete":{
+                "summary":"Deleta uma imagem através do ID",
+                "description":"Deleta uma imagem",
+                "tags":[
+                    "Picture"
+                ],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"ID da imagem",
+                        "required":true,
+                        "schema":{
+                            "type":"string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Imagem deletada com sucesso",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Picture"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Erro ao deletar imagem"
+                    },
+                },
+            },
+        },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                    },
+                    "sobrenome": {
+                        "type": "string",
+                    },
+                    "username": {
+                        "type": "string",
+                    },
+                    "telefone": {
+                        "type": "string",
+                    },
+                    "senha": {
+                        "type": "string",
+                    },
+                    "avatar": {
+                        "type": "string",
+                    },
+                    "createdAt": {
+                        "type": "Date",
+                    },
+                    "secretWords": {
+                        "type": "string",
+                    },
+                    "resetPasswordToken": {
+                        "type": "string",
+                    },
+                    "resetPasswordExpires": {
+                        "type": "Date",
+                    },
+                    "authenticatorToken": {
+                        "type": "string",
+                    },
+                    "authenticatorExpires": {
+                        "type": "Date",
+                    },
+                    "jaPagou": {
+                        "type": "boolean",
+                    },
+                    "eventosConfirmados": {
+                        "type": "array",
+                    },
+                    "isAdm": {
+                        "type": "boolean",
+                    },
+                    "EventosAdm": {
+                        "type": "array",
+                    },
+                    "confirmado": {
+                        "type": "boolean",
+                    },
+                    "isAtivo": {
+                        "type": "boolean",
+                    },
+                    "isOnline": {
+                        "type": "boolean",
+                    },
+                    "convites": {
+                        "type": "array",
+                    }
+                }
+            },
+            "Evento": {
+                "type": "object",
+                "properties": {
+                    "admID": {
+                        "type": "string",
+                    },
+                    "titulo": {
+                        "type": "string",
+                    },
+                    "descricao": {
+                        "type": "string",
+                    },
+                    "data": {
+                        "type": "string",
+                    },
+                    "horario": {
+                        "type": "string",
+                    },
+                    "local": {
+                        "type": "string",
+                    },
+                    "valor:": {
+                        "type": "string",
+                    },
+                    "imagem": {
+                        "type": "string",
+                    },
+                    "convidados": {
+                        "type": "array",
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                            },
+                            "idConvidado": {
+                                "type": "string",
+                            },
+                            "jaPagou": {
+                                "type": "boolean",
+                            },
+                            "createdAt": {
+                                "type": "Date",
+                            },
+                        }
+                    },
+                    "gastos": {
+                        "type": "array",
+                        "properties": {
+                            "total": {
+                                "type": "Number",
+                            },
+                            "nome": {
+                                "type": "string",
+                            },
+                            "valor": {
+                                "type": "Number",
+                            },
+                            "descricao": {
+                                "type": "string",
+                            },
+                            "local": {
+                                "type": "string",
+                            },
+                            "comprovante": {
+                                "type": "string",
+                            },
+                        }
+                    },
+                    "pix": {
+                        "type": "string",
+                    },
+                    "createdAt": {
+                        "type": "Date",
+                    },
+                    "confirmado": {
+                        "type": "boolean",
+                    },
+                }
+            };
+        }
+    }
+}

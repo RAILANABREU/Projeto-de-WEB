@@ -1,0 +1,9 @@
+const router = require('express').Router();
+const swaggerUi = require('swagger-ui-express'); // Add missing import
+const assert = require('assert');
+const swaggerDocument = assert(require('../../swagger.json'), { type: 'json' });a
+router.use('/', swaggerUi.serve);
+router.get('/', swaggerUi.setup(swaggerDocument));
+
+module.exports = router;
+
