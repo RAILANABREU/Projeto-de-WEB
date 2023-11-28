@@ -142,7 +142,6 @@ details div{
   .eventoContainer{
     display: flex;
     flex-wrap:wrap;
-    grid-gap:1%;
   }
   details summary{
     width: 38vw;

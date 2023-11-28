@@ -41,7 +41,7 @@
 @media screen and (min-width:800px) {
     .link{
         margin: 5px;
-        width: 30%;
+        width: 12vw;
     }
     .titulo{
         font-size: 1.5vw!important;
