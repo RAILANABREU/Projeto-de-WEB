@@ -208,6 +208,20 @@ const deleteEventoService = async (req, res) => {
         }else{
             return res.status(400).json({ message: "Evento não encontrado" });
         }
+        const users = await userService.findAllUserService();
+        for ( const user of users){
+            for(const evento of user.eventosConfirmados){
+                if(evento.toString() === id){
+                    user.eventosConfirmados.pull(evento)
+                    await user.updateOne(user);
+                }
+            }
+            for(const evento of user.convites){
+                if(evento.toString() === id){
+                    user.convites.pull(evento)
+                    await user.updateOne(user);
+                }}
+            }
         res.status(200).send({
             message: "Evento excluido com sucesso",
         });
