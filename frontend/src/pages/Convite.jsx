@@ -55,6 +55,7 @@ export default function Convite(){
     return(
         <div className="page">
             <Head onIconClick={() => navigate(`/home/${userId}`)}/>
+            <div className="containerCentral">
             <Main>
                 <form className={style.form} onSubmit={handleSubmit(handleEnviar)}>
                 <div className="top">
@@ -83,6 +84,8 @@ export default function Convite(){
                 />
                 </form>
             </Main>
+            </div>
+            
         </div>
     )
 }

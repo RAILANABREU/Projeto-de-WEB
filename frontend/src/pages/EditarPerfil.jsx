@@ -97,81 +97,83 @@ export default function EditarPerfil(){
             setOpen={() => {
               setOpenModal(!openModal)}}
               onClick={userDelete}>Confirmar a exclusão da conta resultará na remoção permanente de todos os eventos associados. Esta ação é irreversível. Deseja prosseguir?</Modal>
-            
-            <Main>
-            <div className={style.head}>
-                <input
-                    className={style.uploadimg}
-                    type="file"
-                    accept="image/*"
-                    id="uploadInput"
-                    onChange={handleImagemChange}
-                />
-                <label htmlFor="uploadInput" className={style.uploadLabel}>
-                    <Perfil img={imagemBase64} />
-                </label>
-            </div>
-            <Button name="deletar usuário" onClick={() => {
-              setOpenModal(true)}}></Button>
-            {message && <p className="message">{message}</p>}
-            <form onSubmit={handleSubmit(handleSave)}>
-            <Input 
-              reg={register}
-              className={style.nome}
-              id={userData && userData.nome} name='nome' type = 'text'
-              onChange={() => setMessage(null)}/>
-              {errors.nome && (
-                          <p className="error"><span>{errors.nome.message}</span></p>
-                        )}
+            <div className="containerCentral">
+              <Main>
+              <div className={style.head}>
+                  <input
+                      className={style.uploadimg}
+                      type="file"
+                      accept="image/*"
+                      id="uploadInput"
+                      onChange={handleImagemChange}
+                  />
+                  <label htmlFor="uploadInput" className={style.uploadLabel}>
+                      <Perfil img={imagemBase64} />
+                  </label>
+              </div>
+              <Button name="deletar usuário" onClick={() => {
+                setOpenModal(true)}}></Button>
+              {message && <p className="message">{message}</p>}
+              <form onSubmit={handleSubmit(handleSave)}>
+              <Input 
+                reg={register}
+                className={style.nome}
+                id={userData && userData.nome} name='nome' type = 'text'
+                onChange={() => setMessage(null)}/>
+                {errors.nome && (
+                            <p className="error"><span>{errors.nome.message}</span></p>
+                          )}
 
-              <Input 
-              reg={register}
-              className={style.nome}
-              id={userData && userData.sobrenome} name='sobrenome' 
-              type = 'text'
-              onChange={() => setMessage(null)}/>
-              {errors.sobrenome && (
-                          <p className="error"><span>{errors.sobrenome.message}</span></p>
-                        )}
-              <Input 
-              reg={register}
-              id= {userData && userData.username} name= 'username' type= 'text'
-              onChange={() => setMessage(null)}/>
-              {errors.username && (
-                          <p className="error"><span>{errors.username.message}</span></p>
-                        )}
-              <Input 
-              reg={register}
-              id= {userData && userData.telefone} name= 'telefone' type= 'number'
-              onChange={() => setMessage(null)}/>
-              {errors.telefone && (
-                          <p className="error"><span>{errors.telefone.message}</span></p>
-                        )}
+                <Input 
+                reg={register}
+                className={style.nome}
+                id={userData && userData.sobrenome} name='sobrenome' 
+                type = 'text'
+                onChange={() => setMessage(null)}/>
+                {errors.sobrenome && (
+                            <p className="error"><span>{errors.sobrenome.message}</span></p>
+                          )}
+                <Input 
+                reg={register}
+                id= {userData && userData.username} name= 'username' type= 'text'
+                onChange={() => setMessage(null)}/>
+                {errors.username && (
+                            <p className="error"><span>{errors.username.message}</span></p>
+                          )}
+                <Input 
+                reg={register}
+                id= {userData && userData.telefone} name= 'telefone' type= 'number'
+                onChange={() => setMessage(null)}/>
+                {errors.telefone && (
+                            <p className="error"><span>{errors.telefone.message}</span></p>
+                          )}
+                
+                <Input 
+                reg={register}
+                id= 'nova senha' name= 'senha' type= 'password'
+                onChange={() => setMessage(null)}/>
+                {errors.senha2 && (
+                            <p className="error"><span>{errors.senha2.message}</span></p>
+                          )}
+                <Input 
+                reg={register}
+                id= 'repita a nova senha' name= 'senha2' type= 'password'
+                onChange={() => setMessage(null)}/>
+                {errors.senha2 && (
+                            <p className="error"><span>{errors.senha2.message}</span></p>
+                          )}
+                  <Button 
+                          type='cancelar/confirmar' 
+                          name='CANCELAR' 
+                          name2='SALVAR' 
+                          onClick={handleSave}
+                          onClickCancelar={handleCancelar}
+                  />
+              </form>
               
-              <Input 
-              reg={register}
-              id= 'nova senha' name= 'senha' type= 'password'
-              onChange={() => setMessage(null)}/>
-              {errors.senha2 && (
-                          <p className="error"><span>{errors.senha2.message}</span></p>
-                        )}
-              <Input 
-              reg={register}
-              id= 'repita a nova senha' name= 'senha2' type= 'password'
-              onChange={() => setMessage(null)}/>
-              {errors.senha2 && (
-                          <p className="error"><span>{errors.senha2.message}</span></p>
-                        )}
-                <Button 
-                        type='cancelar/confirmar' 
-                        name='CANCELAR' 
-                        name2='SALVAR' 
-                        onClick={handleSave}
-                        onClickCancelar={handleCancelar}
-                />
-            </form>
+              </Main>
+            </div>
             
-            </Main>
         </div>
         )
 }

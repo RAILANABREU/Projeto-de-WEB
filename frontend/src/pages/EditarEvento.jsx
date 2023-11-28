@@ -91,6 +91,7 @@ export default function EditarEvento() {
             setOpen={() => {
               setOpenModal(!openModal)}}
               onClick={delEvento}>Confirmar a exclusão do evento resultará na remoção permanente do evento e de todas as informações associadas a ele. Esta ação é irreversível. Deseja prosseguir?</Modal>
+            <div className="containerCentral">
             <Main>
             <div className={style.top}>
                 <h1>Editar Evento</h1>
@@ -141,6 +142,8 @@ export default function EditarEvento() {
                     />
             </form>
             </Main>
+            </div>
+            
         </div>
     )
 }
