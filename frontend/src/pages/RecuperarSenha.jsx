@@ -33,7 +33,6 @@ export default function RecuperarSenha(){
         try{
             const response = await recuperarSenha(data)
             if(response.success){
-                console.log(response)
                 resetPassword(response.userId, response.token, dados.senha)
             }else{
                 setMessage(response.error)
@@ -49,7 +48,6 @@ export default function RecuperarSenha(){
         try{
             const response = await resetarSenha(data)
             if(response.success){
-                console.log(response)
                 setMessage("senha alterada com sucesso")
             }else{
                 setMessage(response.error)

@@ -38,14 +38,11 @@ export default function CriarEvento(){
     
     async function handleCriar(dadosEvento){
       const dados = { ...dadosEvento, admID: userId, imagem: imagemBase64};
-      console.log(dados);
       if (isValid){
           try{
             const response = await criarEvento(dados, Cookies.get("token"));
-            console.log(response)
     
             if (response.success){
-              console.log("Evento Criado");
               navigate(`/home/${userId}`);
             }else{
               console.error(response.error)
@@ -58,7 +55,7 @@ export default function CriarEvento(){
           }
           
         }else {
-          console.log("não foi possivel enviar");
+          console.error("não foi possivel enviar");
         }
     }   
     return(

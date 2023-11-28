@@ -12,15 +12,13 @@ export default function Tabela({ convidados }) {
 
     const atualizar = async(convidadoId, japagou) =>{
         const data = {idEvento: eventoId, idConvidado: convidadoId, jaPagou: `${japagou}` }
-        console.log(data)
         try{
             const response = await alterarConvidados(data, Cookies.get("token"));
             if(response.success){
-                console.log(response)
                 atualizarPagina();
             }
         }catch(error){
-            console.log("não foi possivel enviar atualização de convidado")
+            console.error("não foi possivel enviar atualização de convidado")
         }
     }
     return (

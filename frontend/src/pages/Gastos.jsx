@@ -33,14 +33,11 @@ export default function Gastos(){
     const handleAdicionar = async(dadosGasto) =>{
         dadosGasto.valor = parseFloat(dadosGasto.valor.replace(',', '.'));
         const dados = { gasto: dadosGasto, idEvento: eventoId};
-        console.log(dados);
         if (isValid){
             try{
               const response = await addGasto(dados, Cookies.get("token"));
-              console.log(response)
       
               if (response.success){
-                console.log("gasto add");
                 navigate(`/evento/${userId}/${eventoId}`);
               }else{
                 console.error(response.error)
@@ -53,7 +50,7 @@ export default function Gastos(){
             }
             
           }else {
-            console.log("não foi possivel enviar");
+            console.error("não foi possivel enviar");
           }
       }
 

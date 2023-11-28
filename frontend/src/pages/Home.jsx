@@ -27,6 +27,7 @@ export default function Home() {
         console.error("Erro ao buscar eventos:", error);
       }
 
+<<<<<<< Updated upstream
       try {
         const user = await FindUserByID(userId, Cookies.get("token"));
         setUserData(user)
@@ -40,6 +41,38 @@ export default function Home() {
   const openDrawer = () => {
     setDrawerOpen(true);
   };
+=======
+            try {
+                const user = await FindUserByID(userId, Cookies.get("token"));
+                setUserData(user);
+            } catch (error) {
+                console.error("Erro ao buscar usuário:", error);
+            }
+        }
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        function handleResize() {
+            setIsLargeScreen(window.innerWidth > 800);
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (isLargeScreen) {
+            setDrawerOpen(true); // Sempre aberto em telas grandes
+        } else {
+            setDrawerOpen(false); // Fecha o modal em telas menores
+        }
+    }, [isLargeScreen]);
+
+    const openDrawer = () => {
+        setDrawerOpen(true);
+    };
+>>>>>>> Stashed changes
 
   return (
     <div className="page">

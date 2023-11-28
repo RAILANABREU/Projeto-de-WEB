@@ -30,7 +30,6 @@ function SignIn(){
     if (isValid){
       try{
         const response = await signin(credenciais);
-        console.log(response)
     
         if (response.success){
           const {id, token} = response.data;
@@ -48,7 +47,7 @@ function SignIn(){
       }
       
     }else {
-      console.log("não foi possivel enviar");
+      console.error("não foi possivel enviar");
     }
   }
     return(

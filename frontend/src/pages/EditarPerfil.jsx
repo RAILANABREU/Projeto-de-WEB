@@ -66,11 +66,9 @@ export default function EditarPerfil(){
           }
 
           const dataComImagem = { ...dadosNaoVazios, avatar: imagemBase64, _id: userId };
-          console.log(dataComImagem);
       
           try{
             const response = await editarperfil(dataComImagem, Cookies.get("token"));
-            console.log(response);
             if (response === 200){
               setUserData(dataComImagem)
               setMessage("Modificações salvas");
@@ -80,13 +78,12 @@ export default function EditarPerfil(){
             console.error(error.message);
           }
         }else{
-          console.log("não foi possivel enviar");
+          console.error("não foi possivel enviar");
         }
       }
     async function userDelete(){
       try{
         const response = await userDel(userId, Cookies.get("token"));
-        console.log(response);
         
       }catch(error){
         console.error(error.message);

@@ -58,15 +58,11 @@ function SignUp(){
   async function onSubmit(data) {    
     if (isValid && termosAceitos) {
       const dataComImagem = { ...data, avatar: imagemBase64 };
-      console.log(dataComImagem);
-  
       try{
         const response = await signup(dataComImagem);
-        console.log(response)
 
         if (response.success){
           const {message, user} = response.data
-          console.log(message);
           setUsuario(user);
           Cookies.set("token", user.token, { expires: 1});
           setOpenModal(true);
@@ -79,7 +75,7 @@ function SignUp(){
       }
       
     } else {
-      console.log("não foi possivel enviar");
+      console.error("não foi possivel enviar");
     }
   }
   return(
