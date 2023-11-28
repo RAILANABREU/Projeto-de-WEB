@@ -28,7 +28,7 @@ export default function Button({ type, name, name2, onClickCancelar, onClick }) 
         );
         break;
       case 'add':
-        buttonContent = <button className={style.add}> + Gasto</button>;
+        buttonContent = <button className={style.add}>+ Gasto</button>;
         break;
       case 'convite':
         buttonContent = (

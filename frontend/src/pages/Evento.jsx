@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Cookies from "js-cookie";
 import Icon from "../components/common/icons";
 import style from "./Evento.module.css"
@@ -9,7 +9,7 @@ import Button from "../components/common/Button";
 import Footer from "../components/layout/Footer";
 import useAuth from "../useAuth";
 import useData from "../useData";
-import { delGasto, respostaConvite } from "../services/eventosSevices";
+import { delConvidado, delGasto, respostaConvite } from "../services/eventosSevices";
 import Modal from "../components/common/Modal";
 
 export default function Evento(){
@@ -18,6 +18,7 @@ export default function Evento(){
     const {userId, eventoId} = useParams();
     const { userData, eventoData } = useData(userId,eventoId);
 
+    
     const [openModalGasto, setOpenModalGasto] = useState(false);
     const [openModalConvidado, setOpenModalConvidado] = useState(false);
     const [openModal, setOpenModal] = useState(false);
@@ -28,6 +29,10 @@ export default function Evento(){
     
     const [copiado, setCopiado] = useState(false);
 
+    const atualizarPagina = () => {
+      window.location.reload();
+    };
+    
     const handleAbrirModalGasto = (gasto) => {
       setGastoSelecionado(gasto);
       setOpenModalGasto(true);
@@ -49,9 +54,9 @@ export default function Evento(){
     //membro
     async function sairEvento(){
       console.log("sairEVENTO")
-      const data = {idEvento: eventoId, idUsuario: userId};
+      const data = {idEvento: eventoId, idConvidado: userId};
       try{
-        const response = await delConvidado(data, Cookies.get("token"));
+        await delConvidado(data, Cookies.get("token"));
       }catch(error){
         setMessage("erro ao sair do evento")
       }
@@ -59,10 +64,9 @@ export default function Evento(){
 
     //covidado
     async function resConvite(resposta){
-      const data  = {idEvento: eventoId, idUsuario: userId, confirmar: resposta}
+      const data  = {idEvento: eventoId, idConvidado: userId, confirmar: resposta}
       try{
-        const response = await respostaConvite(data, Cookies.get("token"));
-
+        await respostaConvite(data, Cookies.get("token"));
       }catch(error){
         setMessage("erro ao enviar resposta")
       }
@@ -78,6 +82,7 @@ export default function Evento(){
 
         if(response.success){
           console.log(response.message)
+          atualizarPagina();
         }else{
           console.log(response.error)
         }
@@ -87,11 +92,13 @@ export default function Evento(){
     }
     async function deletarConvidado(){
       const data = {idEvento: eventoId, idConvidado: convidadoSelecionado._id}
+      console.log(data)
       try{
         const response = await delConvidado(data, Cookies.get("token"));
 
         if(response.success){
           console.log(response.message)
+          atualizarPagina();
         }else{
           console.log(response.error)
         }
@@ -168,8 +175,8 @@ export default function Evento(){
           setOpen={() => {setOpenModalConvidado(!openModalConvidado)}}
           onClick={deletarConvidado}>
           <h2>Sobre</h2>
-          <p>usuário: {convidadoSelecionado?.username}</p>
-          <p>já pagou?: {convidadoSelecionado?.japago}</p>
+          <p className={style.p}>usuário: {convidadoSelecionado?.username}</p>
+          <p className={style.p}>{`Pagou sua parte? ${convidadoSelecionado?.jaPagou ? 'PAGO' : 'NÃO PAGO'}`}</p>
           </Modal>
         <Main>
           <Base/>

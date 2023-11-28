@@ -119,14 +119,14 @@ export async function delGasto(data, authToken){
 
 export async function delConvidado(data, authToken){
     try{
-        const response = await axios.post(`${baseURL}/evento/excluirgasto`, data, {
+        const response = await axios.post(`${baseURL}/evento/deletarConvidado`, data, {
             headers: {
                 Authorization: `Bearer ${authToken}`
             }
         });
         return { success: true, data: response.data.message };
     } catch (error) {
-        console.error("Erro ao incluir gasto convite:", error.response.data.message);
+        console.error("Erro ao deletar convidado:", error.response.data.message);
         return { success: false, error: error.response.data.message };
     }
 }
