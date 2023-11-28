@@ -57,9 +57,13 @@
   }
 }
 
-
-
 @media screen and (min-width: 800px){
+  
+  .central{
+    display: flex;
+    justify-content: center;
+  }
+  
   h1{
     font-size: 2.5vw;
     margin-bottom: 2vh;

@@ -103,7 +103,9 @@ function SignUp(){
             <Perfil img={imagemBase64} />
           </label>
         </div>
-        <Main>
+
+        <div className={style.central}>
+          <Main>
             <h1>CADASTRO</h1>
             {message && <p className="message">{message}</p>}
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -166,7 +168,8 @@ function SignUp(){
               <p className={style.p}>Já tem uma conta?<Link to ="/signin">Entrar</Link></p>
               
             </form>
-        </Main>
+          </Main>
+        </div>
         <Footer/>
       </div>
     )
