@@ -26,6 +26,7 @@ function SignUp(){
   const navigate  = useNavigate();
 
   const checkboxRef = useRef();
+  const [message, setMessage] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [termosAceitos, setTermosAceitos] = useState(false);
   const [imagemBase64, setImagemBase64] = useState(null);
@@ -62,15 +63,17 @@ function SignUp(){
       try{
         const response = await signup(dataComImagem);
         console.log(response)
-        const {status, data} = response;
-        if (status === 201){
+
+        if (response.success){
           const {message, user} = data;
           console.log(message);
           setUsuario(user);
           Cookies.set("token", user.token, { expires: 1});
           setOpenModal(true);
+          reset();
+        }else{
+          setMessage(response.error)
         }
-        reset();
       }catch(error){
         console.error(error.message)
       }
@@ -79,7 +82,6 @@ function SignUp(){
       console.log("não foi possivel enviar");
     }
   }
-console.log("ERROR:", errors)
   return(
       <div className="page">
         <Modal type="up" 
@@ -103,6 +105,7 @@ console.log("ERROR:", errors)
         </div>
         <Main>
             <h1>CADASTRO</h1>
+            {message && <p className="message">{message}</p>}
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input 
               reg={register}

@@ -15,7 +15,9 @@ import Modal from "../components/common/Modal";
 export default function Evento(){
     useAuth();
     const [openModalGasto, setOpenModalGasto] = useState(false);
+    const [openModalConvidado, setOpenModalConvidado] = useState(false);
     const [gastoSelecionado, setGastoSelecionado] = useState(null);
+    const [convidadoSelecionado, setConvidadoSelecionado] = useState(null);
     const {userId, eventoId} = useParams();
     const { userData, eventoData } = useData(userId,eventoId);
     const navigate  = useNavigate();
@@ -26,6 +28,11 @@ export default function Evento(){
       setGastoSelecionado(gasto);
       setOpenModalGasto(true);
     };
+    const handleAbrirModalConvidado = (convidado) => {
+      setConvidadoSelecionado(convidado);
+      setOpenModalConvidado(true);
+    };
+
     const handleCancelar = () => {
         navigate(`/home/${userId}`);
       };
@@ -62,7 +69,7 @@ export default function Evento(){
 
 
     const handleCopyToClipboard = () => {
-      navigator.clipboard.writeText(eventoData && eventoData.pix);
+      navigator.clipboard.writeText(eventoData?.pix);
       setCopiado(true);
       alert("PIX copiado para a área de transferência");
     };
@@ -82,23 +89,31 @@ export default function Evento(){
         console.error("error ao excluir")
       }
     }
-
+    async function deletarConvidado(){
+      const data = {idEvento: eventoId, idConvidado: convidadoSelecionado._id}
+      console.log(data)
+    }
     function Base(){
       return(
         <>
         <div className={style.top}>
-                    <h1 style={{textTransform: "uppercase"}}>{eventoData && eventoData.titulo}</h1>
+                    <h1 style={{textTransform: "uppercase"}}>{eventoData?.titulo}</h1>
                     <Icon 
-                        img={eventoData && eventoData.imagem}
+                        img={eventoData?.imagem}
                         type={"foto-evento"}/>
                     </div>
                   <section>
-                    <div className={style.info}>descrição: {eventoData && eventoData.descricao}</div>
+                    <div className={style.info}>descrição: {eventoData?.descricao}</div>
     
                     <details>
-                          <summary>convidados: {eventoData && eventoData.convidados.length}</summary>
-                          {eventoData && eventoData.convidados.map((convidado) => (
-                          <div>{convidado.username}</div>
+                          <summary>convidados: {eventoData?.convidados.length}</summary>
+                          {eventoData?.convidados.map((convidado) => (
+                          <div
+                          style={{ cursor: "pointer" }}
+                          onClick={() => handleAbrirModalConvidado(convidado)}
+                          >
+                          {convidado.username}
+                          </div>
                           ))}
                           
                       </details>
@@ -108,13 +123,13 @@ export default function Evento(){
                         style={{ cursor: "pointer" }}
                         onClick={handleCopyToClipboard}
                       >
-                        PIX: {eventoData && eventoData.pix}
+                        PIX: {eventoData?.pix}
                         <Icon type="copy"/>
                       </div>
     
                     <details>
-                        <summary>total gastos: {eventoData && eventoData.gastos.total}</summary>
-                        {eventoData && eventoData.gastos.gasto.map((gasto) => (
+                        <summary>total gastos: {eventoData?.gastos.total}</summary>
+                        {eventoData?.gastos.gasto.map((gasto) => (
                         <div
                         style={{ cursor: "pointer" }}
                         onClick={() => handleAbrirModalGasto(gasto)}>
@@ -126,7 +141,7 @@ export default function Evento(){
         </>
       )
     }
-    if (eventoData && userId === eventoData.admID){
+    if (userId === eventoData?.admID){
       return(
         <div className="page">
         <Head onIconClick={handleCancelar}/>
@@ -138,6 +153,14 @@ export default function Evento(){
           <p>Local: {gastoSelecionado?.local}</p>
           <p>Descrição: {gastoSelecionado?.descricao}</p>
           <p>Valor: {gastoSelecionado?.valor}</p>
+          </Modal>
+          <Modal type="info"
+          isOpen={openModalConvidado} 
+          setOpen={() => {setOpenModalConvidado(!openModalConvidado)}}
+          onClick={deletarConvidado}>
+          <h2>Sobre</h2>
+          <p>usuário: {convidadoSelecionado?.username}</p>
+          <p>já pagou?: {convidadoSelecionado?.japago}</p>
           </Modal>
         <Main>
           <Base/>
