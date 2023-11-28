@@ -7,7 +7,8 @@ const updateUser = async (req, res) => {
         const user = await userServices.findUserByIdService(req.body.id);
         
         if (!user) {
-            res.status(400).send({ message: "Não foi possível localizar o usuário" });
+            res.status(400).send({ message: "Não foi possível localizar o usuário",
+                                    user: user });
             return;
         }
         if (req.body.nome) {
