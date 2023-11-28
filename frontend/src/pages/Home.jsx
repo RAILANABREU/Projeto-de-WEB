@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { Card } from "../components/common/Card";
 import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
-import { getAllEvents } from "../services/eventosSevices";
+import { getAllEvents } from "../services/eventosServices";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Footer from "../components/layout/Footer";

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { criarEvento } from "../services/eventosSevices";
+import { criarEvento } from "../services/eventosServices";
 import style from "./Criarevento.module.css";
 import { useState } from "react";
 import { createEventSchema } from "../Schemas/eventSchema";

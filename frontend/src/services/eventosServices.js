@@ -145,16 +145,17 @@ export async function excluirEvento(eventoid, authToken){
     }
 }
 
-export async function sairEvento(data, authToken){
+export async function alterarConvidados(data, authToken){
     try{
-        const response = await axios.post(`${baseURL}/evento/`, {
+        const response = await axios.put(`${baseURL}/evento/alterarConvidados`,data, {
             headers: {
                 Authorization: `Bearer ${authToken}`
             }
         });
         return { success: true, data: response.data.message };
     } catch (error) {
-        console.error("Erro ao excluir evento convite:", error.response.data.message);
+        console.log(error)
+        console.error("Erro ao alterar Convidados:", error.response.data.message);
         return { success: false, error: error.response.data.message };
     }
-} 
+}

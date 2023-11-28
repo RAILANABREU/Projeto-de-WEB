@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { getEventoByID } from "./services/eventosSevices";
+import { getEventoByID } from "./services/eventosServices";
 
 const useDataEvent = (eventoId) =>{
     const [eventoData, setEvento] = useState(null);

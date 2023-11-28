@@ -1,37 +1,53 @@
+// Pagamento.js
 import Head from "../components/layout/Head";
 import Main from "../components/layout/Main";
-import Input from "../components/common/Input";
-import Checkbox from "../components/common/Checkbox";
-import Button from "../components/common/Button";
-import Footer from "../components/layout/Footer"
+import Tabela from "../components/common/Tabela";
+import Footer from "../components/layout/Footer";
 import { useNavigate, useParams } from "react-router-dom";
 import useAuth from "../useAuth";
-import Tabela from "../components/common/Tabela";
 import useData from "../useData";
-import style from "./Pagemento.module.css"
+import style from "./Pagamento.module.css";
+import { useEffect, useState } from "react";
 
+export default function Pagamento() {
+  useAuth();
+  const { userId, eventoId } = useParams();
+  const { userData, eventoData } = useData(userId, eventoId);
+  const [valorUnitario, setValorUnitario] = useState(0);
+  const navigate = useNavigate();
 
-export default function Pagamento(){
-    useAuth();
-    const {userId, eventoId} = useParams()
-    const { userData, eventoData } = useData(userId,eventoId);
-    const navigate = useNavigate()
+  useEffect(() => {
+    const calcularValorUnitario = () => {
+      if (eventoData?.convidados.length > 0) {
+        const valorUnitarioCalculado = eventoData?.gastos.total / (eventoData?.convidados.length + 1);
 
-    console.log(eventoData)
-    return(
-        <div className="page">
-            <Head onIconClick={() => navigate(`/home/${userId}`)}/>
-            <Main>
-                <h1>{eventoData && eventoData.titulo.toUpperCase()}</h1>
-                <div className={style.valores}>
-                    <div className={style.valor}>TOTAL: {eventoData && eventoData.gastos.total}</div>
-                    <div className={style.valor}>Custo Unitário: </div>
-                </div>
-                <div className="pix"/>
-                <Tabela convidados={eventoData && eventoData.convidados}/>
-                <Button type='confirmar' name='SALVAR'/>
-            </Main>
-            <Footer/>
+        const valorUnitarioArredondado = parseFloat(valorUnitarioCalculado.toFixed(2));
+        setValorUnitario(valorUnitarioArredondado);
+      } else {
+        setValorUnitario(0);
+      }
+    };
+
+    calcularValorUnitario();
+  }, [eventoData]);
+
+  const handleButtonToggle = () => {
+    
+  }
+
+  return (
+    <div className="page">
+      <Head onIconClick={() => navigate(`/home/${userId}`)} />
+      <Main>
+        <h1>{eventoData?.titulo.toUpperCase()}</h1>
+        <div className={style.valores}>
+          <div className={style.valor}>TOTAL: {eventoData?.gastos.total}</div>
+          <div className={style.valor}>Custo Unitário: {valorUnitario}</div>
         </div>
-    )
+        <div className="pix" />
+        <Tabela convidados={eventoData?.convidados} onButtonToggle={handleButtonToggle} />
+      </Main>
+      <Footer />
+    </div>
+  );
 }

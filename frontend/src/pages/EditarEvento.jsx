@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editEventSchema } from "../Schemas/eventSchema";
-import { editarEvento, excluirEvento } from "../services/eventosSevices";
+import { editarEvento, excluirEvento } from "../services/eventosServices";
 import Cookies from "js-cookie";
 import style from "./EditarEvento.module.css";
 import Icon from "../components/common/icons";

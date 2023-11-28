@@ -9,7 +9,7 @@ import Button from "../components/common/Button";
 import Footer from "../components/layout/Footer";
 import useAuth from "../useAuth";
 import useData from "../useData";
-import { delConvidado, delGasto, respostaConvite } from "../services/eventosSevices";
+import { delConvidado, delGasto, respostaConvite } from "../services/eventosServices";
 import Modal from "../components/common/Modal";
 
 export default function Evento(){
@@ -57,14 +57,16 @@ export default function Evento(){
       const data = {idEvento: eventoId, idConvidado: userId};
       try{
         await delConvidado(data, Cookies.get("token"));
+
       }catch(error){
         setMessage("erro ao sair do evento")
       }
+      navigate(`/home/${userId}`)
     }
 
     //covidado
     async function resConvite(resposta){
-      const data  = {idEvento: eventoId, idConvidado: userId, confirmar: resposta}
+      const data  = {idEvento: eventoId, idUsuario: userId, confirmar: resposta}
       try{
         await respostaConvite(data, Cookies.get("token"));
       }catch(error){
@@ -82,13 +84,13 @@ export default function Evento(){
 
         if(response.success){
           console.log(response.message)
-          atualizarPagina();
         }else{
           console.log(response.error)
         }
       }catch(error){
         console.error("error ao excluir")
       }
+      atualizarPagina();
     }
     async function deletarConvidado(){
       const data = {idEvento: eventoId, idConvidado: convidadoSelecionado._id}
@@ -98,13 +100,13 @@ export default function Evento(){
 
         if(response.success){
           console.log(response.message)
-          atualizarPagina();
         }else{
           console.log(response.error)
         }
       }catch(error){
         console.error("error ao excluir")
       }
+      atualizarPagina();
     }
 
     //base da pagina

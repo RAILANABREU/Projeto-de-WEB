@@ -65,7 +65,7 @@ function SignUp(){
         console.log(response)
 
         if (response.success){
-          const {message, user} = data;
+          const {message, user} = response.data
           console.log(message);
           setUsuario(user);
           Cookies.set("token", user.token, { expires: 1});
