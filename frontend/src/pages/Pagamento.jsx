@@ -41,7 +41,7 @@ export default function Pagamento() {
           <div className={style.valor}>Custo Unitário: {valorUnitario}</div>
         </div>
         <div className="pix" />
-        <Tabela convidados={eventoData?.convidados} onButtonToggle={handleButtonToggle} />
+        <Tabela convidados={eventoData?.convidados}/>
       </Main>
       <Footer />
     </div>
