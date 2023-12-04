@@ -57,6 +57,7 @@ export default function Gastos(){
     return(
         <div className="page">
             <Head/>
+            <div className="containerCentral">
             <Main>
                 <h1>GASTOS</h1>
                
@@ -94,6 +95,7 @@ export default function Gastos(){
                 </form>
 
             </Main>
+            </div>
             <Footer/>
         </div>
     )
