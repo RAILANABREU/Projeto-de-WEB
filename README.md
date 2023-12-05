@@ -14,7 +14,31 @@ O Sistema de Gerenciamento de Role é uma aplicação web desenvolvida para faci
 1. **Convidar Usuários**: Após criar o role, você terá a opção de convidar amigos atravez de seus nomes de usuarios na plataforma.
 1. **Dividir a Conta**: Na página do role, insira o valor total da conta e o sistema automaticamente dividirá entre os participantes.
 1. **Informar PIX**: Ao dividir a conta, você poderá informar o PIX para o qual os participantes devem transferir o valor devido.
-## Contato
+##Como Executar
+
+1 - Clone o repositorio usando o comando:
+```bash
+git clone https://github.com/RAILANABREU/Projeto-de-WEB.git
+```
+
+2 - Para iniciar o Backend, va na pasta backend/src e execute o comando npm install, logo apos instalar as dependencias, execute o comando npm run server para rodar o servidor em Localhost
+```bash
+cd Projeto-de-WEB/backend/src
+npm install
+npm run server
+```
+
+3 - Para inciar o frontend va na pasta frontend e execute o comando npm install, logo apos instalar as dependencias, execute o comando npm start para rodar o frontend em localhost
+## Como executar o projeto
+
+```bash
+cd ../frontend
+npm install
+npm start
+```
+
+
+## Links
 Link do Projeto: https://github.com/RAILANABREU/Projeto-de-WEB
 Link da Aplicação online: https://front-5ncn.onrender.com/
 Link do Figma:
