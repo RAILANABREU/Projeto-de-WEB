@@ -16,7 +16,10 @@ O Sistema de Gerenciamento de Role é uma aplicação web desenvolvida para faci
 1. **Informar PIX**: Ao dividir a conta, você poderá informar o PIX para o qual os participantes devem transferir o valor devido.
 ## Contato
 Link do Projeto: https://github.com/RAILANABREU/Projeto-de-WEB
-link da Aplicação online: https://front-end-web-project.onrender.com/signin
+Link da Aplicação online: https://front-5ncn.onrender.com/
+Link do Figma:
+   Versão desktop: https://www.figma.com/file/LSe7ZICvY2VpHrzT9Tw62g/Vers%C3%A3o-Desktop?type=design&node-id=90-57&mode=design 
+   Versão mobile: https://www.figma.com/file/QIQsTFOlemTBIh72KTrV9U/Untitled?type=design&node-id=0-1&mode=design
 Participantes: Guilherme Cabral Schlickmann (22104160)
             Guilherme Batista do Nascimento (21103570)
             Henrique Roberto dos Santos (21104285)
